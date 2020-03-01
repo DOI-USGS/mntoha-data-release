@@ -1,0 +1,72 @@
+
+include:
+  - 1_spatial.yml
+
+packages:
+  - yaml
+  - whisker
+  - dplyr
+  - tidyr
+  - meddle # at least v0.0.8
+  - readr
+  - feather
+  - httr
+  - rgdal
+  - stringr
+  - glmtools
+  - sp
+  - RJSONIO
+  - sbtools
+  - RcppCNPy
+  - purrr
+  - dssecrets
+
+sources:
+  - src/spatial_utils.R
+  - src/sb_utils.R
+
+# notes to future self: split the SB posting of data files from the posting of xml files. We like to iterate on xml
+# but posting data each time is expensive
+
+targets:
+  all:
+    depends:
+      - 00_parent_sb_xml
+      - 01_spatial_sb_xml
+      - 01_spatial_sb_data
+
+
+# in case you want to mess w/ the xml alone:
+  out_xml/00_parent.xml:
+    command: render(filename = target_name,
+      "in_text/text_SHARED.yml",
+      "in_text/text_00_parent.yml")
+    
+  00_parent_sb_xml:
+    command: sb_render_post_xml(sbid_00_parent,
+      "in_text/text_SHARED.yml",
+      "in_text/text_00_parent.yml",
+      spatial_metadata)
+
+  01_spatial_sb_xml:
+    command: sb_render_post_xml(sbid_01_spatial,
+      "in_text/text_SHARED.yml",
+      "in_text/text_01_spatial.yml",
+      spatial_metadata)
+      
+  01_spatial_sb_data:
+    command: sb_replace_files(sbid_01_spatial,
+      "out_data/01_spatial.zip",
+      "out_data/01_lake_metadata.csv")
+      
+  # ------ SB IDs --------
+  
+    
+  sbid_00_parent:
+    command: c(I('5e5c1b4fe4b01d50924f27e1'))
+  
+  sbid_01_spatial:
+    command: c(I('5e5c1c1ce4b01d50924f27e7'))
+    
+  sbid_02_config:
+    command: c(I('5e5c1c36e4b01d50924f27ea'))
