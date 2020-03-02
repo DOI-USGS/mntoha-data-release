@@ -33,8 +33,15 @@ targets:
     command: fetch_zip_url_sf(I('https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_county_5m.zip'), 
       layer_name = I('cb_2018_us_county_5m'))
     
-  modeled_lake_ids:
-    command: readRDS("~/Downloads/nhdhr_ids_time_varying_clarity.rds")
+  modeled_lake_ids: #temporary hack!!!
+    command: extract_model_ids("~/Downloads/nhdhr_ids_time_varying_clarity.rds", 
+      nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml',
+      meteo_fl_rds = '../lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
+      dummy = I("2020-03-02"))
+  
+  
+  calibrated_lake_ids: #temporary hack!!!
+    command: c(I("nhdhr_120019638"))
   
   spatial_groups:
     command: generate_group_rects()

@@ -1,13 +1,14 @@
 
-extract_model_ids <- function(job_list_rds, results_dir, dummy){
-  warning('this is a temporary function and should be replaced with an inventory of **modeled** lakes')
-  files_here <- dir(results_dir)
-  job_list <- readRDS(job_list_rds)
-  # these are export files...
-  job_files <- unlist(sapply(1:length(job_list), function(x) c(basename(job_list[[x]]$export_file))) %>% c())
+extract_model_ids <- function(kw_file_rds, meteo_fl_rds, nml_ind, dummy){
+  warning('this is a temporary function and should be replaced with an inventory of **modeled** lakes **and** w/ hypso')
   
-  tibble(files = files_here[files_here %in% job_files]) %>% 
-    extract(files, c('type','site_id'), "(pb0|transfer|pball)_(.*)_temperatures.feather") %>% pull(site_id)
+  meteo_fls <- readRDS(meteo_fl_rds)
+  
+  tibble(site_id = readRDS(kw_file_rds)) %>% 
+    mutate(filename = paste0(site_id, '.nml')) %>% 
+    left_join(meteo_fls) %>% filter(!is.na(meteo_fl), filename %in% basename(names(yaml.load_file(nml_ind)))) %>% 
+    filter(file.exists(file.path('../lake-temperature-model-prep/7_drivers_munge/out/',meteo_fl))) %>% pull(site_id)
+  
   
 }
 

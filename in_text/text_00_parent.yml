@@ -10,10 +10,14 @@ abstract: >-
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c1ce4b01d50924f27e7">Spatial data</a> - A lake metadata file, and one shapefile of polygons for all 8XX lakes in this study (.shp, .shx, .dbf, and .prj files)</li>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c36e4b01d50924f27ea">Model configurations</a> - Model parameters and metadata used to configure models (1 JSON file, with metadata for each of 8XX lakes, 
   and one zip file with each lake's glm2.nml file)</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b68e4b01d50924f2b32">Observations</a> - </li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b96e4b01d50924f2b34">Model Inputs</a> - </li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a> - </li>
+  <br/>
   <p>This research was funded by the Department of the Interior Northeast and North Central Climate Adaptation Science Centers,
   a Midwest Glacial Lakes Fish Habitat Partnership grant through F&WS
   Access to computing facilities was provided by USGS Advanced Research Computing, USGS Yeti Supercomputer (https://doi.org/10.5066/F7D798MJ).
-  We thank North Temperate Lakes Long-Term Ecological Research (NSF DEB-1440297) and Global Lake Ecological Observatory Network (NSF #1702991).
+  We thank North Temperate Lakes Long-Term Ecological Research (NSF DEB-1440297) and Global Lake Ecological Observatory Network (NSF #1702991).</p>
 
 build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source languages R and Python were used on all systems.
 

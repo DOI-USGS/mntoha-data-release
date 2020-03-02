@@ -1,6 +1,6 @@
 
 include:
-  - 1_spatial.yml
+  - 5_predictions.yml
 
 packages:
   - yaml
@@ -34,6 +34,13 @@ targets:
       - 00_parent_sb_xml
       - 01_spatial_sb_xml
       - 01_spatial_sb_data
+      - 02_config_sb_xml
+      - 02_config_sb_data
+      - 04_inputs_sb_xml
+      - 04_inputs_sb_data
+      - 04_inputs_sb_ice
+      - 05_predictions_sb_xml
+      - 05_predictions_sb_data
 
 
 # in case you want to mess w/ the xml alone:
@@ -59,6 +66,38 @@ targets:
       "out_data/01_spatial.zip",
       "out_data/01_lake_metadata.csv")
       
+  02_config_sb_xml:
+    command: sb_render_post_xml(sbid_02_config,
+      "in_text/text_SHARED.yml",
+      "in_text/text_02_config.yml")
+      
+  02_config_sb_data:
+    command: sb_replace_files(sbid_02_config,
+      "out_data/pb0_config.json",
+      "out_data/pb0_nml_files.zip")
+      
+  04_inputs_sb_xml:
+    command: sb_render_post_xml(sbid_04_inputs,
+      "in_text/text_SHARED.yml",
+      "in_text/text_04_inputs.yml")
+      
+  04_inputs_sb_data:
+    command: sb_replace_files(sbid_04_inputs,
+      'out_data/04_group_meteo.png', file_hash = "out/4_inputs_zips.yml")
+  
+  04_inputs_sb_ice:
+    command: sb_replace_files(sbid_04_inputs,
+      file_hash = "out/4_ice_flags_zips.yml")
+
+  05_predictions_sb_xml:
+    command: sb_render_post_xml(sbid_05_predictions,
+      "in_text/text_SHARED.yml",
+      "in_text/text_05_predictions.yml")
+  
+  05_predictions_sb_data:
+    command: sb_replace_files(sbid_05_predictions,
+      'out_data/05_group_lakes.png', file_hash = "out/5_predictions_zips.yml")
+      
   # ------ SB IDs --------
   
     
@@ -70,3 +109,12 @@ targets:
     
   sbid_02_config:
     command: c(I('5e5c1c36e4b01d50924f27ea'))
+    
+  sbid_03_observations:
+    command: c(I('5e5d0b68e4b01d50924f2b32'))
+    
+  sbid_04_inputs:
+    command: c(I('5e5d0b96e4b01d50924f2b34'))
+  
+  sbid_05_predictions:
+    command: c(I('5e5d0bb9e4b01d50924f2b36'))

@@ -20,27 +20,14 @@ targets:
     depends:
       - out_data/pb0_config.json
       - out_data/pb0_nml_files.zip
-      - out_data/pball_config.json
-      - out_data/pball_nml_files.zip
 
 
   out_data/pb0_config.json:
     command: bundle_nml_files(target_name, 
       modeled_lake_ids, 
       nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml')
-  
-  out_data/pball_config.json:
-    command: bundle_nml_files(target_name, 
-      calibrated_lake_ids, 
-      nml_ind = '../lake-temperature-process-models/2_prep/out/nml_cal_file_group.yml')
       
   out_data/pb0_nml_files.zip:
     command: zip_nml_files(target_name, 
       modeled_lake_ids, 
       nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml')
-      
-  out_data/pball_nml_files.zip:
-    command: zip_nml_files(target_name, 
-      calibrated_lake_ids, 
-      nml_ind = '../lake-temperature-process-models/2_prep/out/nml_cal_file_group.yml')
-      

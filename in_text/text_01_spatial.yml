@@ -5,7 +5,7 @@ abstract: >-
   This dataset provides shapefile outlines of the 8XX lakes that had temperature modeled as part of this study.
   The format is a shapefile for all lakes combined (.shp, .shx, .dbf, and .prj files). A csv file of lake metadata is also included. 
   This dataset is part of a larger data release of lake temperature model inputs and outputs for 8XX lakes in the U.S.
-  states of Minnesota and Wisconsin (http://dx.doi.org/10.5066/P9CA6XP8).
+  state of Minnesota (https://doi.org/10.5066/P9PPHJE2).
 
 cross-cites:
   -

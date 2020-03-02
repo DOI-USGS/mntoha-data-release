@@ -51,7 +51,7 @@ subset_lake_sf <- function(lakes_sf_fl, site_ids){
 }
 
 plot_groups <- function(fileout, spatial_groups, county_bounds, lakes_sf_fl){
-  png(filename = fileout, width = 8, height = 5.5, units = 'in', res = 500)
+  png(filename = fileout, width = 6, height = 8, units = 'in', res = 500)
   par(omi = c(0,0,0,0), mai = c(0,0,0,0), xaxs = 'i', yaxs = 'i')
   
   n <- length(unique(spatial_groups$group_id))
@@ -75,7 +75,7 @@ plot_groups <- function(fileout, spatial_groups, county_bounds, lakes_sf_fl){
     plot(col = NA, border = 'grey80', lwd = 0.2, add = TRUE)
   
   county_bounds %>% group_by(state) %>% summarise() %>% st_geometry() %>% 
-    plot(col = NA, border = 'grey40', lwd = 0.5, add = TRUE)
+    plot(col = NA, border = 'grey40', lwd = 0.75, add = TRUE)
   
   invisible(list(sf = all_lakes_simple, style = g_styles))
 }
