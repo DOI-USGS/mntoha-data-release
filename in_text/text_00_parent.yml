@@ -11,8 +11,8 @@ abstract: >-
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c36e4b01d50924f27ea">Model configurations</a> - Model parameters and metadata used to configure models (1 JSON file, with metadata for each of 909 lakes, 
   and one zip file with each lake's glm3.nml file)</li>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b68e4b01d50924f2b32">Observations</a> - </li>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b96e4b01d50924f2b34">Model Inputs</a> - Data used to drive predictive models (19 zip files with ice-flags; 19 zip files with daily meteorological data)</li>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a> - Predictions from GLM3 and PGDL for water temperature (19 zip files), and near-surface irradiance from GLM3 (19 zip files)</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b96e4b01d50924f2b34">Model Inputs</a> - Data used to drive predictive models (13 zip files with ice-flags; 13 zip files with daily meteorological data)</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a> - Predictions from GLM3 and PGDL for water temperature (13 zip files), and near-surface irradiance from GLM3 (13 zip files)</li>
   <br/>
   <p>This research was funded by the Department of the Interior Northeast and North Central Climate Adaptation Science Centers,
   a Midwest Glacial Lakes Fish Habitat Partnership grant through F&WS
