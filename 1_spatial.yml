@@ -34,14 +34,9 @@ targets:
       layer_name = I('cb_2018_us_county_5m'))
     
   modeled_lake_ids: #temporary hack!!!
-    command: extract_model_ids("~/Downloads/nhdhr_ids_time_varying_clarity.rds", 
-      nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml',
-      meteo_fl_rds = '../lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
-      dummy = I("2020-03-02"))
-  
-  
-  calibrated_lake_ids: #temporary hack!!!
-    command: c(I("nhdhr_120019638"))
+    command: extract_model_ids(results_dir = I('../lake-temperature-process-models/4_toha/out/'),
+      pattern = I('^nhdhr_.*_temp_opt.feather$'), 
+      dummy = I('2020-03-14b'))
   
   spatial_groups:
     command: generate_group_rects()

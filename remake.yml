@@ -39,8 +39,10 @@ targets:
       - 04_inputs_sb_xml
       - 04_inputs_sb_data
       - 04_inputs_sb_ice
+      - 04_inputs_sb_clarity
       - 05_predictions_sb_xml
       - 05_predictions_sb_data
+      - 05_predictions_sb_irr
 
 
 # in case you want to mess w/ the xml alone:
@@ -88,15 +90,24 @@ targets:
   04_inputs_sb_ice:
     command: sb_replace_files(sbid_04_inputs,
       file_hash = "out/4_ice_flags_zips.yml")
+      
+  04_inputs_sb_clarity:
+    command: sb_replace_files(sbid_04_inputs,
+      file_hash = "out/4_clarity_zips.yml")
 
   05_predictions_sb_xml:
     command: sb_render_post_xml(sbid_05_predictions,
       "in_text/text_SHARED.yml",
       "in_text/text_05_predictions.yml")
   
+  #, file_hash = "out/5_predictions_zips.yml")
   05_predictions_sb_data:
     command: sb_replace_files(sbid_05_predictions,
-      'out_data/05_group_lakes.png', file_hash = "out/5_predictions_zips.yml")
+      'out_data/05_group_lakes.png')
+      
+  05_predictions_sb_irr:
+    command: sb_replace_files(sbid_05_predictions,
+      file_hash = "out/5_irradiance_zips.yml")      
       
   # ------ SB IDs --------
   

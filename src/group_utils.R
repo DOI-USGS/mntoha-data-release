@@ -23,25 +23,19 @@ generate_group_rects <- function(){
     (unit_cell * scale)+shift
   }
   group_rects <- st_sfc(crs = "+init=epsg:4326",
-    shift_scale(c(-97.5,49.5), c(2.5,2.5)),
-    shift_scale(c(-95,49.5), c(3.5,1.5)),
-    shift_scale(c(-91.5,48.5), c(1.5,0.5)), #3
-    shift_scale(c(-95,48)),
-    shift_scale(c(-94,48), c(1, 0.5)),
-    shift_scale(c(-94,47.5), c(1, 0.5)),
-    shift_scale(c(-93,48), c(1, 2)),
-    shift_scale(c(-92,48), c(2,1)), #8
-    shift_scale(c(-97.5,47), c(1.5, 3)),
-    shift_scale(c(-96,47), c(1.5,0.5)),
-    shift_scale(c(-96,46.5), c(1.5,0.5)),
-    shift_scale(c(-94.5,47), c(0.5,1)),
-    shift_scale(c(-94,47)),
-    shift_scale(c(-96,45), c(2.5,1)),
-    shift_scale(c(-97.5,44), c(6.5,1)),
-    shift_scale(c(-96,46), c(1.5,1)),
-    shift_scale(c(-94.5,46)),
-    shift_scale(c(-93.5,46)),
-    shift_scale(c(-93.5,45), c(2,1)))
+    shift_scale(c(-97.25,49.5), c(7.75,1.5)),
+    shift_scale(c(-97.25,48), c(3.25,1)),
+    shift_scale(c(-94,48)),
+    shift_scale(c(-93,48), c(1, 2.5)),
+    shift_scale(c(-92,48), c(2.5,1.5)),
+    shift_scale(c(-97,47), c(2.5,1)),#6
+    shift_scale(c(-94.5,47), c(0.5,1.5)),
+    shift_scale(c(-94,47), c(1,1.5)),
+    shift_scale(c(-97,46), c(2.5,1)),
+    shift_scale(c(-94.5,45.5), c(1.25,0.5)), #10
+    shift_scale(c(-93.25,45.5), c(1,0.5)),
+    shift_scale(c(-96.75,45), c(3.25,1.5)),
+    shift_scale(c(-93.5,45), c(2.5,1.5)))
     
   groups <- data.frame(group_id = rep(NA_character_, length(group_rects)), stringsAsFactors = FALSE)
   for (i in 1:length(group_rects)){

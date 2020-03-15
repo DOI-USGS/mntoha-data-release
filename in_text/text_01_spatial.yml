@@ -1,10 +1,10 @@
 title: >-
-  Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 1 Spatial data (GIS polygons for 8XX lakes)
+  Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 1 Spatial data (GIS polygons for 909 lakes)
 
 abstract: >-
-  This dataset provides shapefile outlines of the 8XX lakes that had temperature modeled as part of this study.
+  This dataset provides shapefile outlines of the 909 lakes that had temperature modeled as part of this study.
   The format is a shapefile for all lakes combined (.shp, .shx, .dbf, and .prj files). A csv file of lake metadata is also included. 
-  This dataset is part of a larger data release of lake temperature model inputs and outputs for 8XX lakes in the U.S.
+  This dataset is part of a larger data release of lake temperature model inputs and outputs for 909 lakes in the U.S.
   state of Minnesota (https://doi.org/10.5066/P9PPHJE2).
 
 cross-cites:
@@ -26,7 +26,7 @@ cross-cites:
 entities:
   -
     data-name: 01_spatial.zip
-    data-description: GIS polygon data for the 8XX lakes included in this study
+    data-description: GIS polygon data for the 909 lakes included in this study
     attributes:
     -
       attr-label: site_id
@@ -39,7 +39,7 @@ entities:
       data-units: NA
   -
     data-name: 01_lake_metadata.csv
-    data-description: Select metadata for the 8XX lakes included in this study
+    data-description: Select metadata for the 909 lakes included in this study
     attributes:
     -
       attr-label: site_id

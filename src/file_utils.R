@@ -1,15 +1,9 @@
 
-extract_model_ids <- function(kw_file_rds, meteo_fl_rds, nml_ind, dummy){
+extract_model_ids <- function(results_dir, pattern, dummy){
   warning('this is a temporary function and should be replaced with an inventory of **modeled** lakes **and** w/ hypso')
   
-  meteo_fls <- readRDS(meteo_fl_rds)
-  
-  tibble(site_id = readRDS(kw_file_rds)) %>% 
-    mutate(filename = paste0(site_id, '.nml')) %>% 
-    left_join(meteo_fls) %>% filter(!is.na(meteo_fl), filename %in% basename(names(yaml.load_file(nml_ind)))) %>% 
-    filter(file.exists(file.path('../lake-temperature-model-prep/7_drivers_munge/out/',meteo_fl))) %>% pull(site_id)
-  
-  
+  tibble(file = dir(results_dir)) %>% 
+    filter(str_detect(file, pattern)) %>% pull(file) %>% str_remove("_temp_opt.feather")
 }
 
 create_metadata_file <- function(fileout, sites, table, lakes_sf, lat_lon_fl, meteo_fl, gnis_names_fl){
@@ -38,6 +32,7 @@ bundle_nml_files <- function(json_filename, lake_ids, nml_ind){
   for (id in names(out_list)){
     this_nml_file <- nml_files[file_bases == paste0(id, '.nml')]
     if (!file.exists(this_nml_file)){
+      
       stop(this_nml_file, " doesn't exist")
     }
     nml <- read_nml(nml_file = this_nml_file) %>% unclass()
@@ -55,9 +50,13 @@ zip_nml_files <- function(zipfile, lake_ids, nml_ind){
   
   prep_proj_dir <- paste(str_split(nml_ind, '/')[[1]][1:2], collapse = '/')
   
-  nml_files <- file.path(prep_proj_dir, names(yaml.load_file(nml_ind)))
+  nml_files <- tibble(file = file.path(prep_proj_dir, names(yaml.load_file(nml_ind)))) %>% 
+    filter(basename(file) %in% paste0(lake_ids, '.nml')) %>% pull(file)
   
   setwd(unique(dirname(nml_files))[1])
+  if (file.exists(zippath)){
+    unlink(zippath)
+  }
   zip(zippath, files = basename(nml_files))
   setwd(cd)
 }
@@ -106,26 +105,64 @@ zip_meteo_groups <- function(outfile, grouped_meteo_fls){
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
-build_predict_df <- function(site_id_list, model_dir, dummy){
-  
-  selected_sites <- purrr::map(names(site_id_list), function(x){
-    tibble(site_id = site_id_list[[x]], prefix = x)
-  }) %>% purrr::reduce(bind_rows)
-  
+build_clarity_df <- function(site_ids = model_export_ids){
+  tibble(site_id = site_ids) %>% 
+    mutate(out_file = paste0('gam_',site_id, '_clarity.csv')) 
+}
+
+build_predict_df <- function(site_ids, model_dir, prefix, suffix, dummy){
+
   tibble(source_file = dir(model_dir)) %>% 
-    filter(str_detect(source_file, '_temperatures.feather$')) %>% 
-    extract(source_file, c('prefix','site_id','suffix'), "(pb0|pball|pgdl)_(.*)_(temperatures.feather)", remove = FALSE) %>% 
-    inner_join(selected_sites) %>% select(-suffix, -prefix) %>% 
-    mutate(out_file = paste0(tools::file_path_sans_ext(source_file), '.csv'), 
+    filter(str_detect(source_file, '_temp_opt.feather$')) %>% 
+    extract(source_file, c('site_id','suffix'), "(.*)_(temp_opt.feather)", remove = FALSE) %>% 
+    filter(site_id %in% site_ids) %>% select(-suffix) %>% 
+    mutate(out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv'), 
            source_filepath = file.path(model_dir, source_file)) %>% select(-source_file)
     
+}
+
+zip_clarity_groups <- function(outfile, clarity_df, site_groups, kw_data_file){
+  
+  kw_data <- readRDS(kw_data_file)
+  
+  clarity_feathers <- inner_join(clarity_df, site_groups, by = 'site_id') %>% 
+    select(-site_id)
+  
+  cd <- getwd()
+  on.exit(setwd(cd))
+  
+  groups <- rev(sort(unique(clarity_feathers$group_id)))
+  data_files <- c()
+  for (group in groups){
+    zipfile <- paste0('tmp/clarity_', group, '.zip')
+    these_files <- clarity_feathers %>% filter(group_id == !!group)
+    
+    zippath <- file.path(getwd(), zipfile)
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
+    for (i in 1:nrow(these_files)){
+      fileout <- file.path(tempdir(), these_files$out_file[i])
+      this_id <- basename(fileout) %>% str_remove("_clarity.csv") %>% str_remove('gam_')
+      kw_data %>% filter(site_id == !!this_id) %>% 
+        select(date = time, Kd) %>%
+        write_csv(path = fileout)
+    }
+    
+    setwd(tempdir())
+    
+    zip(zippath, files = these_files$out_file)
+    unlink(these_files$out_file)
+    setwd(cd)
+    data_files <- c(data_files, zipfile)
+  }
+  scipiper::sc_indicate(outfile, data_file = data_files)
 }
   
 zip_prediction_groups <- function(outfile, predictions_df, site_groups){
   
   model_feathers <- inner_join(predictions_df, site_groups, by = 'site_id') %>% 
     select(-site_id)
-  
   
   cd <- getwd()
   on.exit(setwd(cd))
@@ -137,14 +174,52 @@ zip_prediction_groups <- function(outfile, predictions_df, site_groups){
     these_files <- model_feathers %>% filter(group_id == !!group)
     
     zippath <- file.path(getwd(), zipfile)
-    
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
     for (i in 1:nrow(these_files)){
       fileout <- file.path(tempdir(), these_files$out_file[i])
       feather::read_feather(these_files$source_filepath[i]) %>%
-        select(-ice, date = DateTime) %>%
+        select(-ice, -rad_0, date = time) %>%
         mutate(date = as.Date(lubridate::ceiling_date(date, 'days'))) %>%
         write_csv(path = fileout)
       fileout
+    }
+    
+    setwd(tempdir())
+    
+    zip(zippath, files = these_files$out_file)
+    unlink(these_files$out_file)
+    setwd(cd)
+    data_files <- c(data_files, zipfile)
+  }
+  scipiper::sc_indicate(outfile, data_file = data_files)
+}
+
+zip_irradiance_groups <- function(outfile, output_df, site_groups){
+  
+  model_feathers <- inner_join(output_df, site_groups, by = 'site_id') %>% 
+    select(-site_id)
+  
+  cd <- getwd()
+  on.exit(setwd(cd))
+  
+  groups <- rev(sort(unique(model_feathers$group_id)))
+  data_files <- c()
+  for (group in groups){
+    zipfile <- paste0('tmp/irradiance_', group, '.zip')
+    these_files <- model_feathers %>% filter(group_id == !!group)
+    
+    zippath <- file.path(getwd(), zipfile)
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
+    for (i in 1:nrow(these_files)){
+      fileout <- file.path(tempdir(), these_files$out_file[i])
+      feather::read_feather(these_files$source_filepath[i]) %>%
+        select(date = time, rad_0) %>%
+        mutate(date = as.Date(lubridate::ceiling_date(date, 'days'))) %>%
+        write_csv(path = fileout)
     }
     
     setwd(tempdir())
@@ -166,9 +241,6 @@ zip_prediction_groups <- function(outfile, predictions_df, site_groups){
 zip_ice_flags_groups <- function(outfile, file_info_df, site_groups){
   
   model_feathers <- inner_join(file_info_df, site_groups, by = 'site_id') %>% 
-    mutate(out_file = str_remove(
-      paste0(tools::file_path_sans_ext(out_file), '_ice_flag.csv'), '_temperatures')
-    ) %>% 
     select(-site_id)
   
   
@@ -179,14 +251,17 @@ zip_ice_flags_groups <- function(outfile, file_info_df, site_groups){
   data_files <- c()
   for (group in groups){
     zipfile <- paste0('tmp/ice_flags_', group, '.zip')
+    
     these_files <- model_feathers %>% filter(group_id == !!group)
     
     zippath <- file.path(getwd(), zipfile)
-    
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
     for (i in 1:nrow(these_files)){
       fileout <- file.path(tempdir(), these_files$out_file[i])
       feather::read_feather(these_files$source_filepath[i]) %>%
-        select(date = DateTime, ice) %>% # <- note this line also differs from the temperature export
+        select(date = time, ice) %>% # <- note this line also differs from the temperature export
         mutate(date = as.Date(lubridate::ceiling_date(date, 'days'))) %>%
         write_csv(path = fileout)
       fileout

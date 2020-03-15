@@ -20,24 +20,27 @@ packages:
 sources:
   - src/file_utils.R
   - src/spatial_utils.R
+  - src/plot_utils.R
 
 targets:
   4_inputs:
     depends:
       - out/4_inputs_zips.yml
       - out/4_ice_flags_zips.yml
+      - out/4_clarity_zips.yml
       - out_data/04_group_meteo.png
   
   
   # out_file: predict_nhdhr_109865_pgdl.csv
   # source_file: 
-  
-  model_export_ids:
-    command: list(pb0 = modeled_lake_ids, pball = calibrated_lake_ids)
     
   ice_flags_df:
-    command: build_predict_df(site_id_list = model_export_ids, 
-      model_dir = I('../lake-temperature-process-models/3_run/sync'), dummy = I('2020-01-28'))
+    command: build_predict_df(site_ids = modeled_lake_ids, 
+      prefix = I('pb0'), suffix = I('ice_flags'),
+      model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-03-13'))
+      
+  clarity_df:
+    command: build_clarity_df(site_ids =modeled_lake_ids)
     
   grouped_meteo_fls:
     command: group_meteo_fls(
@@ -55,7 +58,14 @@ targets:
       file_info_df = ice_flags_df,
       site_groups = site_ids_grouped)
     depends: out/5_predictions_zips.yml
-      
+
+  # need to use the same logic for ice as we did for temperature predictions:
+  out/4_clarity_zips.yml:
+    command: zip_clarity_groups(target_name, 
+      clarity_df = clarity_df,
+      site_groups = site_ids_grouped, 
+      kw_data_file = "../lake-temperature-model-prep/4_params_munge/out/toha_varying_kw.rds")
+    depends: out/5_predictions_zips.yml
       
   #update this!!
   out_data/04_group_meteo.png:
