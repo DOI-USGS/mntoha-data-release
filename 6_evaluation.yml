@@ -1,0 +1,17 @@
+target_default: 6_evaluation
+
+include:
+  - 5_predictions.yml
+
+packages:
+  - dplyr
+  - tidyr
+
+sources:
+  - src/file_utils.R
+  - src/spatial_utils.R
+  - src/plot_utils.R
+
+targets:
+  6_evaluation:
+    depends:
