@@ -64,24 +64,3 @@ create_ldas_grid <- function(x0 = -124.9375, y0 = 25.0625, x_num = 464, y_num = 
   return(ldas_grid)
 }
 
-
-plot_grouped_cells_preview <- function(fileout, spatial_groups, county_bounds, site_ids_grouped, lakes_sf_fl, grouped_meteo_fls){
-  
-
-  meteos <- basename(grouped_meteo_fls$meteo_filepath)
-  ldas_grid <- create_ldas_grid() %>% mutate(meteo_fl = sprintf('NLDAS_time[0.359420]_x[%s]_y[%s].csv', x, y)) %>% 
-    filter(meteo_fl %in% meteos)
-  
-  
-  plot_groups(fileout, spatial_groups, county_bounds, lakes_sf_fl)
-  
-  plot(st_geometry(ldas_grid), col = '#ff00ff33', border = '#ff00ffD3', lwd = 0.2, add = TRUE)
-  
-  for (j in 1:nrow(spatial_groups)){
-    bbox <- st_bbox(spatial_groups[j,])
-    
-    text(bbox[1], bbox[2]+0.1, str_extract(spatial_groups[j,]$group_id, '[0-9]{2}'), pos = 4, cex = 0.8, offset = 0.1)
-  }
-  
-  dev.off()
-}

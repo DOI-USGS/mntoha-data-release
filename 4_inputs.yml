@@ -45,6 +45,8 @@ targets:
   grouped_meteo_fls:
     command: group_meteo_fls(
       meteo_dir = I('../lake-temperature-model-prep/7_drivers_munge/out'),
+      counties_sf = us_counties_sf,
+      use_states = I('MN'),
       groups = spatial_groups)
       
       

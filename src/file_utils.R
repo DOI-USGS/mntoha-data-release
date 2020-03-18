@@ -61,7 +61,7 @@ zip_nml_files <- function(zipfile, lake_ids, nml_ind){
   setwd(cd)
 }
 
-group_meteo_fls <- function(meteo_dir, groups){
+group_meteo_fls <- function(meteo_dir, groups, counties_sf, use_states){
   
   # turn files into point locations
   # check group match with assign_group_id(points, polygons)
@@ -74,11 +74,16 @@ group_meteo_fls <- function(meteo_dir, groups){
     left_join(suppressWarnings(st_centroid(create_ldas_grid()))) %>% rename(geometry = ldas_grid_sfc) %>% select(-x, -y) %>% 
     st_sf()
   
-  grouped_df <- st_intersects(x = meteo_fls, y = groups) %>% as.data.frame() %>% rename(group_idx = col.id)
+  state_meteo_rows <- counties_sf %>% group_by(state) %>% summarise() %>% filter(state %in% use_states) %>% 
+    st_buffer(0.07) %>% # degree buffer to extend the state to include those meteo cells too
+    suppressWarnings() %>% st_covers(y = meteo_fls) %>% suppressWarnings() %>% as.data.frame() %>% pull(col.id)
+  
+  grouped_df <- st_intersects(x = meteo_fls, y = groups) %>% as.data.frame() %>% rename(group_idx = col.id) %>% suppressWarnings()
   
   meteo_fls %>% mutate(row.id = row_number()) %>% 
+    filter(row.id %in% state_meteo_rows) %>% 
     inner_join(grouped_df) %>% mutate(group_id = groups$group_id[group_idx], meteo_filepath = file.path(meteo_dir, files)) %>% 
-    select(meteo_filepath, group_id) %>% st_drop_geometry()
+    select(meteo_filepath, group_id) %>% st_drop_geometry() %>% suppressWarnings()
   
 }
 
