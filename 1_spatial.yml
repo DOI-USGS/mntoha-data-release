@@ -30,46 +30,59 @@ targets:
 
 
   us_counties_sf:
-    command: fetch_zip_url_sf(I('https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_county_5m.zip'), 
+    command: fetch_zip_url_sf(I('https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_county_5m.zip'),
       layer_name = I('cb_2018_us_county_5m'))
-    
+
   modeled_lake_ids: #temporary hack!!!
     command: extract_model_ids(results_dir = I('../lake-temperature-process-models/4_toha/out/'),
-      pattern = I('^nhdhr_.*_temp_opt.feather$'), 
+      pattern = I('^nhdhr_.*_temp_opt.feather$'),
       dummy = I('2020-03-14b'))
-  
+
+  pgdl_lake_ids:
+    command: extract_pgdl_ids(results_dir = I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
+      pattern = I('^nhdhr_.*$'),
+      dummy = I('2020-03-17'))
+
   spatial_groups:
     command: generate_group_rects()
-  
+
   modeled_lakes_sf:
     command: subset_lake_sf(
       lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds",
       site_ids = modeled_lake_ids)
-      
+  pgdl_lakes_sf:
+    command: subset_lake_sf(
+      lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds",
+      site_ids = pgdl_lake_ids)
+
   county_state_overlaps:
     command: sf_names_from_overlap(modeled_lakes_sf, us_counties_sf)
-  
+
   modeled_centroids_sf:
     command: st_centroid(modeled_lakes_sf)
-  
+  pgdl_centroids_sf:
+    command: st_centroid(pgdl_lakes_sf)
+
   site_ids_grouped:
     command: assign_group_id(modeled_centroids_sf, spatial_groups)
-    
+  pgdl_site_ids_grouped:
+    command: assign_group_id(pgdl_centroids_sf, spatial_groups)
+
   out_data/01_lake_metadata.csv:
     command: create_metadata_file(target_name,
       sites = site_ids_grouped,
-      county_state_overlaps, 
-      lakes_sf = modeled_lakes_sf, 
+      county_state_overlaps,
+      lakes_sf = modeled_lakes_sf,
       lat_lon_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_lat_lon_values.rds',
       meteo_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
       gnis_names_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/gnisname_nhdhr_xwalk.rds')
-    
-  
+
+
   spatial_metadata:
     command: extract_feature(modeled_lakes_sf)
-      
+
   out_data/01_spatial.zip:
-    command: sf_to_zip(target_name, 
-      sf_object = modeled_lakes_sf, 
+    command: sf_to_zip(target_name,
+      sf_object = modeled_lakes_sf,
       layer_name = I('study_lakes'))
 
