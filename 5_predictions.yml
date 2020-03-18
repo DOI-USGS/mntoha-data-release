@@ -39,9 +39,11 @@ targets:
       model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-01-28'))
 
   pgdl_predictions_df:
-    command: build_predict_df(site_ids = pgdl_lake_ids,
+    command: build_pgdl_predict_df(
+      pgdl_config_file = 'out_data/pgdl_config.csv',
+      model_dir = I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
       prefix = I('pgdl'), suffix = I('temperatures'),
-      model_dir = I('../lake-temperature-neural-networks/2_model/out/200316_runs'), dummy = I('2020-03-17'))
+      dummy = I('2020-03-17'))
 
   out/5_predictions_zips.yml:
     command: zip_prediction_groups(target_name, predictions_df,
@@ -50,6 +52,10 @@ targets:
   out/5_irradiance_zips.yml:
     command: zip_irradiance_groups(target_name, irradiance_df,
       site_groups = site_ids_grouped)
+
+  out/5_pgdl_predictions_zips.yml:
+    command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,
+      site_groups = pgdl_site_ids_grouped)
 
   out_data/05_group_lakes.png:
     command: plot_grouped_lakes_preview(target_name,
