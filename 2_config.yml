@@ -23,11 +23,17 @@ targets:
 
 
   out_data/pb0_config.json:
-    command: bundle_nml_files(target_name, 
-      modeled_lake_ids, 
+    command: bundle_nml_files(target_name,
+      modeled_lake_ids,
       nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml')
-      
+
   out_data/pb0_nml_files.zip:
-    command: zip_nml_files(target_name, 
-      modeled_lake_ids, 
+    command: zip_nml_files(target_name,
+      modeled_lake_ids,
       nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml')
+
+  out_data/pgdl_config.csv:
+    command: package_pgdl_configs(
+      target_name,
+      runs_dir=I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
+      col_types=I('cccicccdiddddiiiiilcccccci'))

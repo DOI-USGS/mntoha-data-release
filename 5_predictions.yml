@@ -27,29 +27,34 @@ targets:
     depends:
       - out/5_predictions_zips.yml
       - out_data/05_group_lakes.png
-  
+
   predictions_df:
-    command: build_predict_df(site_ids = modeled_lake_ids, 
+    command: build_predict_df(site_ids = modeled_lake_ids,
       prefix = I('pb0'), suffix = I('temperatures'),
       model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-01-28'))
- 
+
   irradiance_df:
-    command: build_predict_df(site_ids = modeled_lake_ids, 
+    command: build_predict_df(site_ids = modeled_lake_ids,
       prefix = I('pb0'), suffix = I('irradiance'),
-      model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-01-28'))     
-      
+      model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-01-28'))
+
+  pgdl_predictions_df:
+    command: build_predict_df(site_ids = pgdl_lake_ids,
+      prefix = I('pgdl'), suffix = I('temperatures'),
+      model_dir = I('../lake-temperature-neural-networks/2_model/out/200316_runs'), dummy = I('2020-03-17'))
+
   out/5_predictions_zips.yml:
     command: zip_prediction_groups(target_name, predictions_df,
       site_groups = site_ids_grouped)
-  
+
   out/5_irradiance_zips.yml:
     command: zip_irradiance_groups(target_name, irradiance_df,
       site_groups = site_ids_grouped)
-  
+
   out_data/05_group_lakes.png:
-    command: plot_grouped_lakes_preview(target_name, 
-      spatial_groups, site_ids_grouped, 
-      county_bounds = us_counties_sf, 
+    command: plot_grouped_lakes_preview(target_name,
+      spatial_groups, site_ids_grouped,
+      county_bounds = us_counties_sf,
       lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds")
 
 
