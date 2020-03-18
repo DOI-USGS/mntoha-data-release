@@ -41,8 +41,10 @@ targets:
       - 04_inputs_sb_ice
       - 04_inputs_sb_clarity
       - 05_predictions_sb_xml
-      - 05_predictions_sb_data
+      - 05_predictions_sb_image
+      - 05_predictions_sb_pb0
       - 05_predictions_sb_irr
+      - 05_predictions_sb_pgdl
 
 
 # in case you want to mess w/ the xml alone:
