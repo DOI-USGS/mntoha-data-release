@@ -30,7 +30,7 @@ bundle_nml_files <- function(json_filename, lake_ids, nml_ind){
   out_list <- vector("list", length = length(lake_ids)) %>% setNames(lake_ids)
   
   for (id in names(out_list)){
-    this_nml_file <- nml_files[file_bases == paste0(id, '.nml')]
+    this_nml_file <- nml_files[file_bases == paste0(id, '_glm3.nml')]
     if (!file.exists(this_nml_file)){
       
       stop(this_nml_file, " doesn't exist")
@@ -51,7 +51,7 @@ zip_nml_files <- function(zipfile, lake_ids, nml_ind){
   prep_proj_dir <- paste(str_split(nml_ind, '/')[[1]][1:2], collapse = '/')
   
   nml_files <- tibble(file = file.path(prep_proj_dir, names(yaml.load_file(nml_ind)))) %>% 
-    filter(basename(file) %in% paste0(lake_ids, '.nml')) %>% pull(file)
+    filter(basename(file) %in% paste0(lake_ids, '_glm3.nml')) %>% pull(file)
   
   setwd(unique(dirname(nml_files))[1])
   if (file.exists(zippath)){
