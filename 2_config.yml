@@ -22,6 +22,12 @@ targets:
       - out_data/pb0_nml_files.zip
 
 
+  export_start:
+    command: c(I('1980-04-01'))
+
+  export_stop:
+    command: c(I('2018-12-31'))
+
   out_data/pb0_config.json:
     command: bundle_nml_files(target_name,
       modeled_lake_ids,
