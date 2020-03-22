@@ -9,7 +9,7 @@ abstract: >-
   <ol>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c1ce4b01d50924f27e7">Spatial data</a> - A lake metadata file and one shapefile of polygons for all 909 lakes in this study</li>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c36e4b01d50924f27ea">Model configurations</a> - Model parameters and metadata used to configure models</li>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b68e4b01d50924f2b32">Observations</a> - Temperature observations for 904 of the 909 lakes used in this study</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b68e4b01d50924f2b32">Observations</a> - Temperature observations for 903 of the 909 lakes used in this study</li>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b96e4b01d50924f2b34">Model Inputs</a> - Data used to drive predictive models (ice-flags, clarity, and daily meteorology)</li>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a> - Predictions for water temperature and near-surface irradiance</li>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e774324e4b01d509270e29f">Model Evaluation</a> - Evaluation of model performance for water temperature predictions</li>
