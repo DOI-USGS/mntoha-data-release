@@ -48,6 +48,7 @@ targets:
       - 05_predictions_sb_irr
       #- 05_predictions_sb_pgdl
       - 06_evaluation_sb_xml
+      - 06_evaluation_sb_data
       - 07_habitat_sb_xml
 
 
@@ -143,6 +144,10 @@ targets:
       "in_text/text_SHARED.yml",
       "in_text/text_06_evaluation.yml",
       spatial_metadata)
+
+  06_evaluation_sb_data:
+    command: sb_replace_files(sb_id_06_evaluation,
+      "out_data/pb0_evaluation.csv")
 
   07_habitat_sb_xml:
     command: sb_render_post_xml(sb_id_07_habitat,
