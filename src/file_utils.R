@@ -269,7 +269,13 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups){
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
-zip_temp_obs <- function(outfile, temp_feather){
+filter_feather_obs <- function(outfile, obs_feather, site_ids){
+  feather::read_feather(obs_feather) %>%
+    filter(site_id %in% site_ids) %>%
+    saveRDS(file = outfile)
+}
+
+zip_filter_obs <- function(outfile, in_file){
 
   cd <- getwd()
   on.exit(setwd(cd))
@@ -278,8 +284,7 @@ zip_temp_obs <- function(outfile, temp_feather){
   csv_file <- paste0(tools::file_path_sans_ext(basename(outfile)) ,'.csv')
   csv_path <- file.path(tempdir(), csv_file)
 
-  feather::read_feather(temp_feather) %>%
-    write_csv(path = csv_path)
+  readRDS(in_file) %>% write_csv(path = csv_path)
 
   setwd(dirname(csv_path))
   zip(zipfile = zippath, files = csv_file)
