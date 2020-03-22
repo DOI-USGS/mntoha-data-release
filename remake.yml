@@ -1,7 +1,6 @@
 
 include:
   - 6_evaluation.yml
-  - 3_observations.yml
 
 packages:
   - yaml
@@ -78,7 +77,8 @@ targets:
   02_config_sb_xml:
     command: sb_render_post_xml(sbid_02_config,
       "in_text/text_SHARED.yml",
-      "in_text/text_02_config.yml")
+      "in_text/text_02_config.yml",
+      spatial_metadata)
 
   02_config_sb_data:
     command: sb_replace_files(sbid_02_config,
@@ -96,7 +96,8 @@ targets:
   03_observations_sb_xml:
     command: sb_render_post_xml(sbid_03_observations,
       "in_text/text_SHARED.yml",
-      "in_text/text_03_observations.yml")
+      "in_text/text_03_observations.yml",
+      spatial_metadata)
 
   04_inputs_sb_xml:
     command: sb_render_post_xml(sbid_04_inputs,
@@ -118,7 +119,8 @@ targets:
   05_predictions_sb_xml:
     command: sb_render_post_xml(sbid_05_predictions,
       "in_text/text_SHARED.yml",
-      "in_text/text_05_predictions.yml")
+      "in_text/text_05_predictions.yml",
+      spatial_metadata)
 
   05_predictions_sb_image:
     command: sb_replace_files(sbid_05_predictions,
@@ -139,12 +141,14 @@ targets:
   06_evaluation_sb_xml:
     command: sb_render_post_xml(sb_id_06_evaluation,
       "in_text/text_SHARED.yml",
-      "in_text/text_06_evaluation.yml")
+      "in_text/text_06_evaluation.yml",
+      spatial_metadata)
 
   07_habitat_sb_xml:
     command: sb_render_post_xml(sb_id_07_habitat,
       "in_text/text_SHARED.yml",
-      "in_text/text_07_habitat.yml")
+      "in_text/text_07_habitat.yml",
+      spatial_metadata)
 
   # ------ SB IDs --------
 

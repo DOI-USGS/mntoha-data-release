@@ -269,9 +269,10 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups){
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
-filter_feather_obs <- function(outfile, obs_feather, site_ids){
+filter_feather_obs <- function(outfile, obs_feather, site_ids, obs_start, obs_stop){
   feather::read_feather(obs_feather) %>%
     filter(site_id %in% site_ids) %>%
+    filter(date >= obs_start & date <= obs_stop) %>%
     saveRDS(file = outfile)
 }
 
