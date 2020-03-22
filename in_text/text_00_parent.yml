@@ -2,17 +2,18 @@ title: >-
   Data release: Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes
 
 abstract: >-
-  <p>Climate change and land use change have been shown to influence lake temperatures and water clarity in different ways. To better understand the diversity of lake responses to 
-  climate change and give managers tools to manage individual lakes, we focused on improving prediction accuracy for daily water 
+  <p>Climate change and land use change have been shown to influence lake temperatures and water clarity in different ways. To better understand the diversity of lake responses to
+  climate change and give managers tools to manage individual lakes, we focused on improving prediction accuracy for daily water
   temperature profiles and opitical habitat in 909 lakes in Minnesota during 1980-2019.
   <br/>The data are organized into these items:</p>
   <ol>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c1ce4b01d50924f27e7">Spatial data</a> - A lake metadata file, and one shapefile of polygons for all 909 lakes in this study (.shp, .shx, .dbf, and .prj files)</li>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c36e4b01d50924f27ea">Model configurations</a> - Model parameters and metadata used to configure models (1 JSON file, with metadata for each of 909 lakes, 
-  and one zip file with each lake's glm3.nml file)</li>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b68e4b01d50924f2b32">Observations</a> - </li>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b96e4b01d50924f2b34">Model Inputs</a> - Data used to drive predictive models (13 files each for ice-flags, clarity, and daily meteorology)</li>
-  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a> - Predictions from GLM3 and PGDL for water temperature (13 zip files), and near-surface irradiance from GLM3 (13 zip files)</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c1ce4b01d50924f27e7">Spatial data</a> - A lake metadata file and one shapefile of polygons for all 909 lakes in this study</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c36e4b01d50924f27ea">Model configurations</a> - Model parameters and metadata used to configure models</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b68e4b01d50924f2b32">Observations</a> - Temperature observations for 904 of the 909 lakes used in this study</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0b96e4b01d50924f2b34">Model Inputs</a> - Data used to drive predictive models (ice-flags, clarity, and daily meteorology)</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a> - Predictions for water temperature and near-surface irradiance</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e774324e4b01d509270e29f">Model Evaluation</a> - Evaluation of model performance for water temperature predictions</li>
+  <li><a href="https://www.sciencebase.gov/catalog/item/5e774355e4b01d509270e2a1">Habitat Estimates</a> - Estimates of thermal habitat, optical habitat, and thermal-optical habitat area</li>
   <br/>
   <p>This research was funded by the Department of the Interior Northeast and North Central Climate Adaptation Science Centers,
   a Midwest Glacial Lakes Fish Habitat Partnership grant through F&WS

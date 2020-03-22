@@ -1,14 +1,15 @@
 title: >-
-  Process-guided deep learning water temperature predictions: 3 Temperature observations
-
+  Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 3 Water temperature observations
 
 abstract: >-
-  Observed water temperatures from 1980-2018 were compiled for 5XX lakes in Minnesota and Wisconsin (USA). These data were used
-  as training data for process-guided deep learning models and deep learning models, and calibration data for process-based models.
+  Observed water temperatures from 1980-2018 were compiled for 904 lakes in Minnesota (USA). These data were used
+  as training, test, and error-estimation data for process-guided deep learning models and the evaluation of process-based models.
   The data are formatted as a single csv (comma separated values) file with attributes corresponding to the unique combination of
   lake identifier, time, and depth. Data came from a variety of sources, including the Water Quality Portal,
   the North Temperate Lakes Long-Term Ecological Research Project, and digitized temperature
   records from the MN Department of Natural Resources.
+  This dataset is part of a larger data release of lake temperature model inputs and outputs for 909 lakes in the U.S.
+  state of Minnesota (https://doi.org/10.5066/P9PPHJE2).
 
 cross-cites:
   -
@@ -20,8 +21,8 @@ cross-cites:
 
 entities:
   -
-    data-name: all_lakes_historical_training.csv
-    data-description: Training data for all 5XX lakes
+    data-name: 03_temperature_observations.csv
+    data-description: Temperature observation data for 904 lakes
     attributes:
     -
       attr-label: site_id
@@ -53,5 +54,12 @@ entities:
       data-min: NA
       data-max: NA
       data-units: degrees C
+    -
+      attr-label: source_id
+      attr-def: The source of these data; a monitoring entity or the name of a file sent by a state agency
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: NA
 
 file-format: a single comma-delimited file

@@ -22,18 +22,25 @@ targets:
       - out_data/pb0_nml_files.zip
 
 
+  export_start:
+    command: c(I('1980-04-01'))
+
+  export_stop:
+    command: c(I('2018-12-31'))
+
   out_data/pb0_config.json:
     command: bundle_nml_files(target_name,
       modeled_lake_ids,
-      nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml')
+      nml_ind = '../lake-temperature-process-models/2_prep/out/toha_glm3_nml_group.yml')
 
   out_data/pb0_nml_files.zip:
     command: zip_nml_files(target_name,
       modeled_lake_ids,
-      nml_ind = '../lake-temperature-process-models/2_prep/out/nml_file_group.yml')
+      nml_ind = '../lake-temperature-process-models/2_prep/out/toha_glm3_nml_group.yml')
 
   out_data/pgdl_config.csv:
     command: bundle_pgdl_configs(
       target_name,
       runs_dir=I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
       col_types=I('cccicccdiddddiiiiilcccccci'))
+

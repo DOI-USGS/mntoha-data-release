@@ -26,17 +26,18 @@ targets:
   5_predictions:
     depends:
       - out/5_predictions_zips.yml
+      - out/5_irradiance_zips.yml
       - out_data/05_group_lakes.png
 
-  predictions_df:
-    command: build_predict_df(site_ids = modeled_lake_ids,
-      prefix = I('pb0'), suffix = I('temperatures'),
-      model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-01-28'))
+  pb_predictions_df:
+    command: export_pb_df(site_ids = modeled_lake_ids,
+      exp_prefix = I('pb0'), exp_suffix = I('temperatures'),
+      model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')
 
   irradiance_df:
-    command: build_predict_df(site_ids = modeled_lake_ids,
-      prefix = I('pb0'), suffix = I('irradiance'),
-      model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-01-28'))
+    command: export_pb_df(site_ids = modeled_lake_ids,
+      exp_prefix = I('pb0'), exp_suffix = I('irradiance'),
+      model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')
 
   pgdl_predictions_df:
     command: build_pgdl_predict_df(
@@ -46,12 +47,20 @@ targets:
       dummy = I('2020-03-17'))
 
   out/5_predictions_zips.yml:
-    command: zip_prediction_groups(target_name, predictions_df,
-      site_groups = site_ids_grouped)
+    command: zip_pb_export_groups(target_name,
+      file_info_df = pb_predictions_df,
+      site_groups = site_ids_grouped,
+      export_start = export_start,
+      export_stop = export_stop,
+      export = I('predictions'))
 
   out/5_irradiance_zips.yml:
-    command: zip_irradiance_groups(target_name, irradiance_df,
-      site_groups = site_ids_grouped)
+    command: zip_pb_export_groups(target_name,
+      file_info_df = irradiance_df,
+      site_groups = site_ids_grouped,
+      export_start = export_start,
+      export_stop = export_stop,
+      export = I('irradiance'))
 
   out/5_pgdl_predictions_zips.yml:
     command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,

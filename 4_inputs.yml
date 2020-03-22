@@ -29,50 +29,49 @@ targets:
       - out/4_ice_flags_zips.yml
       - out/4_clarity_zips.yml
       - out_data/04_group_meteo.png
-  
-  
-  # out_file: predict_nhdhr_109865_pgdl.csv
-  # source_file: 
-    
+
+
   ice_flags_df:
-    command: build_predict_df(site_ids = modeled_lake_ids, 
-      prefix = I('pb0'), suffix = I('ice_flags'),
-      model_dir = I('../lake-temperature-process-models/4_toha/out'), dummy = I('2020-03-13'))
-      
+    command: export_pb_df(site_ids = modeled_lake_ids,
+      exp_prefix = I('pb0'), exp_suffix = I('ice_flags'),
+      model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')
+
   clarity_df:
-    command: build_clarity_df(site_ids =modeled_lake_ids)
-    
+    command: export_pb_df(site_ids = modeled_lake_ids,
+      exp_prefix = I('gam'), exp_suffix = I('clarity'),
+      model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')
+
   grouped_meteo_fls:
     command: group_meteo_fls(
       meteo_dir = I('../lake-temperature-model-prep/7_drivers_munge/out'),
       counties_sf = us_counties_sf,
       use_states = I('MN'),
       groups = spatial_groups)
-      
-      
-  out/4_inputs_zips.yml:
-    command: zip_meteo_groups(target_name, 
-      grouped_meteo_fls = grouped_meteo_fls)
-  
-  # need to use the same logic for ice as we did for temperature predictions:
-  out/4_ice_flags_zips.yml:
-    command: zip_ice_flags_groups(target_name, 
-      file_info_df = ice_flags_df,
-      site_groups = site_ids_grouped)
-    depends: out/5_predictions_zips.yml
 
-  # need to use the same logic for ice as we did for temperature predictions:
+
+  out/4_inputs_zips.yml:
+    command: zip_meteo_groups(target_name,
+      grouped_meteo_fls = grouped_meteo_fls)
+
+  out/4_ice_flags_zips.yml:
+    command: zip_pb_export_groups(target_name,
+      file_info_df = ice_flags_df,
+      site_groups = site_ids_grouped,
+      export_start = export_start,
+      export_stop = export_stop,
+      export = I('ice_flags'))
+
   out/4_clarity_zips.yml:
-    command: zip_clarity_groups(target_name, 
-      clarity_df = clarity_df,
-      site_groups = site_ids_grouped, 
-      kw_data_file = "../lake-temperature-model-prep/4_params_munge/out/toha_varying_kw.rds")
-    depends: out/5_predictions_zips.yml
-      
-  #update this!!
+    command: zip_pb_export_groups(target_name,
+      file_info_df = clarity_df,
+      site_groups = site_ids_grouped,
+      export_start = export_start,
+      export_stop = export_stop,
+      export = I('clarity'))
+
   out_data/04_group_meteo.png:
-    command: plot_grouped_cells_preview(target_name, 
-      spatial_groups, site_ids_grouped, 
-      county_bounds = us_counties_sf, 
+    command: plot_grouped_cells_preview(target_name,
+      spatial_groups, site_ids_grouped,
+      county_bounds = us_counties_sf,
       lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds",
       grouped_meteo_fls = grouped_meteo_fls)

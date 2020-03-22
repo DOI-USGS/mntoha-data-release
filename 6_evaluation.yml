@@ -2,6 +2,7 @@ target_default: 6_evaluation
 
 include:
   - 5_predictions.yml
+  - 3_observations.yml
 
 packages:
   - dplyr
@@ -11,7 +12,20 @@ sources:
   - src/file_utils.R
   - src/spatial_utils.R
   - src/plot_utils.R
+  - src/eval_utils.R
 
 targets:
   6_evaluation:
     depends:
+      - out_data/pb0_evaluation.csv
+
+
+#7b_temp_merge/out/temp_data_with_sources.feather
+
+  obs_for_eval:
+    command: filter_min_dates('tmp/filtered_observations.rds', min_dates = I(10))
+
+  out_data/pb0_evaluation.csv:
+    command: evaluate_glm_predict(target_name, eval_data = obs_for_eval,
+      exp_prefix = I('pb0'),
+      model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')

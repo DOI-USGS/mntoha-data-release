@@ -36,6 +36,8 @@ targets:
       - 01_spatial_sb_data
       - 02_config_sb_xml
       - 02_config_sb_data
+      - 03_observations_sb_data
+      - 03_observations_sb_xml
       - 04_inputs_sb_xml
       - 04_inputs_sb_data
       - 04_inputs_sb_ice
@@ -44,7 +46,10 @@ targets:
       - 05_predictions_sb_image
       - 05_predictions_sb_pb0
       - 05_predictions_sb_irr
-      - 05_predictions_sb_pgdl
+      #- 05_predictions_sb_pgdl
+      - 06_evaluation_sb_xml
+      - 06_evaluation_sb_data
+      - 07_habitat_sb_xml
 
 
 # in case you want to mess w/ the xml alone:
@@ -73,7 +78,8 @@ targets:
   02_config_sb_xml:
     command: sb_render_post_xml(sbid_02_config,
       "in_text/text_SHARED.yml",
-      "in_text/text_02_config.yml")
+      "in_text/text_02_config.yml",
+      spatial_metadata)
 
   02_config_sb_data:
     command: sb_replace_files(sbid_02_config,
@@ -83,6 +89,16 @@ targets:
   02_config_sb_data_pgdl:
     command: sb_replace_files(sbid_02_config,
       "out_data/pgdl_config.csv")
+
+  03_observations_sb_data:
+    command: sb_replace_files(sbid_03_observations,
+      "out_data/03_temperature_observations.zip")
+
+  03_observations_sb_xml:
+    command: sb_render_post_xml(sbid_03_observations,
+      "in_text/text_SHARED.yml",
+      "in_text/text_03_observations.yml",
+      spatial_metadata)
 
   04_inputs_sb_xml:
     command: sb_render_post_xml(sbid_04_inputs,
@@ -104,7 +120,8 @@ targets:
   05_predictions_sb_xml:
     command: sb_render_post_xml(sbid_05_predictions,
       "in_text/text_SHARED.yml",
-      "in_text/text_05_predictions.yml")
+      "in_text/text_05_predictions.yml",
+      spatial_metadata)
 
   05_predictions_sb_image:
     command: sb_replace_files(sbid_05_predictions,
@@ -121,6 +138,22 @@ targets:
   05_predictions_sb_pgdl:
     command: sb_replace_files(sbid_05_predictions,
       file_hash = "out/5_pgdl_predictions_zips.yml")
+
+  06_evaluation_sb_xml:
+    command: sb_render_post_xml(sb_id_06_evaluation,
+      "in_text/text_SHARED.yml",
+      "in_text/text_06_evaluation.yml",
+      spatial_metadata)
+
+  06_evaluation_sb_data:
+    command: sb_replace_files(sb_id_06_evaluation,
+      "out_data/pb0_evaluation.csv")
+
+  07_habitat_sb_xml:
+    command: sb_render_post_xml(sb_id_07_habitat,
+      "in_text/text_SHARED.yml",
+      "in_text/text_07_habitat.yml",
+      spatial_metadata)
 
   # ------ SB IDs --------
 
@@ -142,3 +175,9 @@ targets:
 
   sbid_05_predictions:
     command: c(I('5e5d0bb9e4b01d50924f2b36'))
+
+  sb_id_06_evaluation:
+    command: c(I('5e774324e4b01d509270e29f'))
+
+  sb_id_07_habitat:
+    command: c(I('5e774355e4b01d509270e2a1'))
