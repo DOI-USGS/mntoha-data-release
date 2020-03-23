@@ -276,19 +276,25 @@ filter_feather_obs <- function(outfile, obs_feather, site_ids, obs_start, obs_st
     saveRDS(file = outfile)
 }
 
+zip_this <- function(outfile, .object){
+
+  if ('data.frame' %in% class(.object)){
+    filepath <- basename(outfile) %>% tools::file_path_sans_ext() %>% paste0('.csv') %>% file.path(tempdir(), .)
+    write_csv(.object, path = filepath)
+    zip_this(outfile = outfile, .object = filepath)
+  } else if (class(.object) == 'character' & file.exists(.object)){
+    # for multiple files?
+    curdir <- getwd()
+    on.exit(setwd(curdir))
+    setwd(dirname(.object))
+    zip(file.path(curdir, outfile), files = basename(.object))
+  } else {
+    stop("don't know how to zip ", .object)
+  }
+}
+
 zip_filter_obs <- function(outfile, in_file){
 
-  cd <- getwd()
-  on.exit(setwd(cd))
-
-  zippath <- file.path(getwd(), outfile)
-  csv_file <- paste0(tools::file_path_sans_ext(basename(outfile)) ,'.csv')
-  csv_path <- file.path(tempdir(), csv_file)
-
-  readRDS(in_file) %>% write_csv(path = csv_path)
-
-  setwd(dirname(csv_path))
-  zip(zipfile = zippath, files = csv_file)
-  setwd(cd)
+  zip_this(outfile, .object = readRDS(in_file))
 
 }

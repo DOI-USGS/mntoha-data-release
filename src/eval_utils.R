@@ -7,7 +7,7 @@ filter_min_dates <- function(obs_rds_file, min_dates){
    filter(obs, site_id %in% eval_sites)
 }
 
-evaluate_glm_predict <- function(target_name, eval_data, exp_prefix, model_out_ind){
+match_glm_obs <- function(target_name, eval_data, model_out_ind){
 
   model_proj_dir <- paste(str_split(model_out_ind, '/')[[1]][1:2], collapse = '/')
   eval_site_ids <- unique(eval_data$site_id)
@@ -25,15 +25,19 @@ evaluate_glm_predict <- function(target_name, eval_data, exp_prefix, model_out_i
       mutate(depth = as.numeric(depth)) %>% filter(time %in% these_obs$date) %>%
       rename(date = time, pred = temp)
 
-    pred_obs <- prep_pred_obs(test_obs = these_obs, model_preds = model_preds)
-    pred_diff <- pred_obs$pred - pred_obs$obs
-    this_rmse <- sqrt(mean((pred_diff)^2, na.rm=TRUE))
-
-    tibble(site_id = this_id, rmse = this_rmse, n_obs = sum(!is.na(pred_diff)))
-
+    prep_pred_obs(test_obs = these_obs, model_preds = model_preds) %>%
+      select(site_id, date, depth, obs, pred, source_id)
   }) %>% purrr::reduce(bind_rows)
 
   write_csv(eval_data, path = target_name)
+
+}
+
+compare_as_rmse <- function(target_name, matched_preds){
+
+  mutate(matched_preds, pred_diff = pred-obs) %>%
+    group_by(site_id) %>% summarize(rmse = sqrt(mean((pred_diff)^2, na.rm=TRUE))) %>%
+    write_csv(path = target_name)
 
 }
 
