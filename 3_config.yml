@@ -1,6 +1,6 @@
 include: 1_spatial.yml
 
-target_default: 2_config
+target_default: 3_config
 
 packages:
   - yaml
@@ -16,7 +16,7 @@ sources:
   - src/file_utils.R
 
 targets:
-  2_config:
+  3_config:
     depends:
       - out_data/pb0_config.json
       - out_data/pb0_nml_files.zip
