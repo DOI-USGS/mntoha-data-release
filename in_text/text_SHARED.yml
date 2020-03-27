@@ -12,9 +12,10 @@ larger-cites:
     title: >-
       Process-guided deep learning predictions of lake water temperature
     pubdate: 2019
+
 purpose: Fisheries biology, limnological research, and climate science.
 start-date: 19800401
-end-date: 20191231
+end-date: 20181231
 
 update: none planned
 themekeywords: ["machine learning", "deep learning", "hybrid modeling", "water","temperature", "temperate lakes","reservoirs","modeling","climate change","thermal profiles"]

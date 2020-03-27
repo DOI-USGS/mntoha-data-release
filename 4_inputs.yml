@@ -2,7 +2,7 @@
 target_default: 4_inputs
 
 include:
-  - 2_config.yml
+  - 3_config.yml
 
 packages:
   - yaml

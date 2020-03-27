@@ -34,10 +34,10 @@ targets:
       - 00_parent_sb_xml
       - 01_spatial_sb_xml
       - 01_spatial_sb_data
-      - 02_config_sb_xml
-      - 02_config_sb_data
-      - 03_observations_sb_data
-      - 03_observations_sb_xml
+      - 03_config_sb_xml
+      - 03_config_sb_data
+      - 02_observations_sb_data
+      - 02_observations_sb_xml
       - 04_inputs_sb_xml
       - 04_inputs_sb_data
       - 04_inputs_sb_ice
@@ -73,32 +73,33 @@ targets:
   01_spatial_sb_data:
     command: sb_replace_files(sbid_01_spatial,
       "out_data/01_spatial.zip",
-      "out_data/01_lake_metadata.csv")
+      "out_data/lake_metadata.csv")
 
-  02_config_sb_xml:
-    command: sb_render_post_xml(sbid_02_config,
+
+  02_observations_sb_data:
+    command: sb_replace_files(sbid_02_observations,
+      "out_data/temperature_observations.zip")
+
+  02_observations_sb_xml:
+    command: sb_render_post_xml(sbid_02_observations,
       "in_text/text_SHARED.yml",
-      "in_text/text_02_config.yml",
+      "in_text/text_02_observations.yml",
       spatial_metadata)
 
-  02_config_sb_data:
-    command: sb_replace_files(sbid_02_config,
+  03_config_sb_xml:
+    command: sb_render_post_xml(sbid_03_config,
+      "in_text/text_SHARED.yml",
+      "in_text/text_03_config.yml",
+      spatial_metadata)
+
+  03_config_sb_data:
+    command: sb_replace_files(sbid_03_config,
       "out_data/pb0_config.json",
       "out_data/pb0_nml_files.zip")
 
-  02_config_sb_data_pgdl:
-    command: sb_replace_files(sbid_02_config,
+  03_config_sb_data_pgdl:
+    command: sb_replace_files(sbid_03_config,
       "out_data/pgdl_config.csv")
-
-  03_observations_sb_data:
-    command: sb_replace_files(sbid_03_observations,
-      "out_data/03_temperature_observations.zip")
-
-  03_observations_sb_xml:
-    command: sb_render_post_xml(sbid_03_observations,
-      "in_text/text_SHARED.yml",
-      "in_text/text_03_observations.yml",
-      spatial_metadata)
 
   04_inputs_sb_xml:
     command: sb_render_post_xml(sbid_04_inputs,
@@ -147,8 +148,8 @@ targets:
 
   06_evaluation_sb_data:
     command: sb_replace_files(sb_id_06_evaluation,
-      "out_data/06_pb0_matched_observations.zip",
-      "out_data/06_pb0_rmse.csv")
+      "out_data/pb0_matched_to_observations.zip",
+      "out_data/pb0_evaluation.csv")
 
   07_habitat_sb_xml:
     command: sb_render_post_xml(sb_id_07_habitat,
@@ -165,11 +166,11 @@ targets:
   sbid_01_spatial:
     command: c(I('5e5c1c1ce4b01d50924f27e7'))
 
-  sbid_02_config:
-    command: c(I('5e5c1c36e4b01d50924f27ea'))
-
-  sbid_03_observations:
+  sbid_02_observations:
     command: c(I('5e5d0b68e4b01d50924f2b32'))
+
+  sbid_03_config:
+    command: c(I('5e5c1c36e4b01d50924f27ea'))
 
   sbid_04_inputs:
     command: c(I('5e5d0b96e4b01d50924f2b34'))

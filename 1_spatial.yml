@@ -67,7 +67,7 @@ targets:
   pgdl_site_ids_grouped:
     command: assign_group_id(pgdl_centroids_sf, spatial_groups)
 
-  out_data/01_lake_metadata.csv:
+  out_data/lake_metadata.csv:
     command: create_metadata_file(target_name,
       sites = site_ids_grouped,
       county_state_overlaps,

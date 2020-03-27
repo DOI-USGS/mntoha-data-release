@@ -1,9 +1,9 @@
 title: >-
-  Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 1 Spatial data (GIS polygons for 909 lakes)
+  Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 1 Lake information for 909 lakes
 
 abstract: >-
   This dataset provides shapefile outlines of the 909 lakes that had temperature modeled as part of this study.
-  The format is a shapefile for all lakes combined (.shp, .shx, .dbf, and .prj files). A csv file of lake metadata is also included. 
+  The format is a shapefile for all lakes combined (.shp, .shx, .dbf, and .prj files). A csv file of lake metadata is also included.
   This dataset is part of a larger data release of lake temperature model inputs and outputs for 909 lakes in the U.S.
   state of Minnesota (https://doi.org/10.5066/P9PPHJE2).
 
@@ -38,7 +38,7 @@ entities:
       data-max: NA
       data-units: NA
   -
-    data-name: 01_lake_metadata.csv
+    data-name: lake_metadata.csv
     data-description: Select metadata for the 909 lakes included in this study
     attributes:
     -
@@ -53,20 +53,20 @@ entities:
     -
       attr-label: group_id
       attr-def: >-
-        group identifier for files that are spatially grouped in this data release. Groups are based on lat/lon bounding boxes. 
+        group identifier for files that are spatially grouped in this data release. Groups are based on lat/lon bounding boxes.
       attr-defs: NA
       data-min: NA
       data-max: NA
       data-units: NA
     -
-      attr-label: centroid_lon centroid_lat" "state"        "county"       "lake_name" 
+      attr-label: centroid_lon centroid_lat" "state"        "county"       "lake_name"
       attr-def: longitude (decimal-degrees) of the centroid of this lake (for purposes of calculating group_id and linking meteorological data cells)
       attr-defs: NA
       data-min: -99.42552
       data-max: -83.08698
       data-units: decimal-degrees
     -
-      attr-label: centroid_lat" "state"        "county"       "lake_name" 
+      attr-label: centroid_lat" "state"        "county"       "lake_name"
       attr-def: latitude (decimal-degrees) of the centroid of this lake (for purposes of calculating group_id and linking meteorological data cells)
       attr-defs: NA
       data-min: 40.9117
@@ -75,16 +75,16 @@ entities:
     -
       attr-label: state
       attr-def: >-
-        Two letter abbreviated state name for each state overlapped by this lake. 
+        Two letter abbreviated state name for each state overlapped by this lake.
         When more than one state, state abbreviations are separated by "|", such as "MN|WI"
       attr-defs: NA
       data-min: NA
       data-max: NA
       data-units: NA
     -
-      attr-label: county"       "lake_name" 
+      attr-label: county"       "lake_name"
       attr-def: >-
-        County name for each county overlapped by this lake. 
+        County name for each county overlapped by this lake.
         When more than one county, county names are separated by "|", such as "Lake|St. Louis"
       attr-defs: NA
       data-min: NA
@@ -92,7 +92,7 @@ entities:
       data-units: NA
     -
       attr-label: lake_name
-      attr-def: GNIS Name for each lake. Usually the common name of the lake. NA when missing. 
+      attr-def: GNIS Name for each lake. Usually the common name of the lake. NA when missing.
       attr-defs: >-
         http://nhd.usgs.gov/
       data-min: NA

@@ -16,7 +16,7 @@ match_glm_obs <- function(target_name, eval_data, model_out_ind){
     mutate(source_filepath = file.path(model_proj_dir, file)) %>%
     filter(site_id %in% eval_site_ids) %>% select(site_id, source_filepath)
 
-  eval_data <- purrr::map(1:nrow(file_info), function(x){
+  purrr::map(1:nrow(file_info), function(x){
     this_file <- file_info$source_filepath[x]
     this_id <- file_info$site_id[x]
     these_obs <- eval_data %>% filter(site_id %in% this_id)
@@ -28,8 +28,6 @@ match_glm_obs <- function(target_name, eval_data, model_out_ind){
     prep_pred_obs(test_obs = these_obs, model_preds = model_preds) %>%
       select(site_id, date, depth, obs, pred, source_id)
   }) %>% purrr::reduce(bind_rows)
-
-  write_csv(eval_data, path = target_name)
 
 }
 
