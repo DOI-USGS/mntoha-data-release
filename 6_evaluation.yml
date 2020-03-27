@@ -17,7 +17,7 @@ sources:
 targets:
   6_evaluation:
     depends:
-      - out_data/06_pb0_rmse.csv
+      - out_data/pb0_evaluation.csv
 
 
 #7b_temp_merge/out/temp_data_with_sources.feather
@@ -25,13 +25,13 @@ targets:
   obs_for_eval:
     command: filter_min_dates('tmp/filtered_observations.rds', min_dates = I(10))
 
-  pb0_matched_observations:
+  pb0_matched_to_observations:
     command: match_glm_obs(target_name, eval_data = obs_for_eval,
       model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')
 
-  out_data/06_pb0_matched_observations.zip:
-    command: zip_this(target_name, pb0_matched_observations)
+  out_data/pb0_matched_to_observations.zip:
+    command: zip_this(target_name, pb0_matched_to_observations)
 
-  out_data/06_pb0_rmse.csv:
+  out_data/pb0_evaluation.csv:
     command: compare_as_rmse(target_name,
-      matched_preds = pb0_matched_observations)
+      matched_preds = pb0_matched_to_observations)
