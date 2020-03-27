@@ -30,13 +30,14 @@ targets:
 
   out_data/pb0_config.json:
     command: bundle_nml_files(target_name,
+      xwalk_meteo_fl_names,
       modeled_lake_ids,
-      nml_ind = '../lake-temperature-process-models/2_prep/out/toha_glm3_nml_group.yml')
+      nml_ind = '../lake-temperature-process-models/2_prep/out/toha_glm3_nml_group.yml',
+      gnis_names_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/gnisname_nhdhr_xwalk.rds')
 
   out_data/pb0_nml_files.zip:
     command: zip_nml_files(target_name,
-      modeled_lake_ids,
-      nml_ind = '../lake-temperature-process-models/2_prep/out/toha_glm3_nml_group.yml')
+      'out_data/pb0_config.json')
 
   out_data/pgdl_config.csv:
     command: bundle_pgdl_configs(
