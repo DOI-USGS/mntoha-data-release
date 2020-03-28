@@ -39,7 +39,8 @@ targets:
       - 02_observations_sb_data
       - 02_observations_sb_xml
       - 04_inputs_sb_xml
-      - 04_inputs_sb_data
+      - 04_inputs_sb_meteo
+      - 04_inputs_sb_image
       - 04_inputs_sb_ice
       - 04_inputs_sb_clarity
       - 05_predictions_sb_xml
@@ -106,9 +107,13 @@ targets:
       "in_text/text_SHARED.yml",
       "in_text/text_04_inputs.yml")
 
-  04_inputs_sb_data:
+  04_inputs_sb_meteo:
     command: sb_replace_files(sbid_04_inputs,
-      'out_data/04_group_meteo.png', file_hash = "out/4_inputs_zips.yml")
+      file_hash = "out/4_inputs_zips.yml")
+
+  04_inputs_sb_image:
+    command: sb_replace_files(sbid_04_inputs,
+      'out_data/input_cells.png')
 
   04_inputs_sb_ice:
     command: sb_replace_files(sbid_04_inputs,
@@ -126,7 +131,7 @@ targets:
 
   05_predictions_sb_image:
     command: sb_replace_files(sbid_05_predictions,
-      'out_data/05_group_lakes.png')
+      'out_data/predict_lakes.png')
 
   05_predictions_sb_pb0:
     command: sb_replace_files(sbid_05_predictions,

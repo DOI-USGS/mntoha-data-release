@@ -26,7 +26,7 @@ match_glm_obs <- function(target_name, eval_data, model_out_ind){
       rename(date = time, pred = temp)
 
     prep_pred_obs(test_obs = these_obs, model_preds = model_preds) %>%
-      select(site_id, date, depth, obs, pred, source_id)
+      select(site_id, date, depth, obs, pred)
   }) %>% purrr::reduce(bind_rows)
 
 }

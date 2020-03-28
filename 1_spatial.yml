@@ -27,7 +27,7 @@ targets:
   1_spatial:
     depends:
       - out_data/01_spatial.zip
-      - out_data/01_lake_metadata.csv
+      - out_data/lake_metadata.csv
 
 
   us_counties_sf:
@@ -67,13 +67,22 @@ targets:
   pgdl_site_ids_grouped:
     command: assign_group_id(pgdl_centroids_sf, spatial_groups)
 
+  ldas_grid:
+    command: create_ldas_grid()
+
+  xwalk_meteo_fl_names:
+    command: xwalk_meteo_lat_lon(meteo_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
+      meteo_dir = I('../lake-temperature-model-prep/7_drivers_munge/out'),
+      ldas_grid)
+
   out_data/lake_metadata.csv:
     command: create_metadata_file(target_name,
       sites = site_ids_grouped,
       county_state_overlaps,
       lakes_sf = modeled_lakes_sf,
       lat_lon_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_lat_lon_values.rds',
-      meteo_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
+      nml_json_fl = 'out_data/pb0_config.json',
+      meteo_fl_info = xwalk_meteo_fl_names,
       gnis_names_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/gnisname_nhdhr_xwalk.rds')
 
 
