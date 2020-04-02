@@ -2,7 +2,7 @@
 target_default: 4_inputs
 
 include:
-  - 2_config.yml
+  - 3_config.yml
 
 packages:
   - yaml
@@ -28,7 +28,7 @@ targets:
       - out/4_inputs_zips.yml
       - out/4_ice_flags_zips.yml
       - out/4_clarity_zips.yml
-      - out_data/04_group_meteo.png
+      - out_data/input_cells.png
 
 
   ice_flags_df:
@@ -51,6 +51,7 @@ targets:
 
   out/4_inputs_zips.yml:
     command: zip_meteo_groups(target_name,
+      xwalk_meteo_fl_names = xwalk_meteo_fl_names,
       grouped_meteo_fls = grouped_meteo_fls)
 
   out/4_ice_flags_zips.yml:
@@ -69,7 +70,7 @@ targets:
       export_stop = export_stop,
       export = I('clarity'))
 
-  out_data/04_group_meteo.png:
+  out_data/input_cells.png:
     command: plot_grouped_cells_preview(target_name,
       spatial_groups, site_ids_grouped,
       county_bounds = us_counties_sf,

@@ -27,7 +27,7 @@ targets:
     depends:
       - out/5_predictions_zips.yml
       - out/5_irradiance_zips.yml
-      - out_data/05_group_lakes.png
+      - out_data/predict_lakes.png
 
   pb_predictions_df:
     command: export_pb_df(site_ids = modeled_lake_ids,
@@ -52,7 +52,7 @@ targets:
       site_groups = site_ids_grouped,
       export_start = export_start,
       export_stop = export_stop,
-      export = I('predictions'))
+      export = I('pb0_predictions'))
 
   out/5_irradiance_zips.yml:
     command: zip_pb_export_groups(target_name,
@@ -66,7 +66,7 @@ targets:
     command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,
       site_groups = pgdl_site_ids_grouped)
 
-  out_data/05_group_lakes.png:
+  out_data/predict_lakes.png:
     command: plot_grouped_lakes_preview(target_name,
       spatial_groups, site_ids_grouped,
       county_bounds = us_counties_sf,
