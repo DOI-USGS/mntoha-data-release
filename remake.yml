@@ -156,6 +156,11 @@ targets:
       "out_data/pb0_matched_to_observations.zip",
       "out_data/pb0_evaluation.csv")
 
+  06_evaluation_sb_data_pgdl:
+    command: sb_replace_files(sb_id_06_evaluation,
+      "out_data/pgdl_matched_to_observations.zip",
+      "out_data/pgdl_evaluation.csv")
+
   07_habitat_sb_xml:
     command: sb_render_post_xml(sb_id_07_habitat,
       "in_text/text_SHARED.yml",

@@ -13,6 +13,7 @@ sources:
   - src/spatial_utils.R
   - src/plot_utils.R
   - src/eval_utils.R
+  - src/viz_utils.R
 
 targets:
   6_evaluation:
@@ -35,3 +36,21 @@ targets:
   out_data/pb0_evaluation.csv:
     command: compare_as_rmse(target_name,
       matched_preds = pb0_matched_to_observations)
+
+  out_data/pgdl_matched_to_observations.zip:
+    command: match_preds_to_obs(
+      out_zip = target_name,
+      observations_zip = 'out_data/temperature_observations.zip',
+      predictions_zips_ind = 'out/5_pgdl_predictions_zips.yml',
+      min_obs_dates = I(10))
+
+  out_data/pgdl_evaluation.csv:
+    command: evaluate_preds(
+      out_file = target_name,
+      matched_preds_zip = 'out_data/pgdl_matched_to_observations.zip')
+
+  tmp/compare_rmses.png:
+    command: plot_rmses(
+      target_name,
+      I('out_data/pb0_evaluation.csv'),
+      I('out_data/pgdl_evaluation.csv'))

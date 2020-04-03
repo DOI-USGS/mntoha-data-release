@@ -361,6 +361,12 @@ zip_this <- function(outfile, .object){
   }
 }
 
+unzip_to_tibble <- function(zipfile, ...) {
+  file_to_unzip <- unzip(zipfile, list =TRUE) %>% pull(Name)
+  unzip(zipfile, exdir=tempdir(), files=file_to_unzip)
+  readr::read_csv(file.path(tempdir(), file_to_unzip), ...)
+}
+
 zip_filter_obs <- function(outfile, in_file){
 
   zip_this(outfile, .object = readRDS(in_file))
