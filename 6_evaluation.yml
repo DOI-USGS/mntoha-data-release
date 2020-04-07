@@ -7,6 +7,7 @@ include:
 packages:
   - dplyr
   - tidyr
+  - ggplot2
 
 sources:
   - src/file_utils.R
@@ -19,9 +20,6 @@ targets:
   6_evaluation:
     depends:
       - out_data/pb0_evaluation.csv
-
-
-#7b_temp_merge/out/temp_data_with_sources.feather
 
   obs_for_eval:
     command: filter_min_dates('tmp/filtered_observations.rds', min_dates = I(10))
@@ -41,7 +39,7 @@ targets:
     command: match_preds_to_obs(
       out_zip = target_name,
       observations_zip = 'out_data/temperature_observations.zip',
-      predictions_zips_ind = 'out/5_pgdl_predictions_zips.yml',
+      predictions_zips_ind = 'out/5_pgdl_test_predictions_zips.yml',
       min_obs_dates = I(10))
 
   out_data/pgdl_evaluation.csv:

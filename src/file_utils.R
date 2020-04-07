@@ -233,10 +233,25 @@ build_pgdl_predict_df <- function(
     filter(phase=='finetune', goal=='predict') %>%
     mutate(
       source_filepath = file.path(gsub('2_model/out', model_dir, model_save_path), 'preds.npz'),
+      source_hash = tools::md5sum(source_filepath),
       out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
-    select(site_id, source_filepath, out_file)
+    select(site_id, source_filepath, source_hash, out_file)
 }
 
+build_pgdl_test_df <- function(
+  pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
+  prefix='pgdl', suffix='test_temperatures', dummy){
+
+  test_info <- yaml::read_yaml(pgdl_test_ind)
+  tibble(
+    source_hash = unname(unlist(test_info)),
+    source_filepath = file.path('../lake-temperature-neural-networks', names(test_info))
+  ) %>%
+    filter(grepl('pgdl_test_preds.csv', source_filepath)) %>%
+    extract(source_filepath, 'site_id', regex='.*(nhdhr_.*)/pgdl_test_.*\\.csv', remove=FALSE) %>%
+    mutate(out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
+    select(site_id, source_filepath, source_hash, out_file)
+}
 
 zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
                                  export = c('ice_flags','pb0_predictions','clarity','irradiance'),
@@ -332,6 +347,37 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups){
     zip(zippath, files = these_files$out_file)
     unlink(these_files$out_file)
     setwd(cd)
+    data_files <- c(data_files, zipfile)
+  }
+  scipiper::sc_indicate(outfile, data_file = data_files)
+}
+
+zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
+
+  model_csvs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
+    select(-site_id)
+
+  cd <- getwd()
+  on.exit(setwd(cd))
+
+  groups <- rev(sort(unique(model_csvs$group_id)))
+  data_files <- c()
+  for (group in groups){
+    zipfile <- paste0('tmp/pgdl_test_predictions_', group, '.zip')
+    these_files <- model_csvs %>% filter(group_id == !!group)
+
+    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file))
+
+    # zip the files
+    zippath <- file.path(getwd(), zipfile)
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
+    setwd(tempdir())
+    zip(zippath, files = these_files$out_file)
+    setwd(cd)
+
+    # make note of the files
     data_files <- c(data_files, zipfile)
   }
   scipiper::sc_indicate(outfile, data_file = data_files)

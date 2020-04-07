@@ -66,10 +66,18 @@ targets:
     command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,
       site_groups = pgdl_site_ids_grouped)
 
+  pgdl_test_predictions_df:
+    command: build_pgdl_test_df(
+      pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
+      prefix = I('pgdl'), suffix = I('test_temperatures'),
+      dummy = I('2020-04-01'))
+
+  out/5_pgdl_test_predictions_zips.yml:
+    command: zip_pgdl_test_groups(target_name, pgdl_test_predictions_df,
+      site_groups = pgdl_site_ids_grouped)
+
   out_data/predict_lakes.png:
     command: plot_grouped_lakes_preview(target_name,
       spatial_groups, site_ids_grouped,
       county_bounds = us_counties_sf,
       lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds")
-
-

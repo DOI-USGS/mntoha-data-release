@@ -64,7 +64,7 @@ match_preds_to_obs  <- function(out_zip, observations_zip='out_data/temperature_
       source_csv = unzip(pred_zip, list=TRUE)$Name,
       source_zip = pred_zip)
   })) %>%
-    extract(source_csv, into='site_id', regex='pgdl_(nhdhr_.+)_temperatures\\.csv', remove=FALSE) %>%
+    extract(source_csv, into='site_id', regex='pgdl_(nhdhr_.+)_test_temperatures\\.csv', remove=FALSE) %>%
     filter(site_id %in% obs_sites)
 
   # further filter the observations to those sites that have predictions
