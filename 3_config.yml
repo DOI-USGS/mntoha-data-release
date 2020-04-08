@@ -40,8 +40,8 @@ targets:
       'out_data/pb0_config.json')
 
   out_data/pgdl_config.csv:
-    command: bundle_pgdl_configs(
+    command: simplify_pgdl_configs(
       target_name,
-      runs_dir=I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
-      col_types=I('cccicccdiddddiiiiilcccccci'))
+      orig_cfg_file='../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
+      orig_col_types=I('cccicccdiddddiiiiilccccccil'))
 

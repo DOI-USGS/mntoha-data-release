@@ -13,26 +13,17 @@ extract_pgdl_ids <- function(results_dir, pattern, dummy) {
   dir(results_dir, pattern)
 }
 
-bundle_pgdl_configs <- function(out_file, runs_dir, col_types='cccicccdiddddiiiiilcccccci') {
-  # get a list of runs assuming that all runs are nested just within folders
-  # named by site_id, all within a single runs_dir
-  site_ids <- dir(runs_dir, pattern='nhdhr*')
-  run_paths <- dir(file.path(runs_dir, site_ids), full.names=TRUE)
-
-  configs_all <- lapply(run_paths, function(run_path) {
-    run_complete <- all(file.exists(file.path(run_path, c('model_config.tsv'))))
-    if(!run_complete) return(NULL)
-    readr::read_tsv(file.path(run_path, 'model_config.tsv'), col_types=col_types)
-  }) %>% bind_rows() %>%
-    arrange(row) %>%
+simplify_pgdl_configs <- function(out_file, orig_cfg_file, orig_col_types) {
+  readr::read_csv(orig_cfg_file, col_types=orig_col_types) %>%
+    mutate(
+      restore_path = gsub('2_model/out/', '', model_restore_path),
+      save_path = gsub('2_model/out/', '', model_save_path)) %>%
     select(
-      row, site_id, phase, goal, fold, learning_rate, n_epochs,
+      site_id, phase, goal, fold, learning_rate, n_epochs,
       state_size, ec_threshold, dd_lambda, ec_lambda, l1_lambda,
       sequence_length, sequence_offset, max_batch_obs,
-      inputs_fixed_file, inputs_prep_file, inputs_varied_file,
-      model_restore_path, model_save_path)
-
-  write_csv(configs_all, out_file)
+      restore_path, save_path) %>%
+    write_csv(out_file)
 }
 
 create_release_fl <- function(geometry){
