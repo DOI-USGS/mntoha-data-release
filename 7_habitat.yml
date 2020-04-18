@@ -1,0 +1,22 @@
+target_default: 7_habitat
+
+include:
+  - 6_evaluation.yml
+
+packages:
+  - dplyr
+  - tidyr
+
+sources:
+  - src/file_utils.R
+
+targets:
+  7_habitat:
+    depends:
+      - out/7_toha_zips.yml
+
+
+  out/7_toha_zips.yml:
+    command: update_hash_path(target_name,
+      '../lake-temperature-out/3_summarize/out/3_summarize_zip_pb0_toha.yml',
+      add_path = I('../lake-temperature-out'))
