@@ -16,7 +16,12 @@ targets:
       - out/7_toha_zips.yml
 
 
-  out/7_toha_zips.yml:
+  out/7_pb0_toha_zips.yml:
     command: update_hash_path(target_name,
       '../lake-temperature-out/3_summarize/out/3_summarize_zip_pb0_toha.yml',
+      add_path = I('../lake-temperature-out'))
+
+  out/7_pgdl_toha_zips.yml:
+    command: update_hash_path(target_name,
+      '../lake-temperature-out/3_summarize/out/3_summarize_zip_pgdl_toha.yml',
       add_path = I('../lake-temperature-out'))
