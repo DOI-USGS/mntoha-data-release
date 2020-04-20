@@ -1,6 +1,6 @@
 
 include:
-  - 6_evaluation.yml
+  - 7_habitat.yml
 
 packages:
   - yaml
@@ -51,6 +51,7 @@ targets:
       - 06_evaluation_sb_xml
       - 06_evaluation_sb_data
       - 07_habitat_sb_xml
+      - 07_habitat_sb_data
 
 
 # in case you want to mess w/ the xml alone:
@@ -166,6 +167,10 @@ targets:
       "in_text/text_SHARED.yml",
       "in_text/text_07_habitat.yml",
       spatial_metadata)
+
+  07_habitat_sb_data:
+    command: sb_replace_files(sb_id_07_habitat,
+      file_hash = "out/7_toha_zips.yml")
 
   # ------ SB IDs --------
 
