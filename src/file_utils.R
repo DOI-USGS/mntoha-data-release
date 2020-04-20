@@ -218,12 +218,13 @@ export_pb_df <- function(site_ids, model_out_ind, exp_prefix, exp_suffix){
 build_pgdl_predict_df <- function(
   pgdl_config_file = 'out_data/pgdl_config.csv',
   model_dir='../lake-temperature-neural-networks/2_model/out/200316_runs',
+  phase = 'finetune',
   prefix='pgdl', suffix='temperatures', dummy){
 
   readr::read_csv(pgdl_config_file) %>%
-    filter(phase=='finetune', goal=='predict') %>%
+    filter(phase==!!phase, goal=='predict') %>%
     mutate(
-      source_filepath = file.path(gsub('2_model/out', model_dir, model_save_path), 'preds.npz'),
+      source_filepath = file.path(model_dir, save_path, 'preds.npz'),
       source_hash = tools::md5sum(source_filepath),
       out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
     select(site_id, source_filepath, source_hash, out_file)
@@ -300,7 +301,7 @@ zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
 }
 
 
-zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups){
+zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
 
   model_npzs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
     select(-site_id)
@@ -312,7 +313,7 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups){
   groups <- rev(sort(unique(model_npzs$group_id)))
   data_files <- c()
   for (group in groups){
-    zipfile <- paste0('tmp/pgdl_predictions_', group, '.zip')
+    zipfile <- sprintf('tmp/pgdl_%spredictions_%s.zip', ifelse(phase=='pretrain', 'pretrain_', ''), group)
     these_files <- model_npzs %>% filter(group_id == !!group)
 
     zippath <- file.path(getwd(), zipfile)
