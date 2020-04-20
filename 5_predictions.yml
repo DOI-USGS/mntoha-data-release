@@ -59,7 +59,7 @@ targets:
     command: write_csv(pgdl_site_ids_grouped, target_name)
 
   pgdl_model_dir:
-    command: c(I('../lake-temperature-neural-networks/2_model/out/200316_runs'))
+    command: c(I('../lake-temperature-neural-networks/2_model/out'))
 
   pgdl_pretrain_predictions_df:
     command: build_pgdl_predict_df(
