@@ -38,9 +38,9 @@ targets:
     command: extract_pb0_ids(model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')
 
   pgdl_lake_ids:
-    command: extract_pgdl_ids(results_dir = I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
+    command: extract_pgdl_ids(results_dir = I('../lake-temperature-neural-networks/2_model/out'),
       pattern = I('^nhdhr_.*$'),
-      dummy = I('2020-03-17'))
+      dummy = I('2020-04-20'))
 
   spatial_groups:
     command: generate_group_rects()

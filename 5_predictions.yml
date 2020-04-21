@@ -15,7 +15,7 @@ packages:
   - stringr
   - glmtools
   - sf
-
+  - reticulate
 
 sources:
   - src/file_utils.R
