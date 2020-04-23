@@ -331,6 +331,7 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
 
     setwd(tempdir())
 
+    Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
     zip(zippath, files = these_files$out_file)
     unlink(these_files$out_file)
     setwd(cd)
