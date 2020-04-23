@@ -327,11 +327,7 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     if (file.exists(zippath)){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
-    for (i in 1:nrow(these_files)){
-      filein <- these_files$source_filepath[i]
-      fileout <- file.path(tempdir(), these_files$out_file[i])
-      file.copy(filein, fileout, overwrite=TRUE)
-    }
+    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
 
     setwd(tempdir())
 
