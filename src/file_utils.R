@@ -225,32 +225,18 @@ export_pb_df <- function(site_ids, model_out_ind, exp_prefix, exp_suffix){
 }
 
 
-build_pgdl_predict_df <- function(
-  pgdl_config_file = 'out_data/pgdl_config.csv',
-  model_dir='../lake-temperature-neural-networks/2_model/out/200316_runs',
-  phase = 'finetune',
-  prefix='pgdl', suffix='temperatures', dummy){
-
-  readr::read_csv(pgdl_config_file) %>%
-    filter(phase==!!phase, goal=='predict') %>%
-    mutate(
-      source_filepath = file.path(model_dir, save_path, 'preds.npz'),
-      source_hash = tools::md5sum(source_filepath),
-      out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
-    select(site_id, source_filepath, source_hash, out_file)
-}
-
-build_pgdl_test_df <- function(
-  pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
+build_pgdl_df <- function(
+  pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
+  goal = c('uncertainty', 'predict'),
   prefix='pgdl', suffix='test_temperatures', dummy){
 
-  test_info <- yaml::read_yaml(pgdl_test_ind)
+  preds_info <- yaml::read_yaml(pgdl_preds_ind)
   tibble(
-    source_hash = unname(unlist(test_info)),
-    source_filepath = file.path('../lake-temperature-neural-networks', names(test_info))
+    source_hash = unname(unlist(preds_info)),
+    source_filepath = file.path('../lake-temperature-neural-networks', names(preds_info))
   ) %>%
-    filter(grepl('pgdl_test_preds.csv', source_filepath)) %>%
-    extract(source_filepath, 'site_id', regex='.*(nhdhr_.*)/pgdl_test_.*\\.csv', remove=FALSE) %>%
+    filter(grepl('pgdl_.*_preds.csv', source_filepath)) %>% # exclude pgdl_test_dates.csv files
+    extract(source_filepath, 'site_id', regex='.*(nhdhr_.*)/pgdl_.*_preds\\.csv', remove=FALSE) %>%
     mutate(out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
     select(site_id, source_filepath, source_hash, out_file)
 }

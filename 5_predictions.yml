@@ -15,7 +15,6 @@ packages:
   - stringr
   - glmtools
   - sf
-  - reticulate
 
 sources:
   - src/file_utils.R
@@ -62,34 +61,30 @@ targets:
     command: c(I('../lake-temperature-neural-networks/2_model/out'))
 
   pgdl_pretrain_predictions_df:
-    command: build_pgdl_predict_df(
-      pgdl_config_file = 'out_data/pgdl_config.csv',
-      model_dir = pgdl_model_dir,
-      phase = I('pretrain'),
-      prefix = I('pgdl'), suffix = I('temperatures'),
-      dummy = I('2020-03-17'))
+    command: build_pgdl_df(
+      pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_pretrain.ind',
+      prefix = I('pgdl'), suffix = I('pretrain_temperatures'),
+      dummy = I('2020-04-23'))
 
   tmp/5_pgdl_pretrain_predictions_zips.yml:
     command: zip_pgdl_prediction_groups(target_name, pgdl_pretrain_predictions_df,
       site_groups = pgdl_site_ids_grouped, phase = I('pretrain'))
 
   pgdl_predictions_df:
-    command: build_pgdl_predict_df(
-      pgdl_config_file = 'out_data/pgdl_config.csv',
-      model_dir = pgdl_model_dir,
-      phase = I('finetune'),
+    command: build_pgdl_df(
+      pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_final.ind',
       prefix = I('pgdl'), suffix = I('temperatures'),
-      dummy = I('2020-03-17'))
+      dummy = I('2020-04-23'))
 
   out/5_pgdl_predictions_zips.yml:
     command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,
       site_groups = pgdl_site_ids_grouped, phase = I('finetune'))
 
   pgdl_test_predictions_df:
-    command: build_pgdl_test_df(
+    command: build_pgdl_df(
       pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
       prefix = I('pgdl'), suffix = I('test_temperatures'),
-      dummy = I('2020-04-01'))
+      dummy = I('2020-04-23'))
 
   out/5_pgdl_test_predictions_zips.yml:
     command: zip_pgdl_test_groups(target_name, pgdl_test_predictions_df,
