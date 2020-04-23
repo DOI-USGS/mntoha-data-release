@@ -362,6 +362,7 @@ zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
     setwd(tempdir())
+    Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
     zip(zippath, files = these_files$out_file)
     setwd(cd)
 

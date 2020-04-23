@@ -39,6 +39,8 @@ Results can now be packaged and posted using this repo (but run `mkdir log`, `mk
 Rscript -e "library(scipiper); scmake('out_data/pgdl_config.csv', force=TRUE)" > log/pgdl_config.out 2>&1
 nohup Rscript -e "library(scipiper); scmake('tmp/5_pgdl_pretrain_predictions_zips.yml', force=TRUE)" > log/5_pgdl_pretrain_predictions_zips.out 2>&1 &
 nohup Rscript -e "library(scipiper); scmake('out/5_pgdl_predictions_zips.yml', force=TRUE)" > log/5_pgdl_predictions_zips.out 2>&1 &
+nohup Rscript -e "library(scipiper); scmake('out/5_pgdl_test_predictions_zips.yml', force=TRUE)" > log/5_pgdl_test_predictions_zips.out 2>&1 &
+
 ```
 
 ### Tallgrass configuration for PGDL outputs
