@@ -34,10 +34,11 @@ targets:
       - 00_parent_sb_xml
       - 01_spatial_sb_xml
       - 01_spatial_sb_data
-      - 03_config_sb_xml
-      - 03_config_sb_data
       - 02_observations_sb_data
       - 02_observations_sb_xml
+      - 03_config_sb_xml
+      - 03_config_sb_data
+      - 03_config_sb_data_pgdl
       - 04_inputs_sb_xml
       - 04_inputs_sb_meteo
       - 04_inputs_sb_image
@@ -47,9 +48,10 @@ targets:
       - 05_predictions_sb_image
       - 05_predictions_sb_pb0
       - 05_predictions_sb_irr
-      #- 05_predictions_sb_pgdl
+      - 05_predictions_sb_pgdl
       - 06_evaluation_sb_xml
       - 06_evaluation_sb_data
+      - 06_evaluation_sb_data_pgdl
       - 07_habitat_sb_xml
       - 07_habitat_sb_data
 
