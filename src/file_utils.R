@@ -227,7 +227,6 @@ export_pb_df <- function(site_ids, model_out_ind, exp_prefix, exp_suffix){
 
 build_pgdl_df <- function(
   pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
-  goal = c('uncertainty', 'predict'),
   prefix='pgdl', suffix='test_temperatures', dummy){
 
   preds_info <- yaml::read_yaml(pgdl_preds_ind)

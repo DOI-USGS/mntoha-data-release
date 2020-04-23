@@ -38,9 +38,9 @@ and these targets should be built in `lake-temperature-model-prep` (I recommend 
 Results can now be packaged and posted using this repo (but run `mkdir log`, `mkdir out_data`, `mkdir out`, and `mkdir tmp` first if needed). These targets take <2.5 minutes apiece.
 ```sh
 Rscript -e "library(scipiper); scmake('out_data/pgdl_config.csv', force=TRUE)" > log/pgdl_config.out 2>&1
-nohup Rscript -e "library(scipiper); scmake('tmp/5_pgdl_pretrain_predictions_zips.yml', force=TRUE)" > log/5_pgdl_pretrain_predictions_zips.out 2>&1 &
-nohup Rscript -e "library(scipiper); scmake('out/5_pgdl_predictions_zips.yml', force=TRUE)" > log/5_pgdl_predictions_zips.out 2>&1 &
-nohup Rscript -e "library(scipiper); scmake('out/5_pgdl_test_predictions_zips.yml', force=TRUE)" > log/5_pgdl_test_predictions_zips.out 2>&1 &
+nohup Rscript -e "library(scipiper); scmake('tmp/5_pgdl_pretrain_predictions_zips.yml')" > log/5_pgdl_pretrain_predictions_zips.out 2>&1 &
+nohup Rscript -e "library(scipiper); scmake('out/5_pgdl_predictions_zips.yml')" > log/5_pgdl_predictions_zips.out 2>&1 &
+nohup Rscript -e "library(scipiper); scmake('out/5_pgdl_test_predictions_zips.yml')" > log/5_pgdl_test_predictions_zips.out 2>&1 &
 ```
 
 Then evaluate results like so, in R. (I tried running `R_ZIPCMD=$(which zip)` before launching an Rscript command, but that didn't seem to be effective; `Sys.setenv` does the trick, though.)

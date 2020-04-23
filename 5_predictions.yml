@@ -62,7 +62,7 @@ targets:
 
   pgdl_pretrain_predictions_df:
     command: build_pgdl_df(
-      pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_pretrain.ind',
+      pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_pretrain.ind',
       prefix = I('pgdl'), suffix = I('pretrain_temperatures'),
       dummy = I('2020-04-23'))
 
@@ -72,7 +72,7 @@ targets:
 
   pgdl_predictions_df:
     command: build_pgdl_df(
-      pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_final.ind',
+      pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_final.ind',
       prefix = I('pgdl'), suffix = I('temperatures'),
       dummy = I('2020-04-23'))
 
@@ -82,7 +82,7 @@ targets:
 
   pgdl_test_predictions_df:
     command: build_pgdl_df(
-      pgdl_test_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
+      pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
       prefix = I('pgdl'), suffix = I('test_temperatures'),
       dummy = I('2020-04-23'))
 
