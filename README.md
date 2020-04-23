@@ -24,12 +24,18 @@ These targets should be built in the `lake-temperature-neural-networks` project:
 ```
 2_model/log/pgdl_outputs.ind # or otherwise be sure the batch is complete
 3_assess/out/posthoc_config.csv
+3_assess/log/preds_pretrain.ind
 3_assess/log/preds_holdout.ind
+3_assess/log/preds_final.ind
 ```
-Results can now be packaged and posted using this repo (`mkdir log`, `mkdir out_data`, `mkdir out`, and `mkdir tmp` if needed)
+and these targets should be built in `lake-temperature-model-prep`:
+```
+1_crosswalk_fetch/out/canonical_lakes_sf.rds
+```
+(see the READMEs in those repos for instructions on how to create and use a conda environment to build the above targets.)
+
+Results can now be packaged and posted using this repo (but run `mkdir log`, `mkdir out_data`, `mkdir out`, and `mkdir tmp` first if needed)
 ```sh
-module load netcdf/gcc/64/4.6.1
-source activate mntoha_release
 Rscript -e "library(scipiper); scmake('out_data/pgdl_config.csv', force=TRUE)" > log/pgdl_config.out 2>&1
 nohup Rscript -e "library(scipiper); scmake('tmp/5_pgdl_pretrain_predictions_zips.yml', force=TRUE)" > log/5_pgdl_pretrain_predictions_zips.out 2>&1 &
 nohup Rscript -e "library(scipiper); scmake('out/5_pgdl_predictions_zips.yml', force=TRUE)" > log/5_pgdl_predictions_zips.out 2>&1 &
