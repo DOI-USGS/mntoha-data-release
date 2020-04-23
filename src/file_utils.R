@@ -317,7 +317,6 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
   cd <- getwd()
   on.exit(setwd(cd))
 
-  np <- reticulate::import('numpy')
   groups <- rev(sort(unique(model_npzs$group_id)))
   data_files <- c()
   for (group in groups){
@@ -331,15 +330,7 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     for (i in 1:nrow(these_files)){
       filein <- these_files$source_filepath[i]
       fileout <- file.path(tempdir(), these_files$out_file[i])
-
-      preds_list <- np$load(filein)
-      preds_list$f$preds_best %>%
-        as_tibble(.name_repair='minimal') %>%
-        setNames(preds_list$f$pred_dates) %>%
-        mutate(depth = sprintf('temp_%g', preds_list$f$depths) %>% ordered(., levels=.)) %>%
-        tidyr::gather(date, temp_C, -depth) %>%
-        tidyr::spread(depth, temp_C) %>%
-        write_csv(path = fileout)
+      file.copy(filein, fileout, overwrite=TRUE)
     }
 
     setwd(tempdir())
