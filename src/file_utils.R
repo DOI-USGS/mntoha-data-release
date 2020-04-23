@@ -58,11 +58,12 @@ xwalk_meteo_lat_lon <- function(meteo_fl, meteo_dir, ldas_grid){
 
 }
 
-create_metadata_file <- function(fileout, sites, table, lakes_sf, lat_lon_fl, nml_json_fl, meteo_fl_info, gnis_names_fl){
+create_metadata_file <- function(fileout, sites, table, lakes_sf, lat_lon_fl, nml_json_fl, benthic_area_fl, meteo_fl_info, gnis_names_fl){
   sdf <- sf::st_transform(lakes_sf, 2811) %>%
     mutate(perim = lwgeom::st_perimeter_2d(Shape), area = sf::st_area(Shape), circle_perim = 2*pi*sqrt(area/pi), SDF = perim/circle_perim) %>%
     sf::st_drop_geometry() %>% select(site_id, SDF)
 
+  benthic_area <- read_csv(benthic_area_fl)
   nml_list <- RJSONIO::fromJSON(nml_json_fl)
 
   basic_info <- purrr::map(names(nml_list), function(x){
@@ -75,6 +76,7 @@ create_metadata_file <- function(fileout, sites, table, lakes_sf, lat_lon_fl, nm
   sites %>% inner_join((readRDS(lat_lon_fl)), by = 'site_id') %>%
     inner_join(sdf, by = 'site_id') %>%
     inner_join(basic_info, by = 'site_id') %>%
+    inner_join(benthic_area, by = 'site_id') %>%
     rename(centroid_lon = longitude, centroid_lat = latitude) %>%
     inner_join(table, by = 'site_id') %>%
     inner_join(meteo_fl_info, by = 'site_id') %>% select(-pipeline_fl) %>%

@@ -80,6 +80,7 @@ targets:
       sites = site_ids_grouped,
       county_state_overlaps,
       lakes_sf = modeled_lakes_sf,
+      benthic_area_fl = '../lake-temperature-out/3_summarize/out/total_benthic_areas.csv',
       lat_lon_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_lat_lon_values.rds',
       nml_json_fl = 'out_data/pb0_config.json',
       meteo_fl_info = xwalk_meteo_fl_names,

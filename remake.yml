@@ -53,7 +53,8 @@ targets:
       - 06_evaluation_sb_data
       - 06_evaluation_sb_data_pgdl
       - 07_habitat_sb_xml
-      - 07_habitat_sb_data
+      - 07_habitat_sb_pb0
+      - 07_habitat_sb_pgdl
 
 
 # in case you want to mess w/ the xml alone:
@@ -170,10 +171,13 @@ targets:
       "in_text/text_07_habitat.yml",
       spatial_metadata)
 
-  07_habitat_sb_data:
+  07_habitat_sb_pgdl:
     command: sb_replace_files(sb_id_07_habitat,
-      file_hash = "out/7_toha_zips.yml")
+      file_hash = "out/7_pgdl_toha_zips.yml")
 
+  07_habitat_sb_pb0:
+    command: sb_replace_files(sb_id_07_habitat,
+      file_hash = "out/7_pb0_toha_zips.yml")
   # ------ SB IDs --------
 
 
