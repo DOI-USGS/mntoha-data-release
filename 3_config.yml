@@ -57,4 +57,4 @@ targets:
       outfile = target_name,
       fits_df = pgdl_fits_df,
       site_groups = pgdl_site_ids_grouped,
-      phase = I('finetune')))
+      phase = I('finetune'))
