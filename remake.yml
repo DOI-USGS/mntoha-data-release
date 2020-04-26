@@ -112,7 +112,7 @@ targets:
 
   03_config_sb_image:
     command: sb_replace_files(sbid_03_config,
-      'out_data/fit_lakes.png')
+      'out_data/pgdl_fit_lakes.png')
 
   04_inputs_sb_xml:
     command: sb_render_post_xml(sbid_04_inputs,
