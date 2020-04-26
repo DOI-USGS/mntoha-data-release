@@ -110,6 +110,10 @@ targets:
     command: sb_replace_files(sbid_03_config,
       file_hash = "out_data/pgdl_fit_zips.yml")
 
+  03_config_sb_image:
+    command: sb_replace_files(sbid_03_config,
+      'out_data/fit_lakes.png')
+
   04_inputs_sb_xml:
     command: sb_render_post_xml(sbid_04_inputs,
       "in_text/text_SHARED.yml",
