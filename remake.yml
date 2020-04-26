@@ -106,6 +106,10 @@ targets:
     command: sb_replace_files(sbid_03_config,
       "out_data/pgdl_config.csv")
 
+  03_config_sb_fits_pgdl:
+    command: sb_replace_files(sbid_03_config,
+      file_hash = "out/5_pgdl_predictions_zips.yml")
+
   04_inputs_sb_xml:
     command: sb_render_post_xml(sbid_04_inputs,
       "in_text/text_SHARED.yml",
