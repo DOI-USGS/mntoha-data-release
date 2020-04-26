@@ -295,6 +295,69 @@ zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
 
 }
 
+build_pgdl_fits_df <- function(
+  orig_cfg_file='../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv', orig_col_types,
+  phase = 'finetune', goal = 'predict',
+  dummy){
+
+  readr::read_csv(orig_cfg_file, col_types=orig_col_types) %>%
+    filter(phase == !!phase, goal == !!goal) %>%
+    mutate(
+      source_dirpath = file.path('../lake-temperature-neural-networks', model_save_path)
+    ) %>%
+    select(site_id, source_dirpath) %>%
+    mutate(out_dirpath = site_id) %>%
+    select(site_id, source_dirpath, out_dirpath)
+}
+
+zip_pgdl_fit_groups <- function(outfile, fits_df, site_groups, phase){
+
+  grouped_fits <- inner_join(fits_df, site_groups, by = 'site_id') %>%
+    select(-site_id)
+
+  cd <- getwd()
+  on.exit(setwd(cd))
+
+  np <- reticulate::import('numpy')
+  groups <- rev(sort(unique(grouped_fits$group_id)))
+  data_files <- c()
+  for (group in groups){
+    zipfile <- sprintf('tmp/pgdl_%sfits_%s.zip', ifelse(phase=='pretrain', 'pretrain_', ''), group)
+    these_files <- grouped_fits %>% filter(group_id == !!group)
+
+    # prepare the zipfile destination
+    zippath <- file.path(getwd(), zipfile)
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
+
+    # prepare the model files to zip
+    purrr::pmap(these_files, function(source_dirpath, out_dirpath, group_id) {
+      tmpoutdir <- file.path(tempdir(), out_dirpath)
+      if(file.exists(tmpoutdir)) unlink(tmpoutdir)
+      dir.create(tmpoutdir)
+
+      model_files <- dir(source_dirpath, pattern = 'model\\..*', full.names = TRUE)
+      file.copy(model_files, file.path(tmpoutdir, basename(model_files)))
+
+      stats <- np$load(file.path(source_dirpath, 'stats.npz'), allow_pickle=TRUE)
+      graph_config <- stats$f['graph_config'][[1]]
+      np$savez(file.path(tmpoutdir, 'model_config.npz'), graph_config=graph_config)
+
+      return()
+    })
+
+    # zip the files
+    setwd(tempdir())
+    Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
+    zip(zippath, files = these_files$out_dirpath)
+    unlink(these_files$out_dirpath)
+    setwd(cd)
+    data_files <- c(data_files, zipfile)
+  }
+  scipiper::sc_indicate(outfile, data_file = data_files)
+}
+
 
 zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
 

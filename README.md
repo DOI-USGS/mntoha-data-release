@@ -7,7 +7,7 @@ Though we don't strictly adhere to these divisions, here's the general idea for 
 
 * `out` contains git-committable yml or ind files that describe the existence of data files
 * `out_data` contains data files that are directly posted to SB as-is
-* `tmp` contains data files that we should be able to delete to save space without disrupting much pipeline progress
+* `tmp` contains data files that we should be able to delete to save space without disrupting much pipeline progress. These may also be posted to SB as-is
 
 ## PGDL outputs
 
@@ -48,11 +48,11 @@ Then evaluate results like so, in R. (I tried running `R_ZIPCMD=$(which zip)` be
 nohup Rscript -e "library(scipiper); Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)); scmake('out_data/pgdl_evaluation.csv')" > log/6_pgdl_evaluation.out 2>&1 &
 ```
 
-Then post results with these commands:
+Then post results in an interactive R session (to login to SB) with these commands:
 ```R
 R
 library(scipiper)
-sbtools::authenticate_sb()
+sbtools::authenticate_sb('cidamanager')
 scmake('03_config_sb_data_pgdl')
 scmake('05_predictions_sb_pgdl')
 scmake('06_evaluation_sb_data_pgdl')

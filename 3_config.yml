@@ -9,7 +9,7 @@ packages:
   - readr
   - stringr
   - glmtools
-
+  - reticulate
 
 sources:
   - src/spatial_utils.R
@@ -42,6 +42,19 @@ targets:
   out_data/pgdl_config.csv:
     command: simplify_pgdl_configs(
       target_name,
-      orig_cfg_file='../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
-      orig_col_types=I('cccicccdiddddiiiiilccccccil'))
+      orig_cfg_file = '../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
+      orig_col_types = I('cccicccdiddddiiiiilccccccil'))
 
+  pgdl_fits_df:
+    command: build_pgdl_fits_df(
+      orig_cfg_file = '../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
+      orig_col_types = I('cccicccdiddddiiiiilccccccil'),
+      phase = I('finetune'), goal = I('predict'),
+      dummy = I('2020-04-23'))
+
+  out_data/pgdl_fit_zips.yml:
+    command: zip_pgdl_fit_groups(
+      outfile = target_name,
+      fits_df = pgdl_fits_df,
+      site_groups = pgdl_site_ids_grouped,
+      phase = I('finetune')))
