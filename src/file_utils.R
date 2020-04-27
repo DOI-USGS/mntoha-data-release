@@ -21,26 +21,17 @@ extract_pgdl_ids <- function(results_dir, pattern, dummy) {
   dir(results_dir, pattern)
 }
 
-bundle_pgdl_configs <- function(out_file, runs_dir, col_types='cccicccdiddddiiiiilcccccci') {
-  # get a list of runs assuming that all runs are nested just within folders
-  # named by site_id, all within a single runs_dir
-  site_ids <- dir(runs_dir, pattern='nhdhr*')
-  run_paths <- dir(file.path(runs_dir, site_ids), full.names=TRUE)
-
-  configs_all <- lapply(run_paths, function(run_path) {
-    run_complete <- all(file.exists(file.path(run_path, c('model_config.tsv'))))
-    if(!run_complete) return(NULL)
-    readr::read_tsv(file.path(run_path, 'model_config.tsv'), col_types=col_types)
-  }) %>% bind_rows() %>%
-    arrange(row) %>%
+simplify_pgdl_configs <- function(out_file, orig_cfg_file, orig_col_types) {
+  readr::read_csv(orig_cfg_file, col_types=orig_col_types) %>%
+    mutate(
+      restore_path = gsub('2_model/out/', '', model_restore_path),
+      save_path = gsub('2_model/out/', '', model_save_path)) %>%
     select(
-      row, site_id, phase, goal, fold, learning_rate, n_epochs,
+      site_id, phase, goal, fold, learning_rate, n_epochs,
       state_size, ec_threshold, dd_lambda, ec_lambda, l1_lambda,
       sequence_length, sequence_offset, max_batch_obs,
-      inputs_fixed_file, inputs_prep_file, inputs_varied_file,
-      model_restore_path, model_save_path)
-
-  write_csv(configs_all, out_file)
+      restore_path, save_path) %>%
+    write_csv(out_file)
 }
 
 create_release_fl <- function(geometry){
@@ -234,19 +225,20 @@ export_pb_df <- function(site_ids, model_out_ind, exp_prefix, exp_suffix){
 }
 
 
-build_pgdl_predict_df <- function(
-  pgdl_config_file = 'out_data/pgdl_config.csv',
-  model_dir='../lake-temperature-neural-networks/2_model/out/200316_runs',
-  prefix='pgdl', suffix='temperatures', dummy){
+build_pgdl_df <- function(
+  pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
+  prefix='pgdl', suffix='test_temperatures', dummy){
 
-  readr::read_csv(pgdl_config_file) %>%
-    filter(phase=='finetune', goal=='predict') %>%
-    mutate(
-      source_filepath = file.path(gsub('2_model/out', model_dir, model_save_path), 'preds.npz'),
-      out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
-    select(site_id, source_filepath, out_file)
+  preds_info <- yaml::read_yaml(pgdl_preds_ind)
+  tibble(
+    source_hash = unname(unlist(preds_info)),
+    source_filepath = file.path('../lake-temperature-neural-networks', names(preds_info))
+  ) %>%
+    filter(grepl('pgdl_.*_preds.csv', source_filepath)) %>% # exclude pgdl_test_dates.csv files
+    extract(source_filepath, 'site_id', regex='.*(nhdhr_.*)/pgdl_.*_preds\\.csv', remove=FALSE) %>%
+    mutate(out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
+    select(site_id, source_filepath, source_hash, out_file)
 }
-
 
 zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
                                  export = c('ice_flags','pb0_predictions','clarity','irradiance'),
@@ -303,8 +295,71 @@ zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
 
 }
 
+build_pgdl_fits_df <- function(
+  orig_cfg_file='../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv', orig_col_types,
+  phase = 'finetune', goal = 'predict',
+  dummy){
 
-zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups){
+  readr::read_csv(orig_cfg_file, col_types=orig_col_types) %>%
+    filter(phase == !!phase, goal == !!goal) %>%
+    mutate(
+      source_dirpath = file.path('../lake-temperature-neural-networks', model_save_path)
+    ) %>%
+    select(site_id, source_dirpath) %>%
+    mutate(out_dirpath = site_id) %>%
+    select(site_id, source_dirpath, out_dirpath)
+}
+
+zip_pgdl_fit_groups <- function(outfile, fits_df, site_groups, phase){
+
+  grouped_fits <- inner_join(fits_df, site_groups, by = 'site_id') %>%
+    select(-site_id)
+
+  cd <- getwd()
+  on.exit(setwd(cd))
+
+  np <- reticulate::import('numpy')
+  groups <- rev(sort(unique(grouped_fits$group_id)))
+  data_files <- c()
+  for (group in groups){
+    zipfile <- sprintf('tmp/pgdl_%sfits_%s.zip', ifelse(phase=='pretrain', 'pretrain_', ''), group)
+    these_files <- grouped_fits %>% filter(group_id == !!group)
+
+    # prepare the zipfile destination
+    zippath <- file.path(getwd(), zipfile)
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
+
+    # prepare the model files to zip
+    purrr::pmap(these_files, function(source_dirpath, out_dirpath, group_id) {
+      tmpoutdir <- file.path(tempdir(), out_dirpath)
+      if(file.exists(tmpoutdir)) unlink(tmpoutdir)
+      dir.create(tmpoutdir)
+
+      model_files <- dir(source_dirpath, pattern = 'model\\..*', full.names = TRUE)
+      file.copy(model_files, file.path(tmpoutdir, basename(model_files)))
+
+      stats <- np$load(file.path(source_dirpath, 'stats.npz'), allow_pickle=TRUE)
+      graph_config <- stats$f['graph_config'][[1]]
+      np$savez(file.path(tmpoutdir, 'model_config.npz'), graph_config=graph_config)
+
+      return()
+    })
+
+    # zip the files
+    setwd(tempdir())
+    Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
+    zip(zippath, files = these_files$out_dirpath)
+    unlink(these_files$out_dirpath)
+    setwd(cd)
+    data_files <- c(data_files, zipfile)
+  }
+  scipiper::sc_indicate(outfile, data_file = data_files)
+}
+
+
+zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
 
   model_npzs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
     select(-site_id)
@@ -312,36 +367,56 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups){
   cd <- getwd()
   on.exit(setwd(cd))
 
-  np <- reticulate::import('numpy')
   groups <- rev(sort(unique(model_npzs$group_id)))
   data_files <- c()
   for (group in groups){
-    zipfile <- paste0('tmp/pgdl_predictions_', group, '.zip')
+    zipfile <- sprintf('tmp/pgdl_%spredictions_%s.zip', ifelse(phase=='pretrain', 'pretrain_', ''), group)
     these_files <- model_npzs %>% filter(group_id == !!group)
 
     zippath <- file.path(getwd(), zipfile)
     if (file.exists(zippath)){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
-    for (i in 1:nrow(these_files)){
-      filein <- these_files$source_filepath[i]
-      fileout <- file.path(tempdir(), these_files$out_file[i])
-
-      preds_list <- np$load(filein)
-      preds_list$f$preds_best %>%
-        as_tibble(.name_repair='minimal') %>%
-        setNames(preds_list$f$pred_dates) %>%
-        mutate(depth = sprintf('temp_%g', preds_list$f$depths) %>% ordered(., levels=.)) %>%
-        tidyr::gather(date, temp_C, -depth) %>%
-        tidyr::spread(depth, temp_C) %>%
-        write_csv(path = fileout)
-    }
+    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
 
     setwd(tempdir())
 
+    Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
     zip(zippath, files = these_files$out_file)
     unlink(these_files$out_file)
     setwd(cd)
+    data_files <- c(data_files, zipfile)
+  }
+  scipiper::sc_indicate(outfile, data_file = data_files)
+}
+
+zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
+
+  model_csvs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
+    select(-site_id)
+
+  cd <- getwd()
+  on.exit(setwd(cd))
+
+  groups <- rev(sort(unique(model_csvs$group_id)))
+  data_files <- c()
+  for (group in groups){
+    zipfile <- paste0('tmp/pgdl_test_predictions_', group, '.zip')
+    these_files <- model_csvs %>% filter(group_id == !!group)
+
+    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file))
+
+    # zip the files
+    zippath <- file.path(getwd(), zipfile)
+    if (file.exists(zippath)){
+      unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
+    }
+    setwd(tempdir())
+    Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
+    zip(zippath, files = these_files$out_file)
+    setwd(cd)
+
+    # make note of the files
     data_files <- c(data_files, zipfile)
   }
   scipiper::sc_indicate(outfile, data_file = data_files)
@@ -369,6 +444,12 @@ zip_this <- function(outfile, .object){
   } else {
     stop("don't know how to zip ", .object)
   }
+}
+
+unzip_to_tibble <- function(zipfile, ...) {
+  file_to_unzip <- unzip(zipfile, list =TRUE) %>% pull(Name)
+  unzip(zipfile, exdir=tempdir(), files=file_to_unzip)
+  readr::read_csv(file.path(tempdir(), file_to_unzip), ...)
 }
 
 zip_filter_obs <- function(outfile, in_file){

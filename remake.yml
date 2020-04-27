@@ -34,10 +34,11 @@ targets:
       - 00_parent_sb_xml
       - 01_spatial_sb_xml
       - 01_spatial_sb_data
-      - 03_config_sb_xml
-      - 03_config_sb_data
       - 02_observations_sb_data
       - 02_observations_sb_xml
+      - 03_config_sb_xml
+      - 03_config_sb_data
+      - 03_config_sb_data_pgdl
       - 04_inputs_sb_xml
       - 04_inputs_sb_meteo
       - 04_inputs_sb_image
@@ -47,9 +48,10 @@ targets:
       - 05_predictions_sb_image
       - 05_predictions_sb_pb0
       - 05_predictions_sb_irr
-      #- 05_predictions_sb_pgdl
+      - 05_predictions_sb_pgdl
       - 06_evaluation_sb_xml
       - 06_evaluation_sb_data
+      - 06_evaluation_sb_data_pgdl
       - 07_habitat_sb_xml
       - 07_habitat_sb_pb0
       - 07_habitat_sb_pgdl
@@ -104,6 +106,14 @@ targets:
     command: sb_replace_files(sbid_03_config,
       "out_data/pgdl_config.csv")
 
+  03_config_sb_fits_pgdl:
+    command: sb_replace_files(sbid_03_config,
+      file_hash = "out_data/pgdl_fit_zips.yml")
+
+  03_config_sb_image:
+    command: sb_replace_files(sbid_03_config,
+      'out_data/pgdl_fit_lakes.png')
+
   04_inputs_sb_xml:
     command: sb_render_post_xml(sbid_04_inputs,
       "in_text/text_SHARED.yml",
@@ -157,6 +167,11 @@ targets:
     command: sb_replace_files(sb_id_06_evaluation,
       "out_data/pb0_matched_to_observations.zip",
       "out_data/pb0_evaluation.csv")
+
+  06_evaluation_sb_data_pgdl:
+    command: sb_replace_files(sb_id_06_evaluation,
+      "out_data/pgdl_matched_to_observations.zip",
+      "out_data/pgdl_evaluation.csv")
 
   07_habitat_sb_xml:
     command: sb_render_post_xml(sb_id_07_habitat,
