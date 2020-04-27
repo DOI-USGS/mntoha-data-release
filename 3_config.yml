@@ -9,7 +9,7 @@ packages:
   - readr
   - stringr
   - glmtools
-
+  - reticulate
 
 sources:
   - src/spatial_utils.R
@@ -40,8 +40,26 @@ targets:
       'out_data/pb0_config.json')
 
   out_data/pgdl_config.csv:
-    command: bundle_pgdl_configs(
+    command: simplify_pgdl_configs(
       target_name,
-      runs_dir=I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
-      col_types=I('cccicccdiddddiiiiilcccccci'))
+      orig_cfg_file = '../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
+      orig_col_types = I('cccicccdiddddiiiiilccccccil'))
 
+  pgdl_fits_df:
+    command: build_pgdl_fits_df(
+      orig_cfg_file = '../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
+      orig_col_types = I('cccicccdiddddiiiiilccccccil'),
+      phase = I('finetune'), goal = I('predict'))
+
+  out_data/pgdl_fit_zips.yml:
+    command: zip_pgdl_fit_groups(
+      outfile = target_name,
+      fits_df = pgdl_fits_df,
+      site_groups = pgdl_site_ids_grouped,
+      phase = I('finetune'))
+
+  out_data/pgdl_fit_lakes.png:
+    command: plot_grouped_lakes_preview(target_name,
+      spatial_groups, pgdl_site_ids_grouped,
+      county_bounds = us_counties_sf,
+      lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds")

@@ -16,7 +16,6 @@ packages:
   - glmtools
   - sf
 
-
 sources:
   - src/file_utils.R
   - src/spatial_utils.R
@@ -39,13 +38,6 @@ targets:
       exp_prefix = I('pb0'), exp_suffix = I('irradiance'),
       model_out_ind = '../lake-temperature-process-models/3_run/out/toha_tasks.rds.ind')
 
-  pgdl_predictions_df:
-    command: build_pgdl_predict_df(
-      pgdl_config_file = 'out_data/pgdl_config.csv',
-      model_dir = I('../lake-temperature-neural-networks/2_model/out/200316_runs'),
-      prefix = I('pgdl'), suffix = I('temperatures'),
-      dummy = I('2020-03-17'))
-
   out/5_predictions_zips.yml:
     command: zip_pb_export_groups(target_name,
       file_info_df = pb_predictions_df,
@@ -62,8 +54,37 @@ targets:
       export_stop = export_stop,
       export = I('irradiance'))
 
+  tmp/pgdl_site_groups.csv:
+    command: write_csv(pgdl_site_ids_grouped, target_name)
+
+  pgdl_model_dir:
+    command: c(I('../lake-temperature-neural-networks/2_model/out'))
+
+  pgdl_pretrain_predictions_df:
+    command: build_pgdl_df(
+      pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_pretrain.ind',
+      prefix = I('pgdl'), suffix = I('pretrain_temperatures'))
+
+  tmp/5_pgdl_pretrain_predictions_zips.yml:
+    command: zip_pgdl_prediction_groups(target_name, pgdl_pretrain_predictions_df,
+      site_groups = pgdl_site_ids_grouped, phase = I('pretrain'))
+
+  pgdl_predictions_df:
+    command: build_pgdl_df(
+      pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_final.ind',
+      prefix = I('pgdl'), suffix = I('temperatures'))
+
   out/5_pgdl_predictions_zips.yml:
     command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,
+      site_groups = pgdl_site_ids_grouped, phase = I('finetune'))
+
+  pgdl_test_predictions_df:
+    command: build_pgdl_df(
+      pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
+      prefix = I('pgdl'), suffix = I('test_temperatures'))
+
+  out/5_pgdl_test_predictions_zips.yml:
+    command: zip_pgdl_test_groups(target_name, pgdl_test_predictions_df,
       site_groups = pgdl_site_ids_grouped)
 
   out_data/predict_lakes.png:
@@ -71,5 +92,3 @@ targets:
       spatial_groups, site_ids_grouped,
       county_bounds = us_counties_sf,
       lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds")
-
-
