@@ -49,8 +49,7 @@ targets:
     command: build_pgdl_fits_df(
       orig_cfg_file = '../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
       orig_col_types = I('cccicccdiddddiiiiilccccccil'),
-      phase = I('finetune'), goal = I('predict'),
-      dummy = I('2020-04-23'))
+      phase = I('finetune'), goal = I('predict'))
 
   out_data/pgdl_fit_zips.yml:
     command: zip_pgdl_fit_groups(

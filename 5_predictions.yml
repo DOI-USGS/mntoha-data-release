@@ -63,8 +63,7 @@ targets:
   pgdl_pretrain_predictions_df:
     command: build_pgdl_df(
       pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_pretrain.ind',
-      prefix = I('pgdl'), suffix = I('pretrain_temperatures'),
-      dummy = I('2020-04-23'))
+      prefix = I('pgdl'), suffix = I('pretrain_temperatures'))
 
   tmp/5_pgdl_pretrain_predictions_zips.yml:
     command: zip_pgdl_prediction_groups(target_name, pgdl_pretrain_predictions_df,
@@ -73,8 +72,7 @@ targets:
   pgdl_predictions_df:
     command: build_pgdl_df(
       pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_final.ind',
-      prefix = I('pgdl'), suffix = I('temperatures'),
-      dummy = I('2020-04-23'))
+      prefix = I('pgdl'), suffix = I('temperatures'))
 
   out/5_pgdl_predictions_zips.yml:
     command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,
@@ -83,8 +81,7 @@ targets:
   pgdl_test_predictions_df:
     command: build_pgdl_df(
       pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
-      prefix = I('pgdl'), suffix = I('test_temperatures'),
-      dummy = I('2020-04-23'))
+      prefix = I('pgdl'), suffix = I('test_temperatures'))
 
   out/5_pgdl_test_predictions_zips.yml:
     command: zip_pgdl_test_groups(target_name, pgdl_test_predictions_df,
