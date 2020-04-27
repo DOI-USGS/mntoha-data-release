@@ -23,7 +23,7 @@ targets:
 
 
   export_start:
-    command: c(I('1980-04-01'))
+    command: c(I('1980-01-01'))
 
   export_stop:
     command: c(I('2018-12-31'))
