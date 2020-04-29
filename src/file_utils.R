@@ -216,12 +216,13 @@ zip_meteo_groups <- function(outfile, xwalk_meteo_fl_names, grouped_meteo_fls){
 #' @param exp_suffix suffix to the exported files (e.g., 'irradiance')
 export_pb_df <- function(site_ids, model_out_ind, exp_prefix, exp_suffix){
 
+  file_bits <- yaml.load_file(model_out_ind)
   model_proj_dir <- paste(str_split(model_out_ind, '/')[[1]][1:2], collapse = '/')
-  tibble(file = names(yaml.load_file(model_out_ind))) %>%
+  tibble(file = names(file_bits), hash = unlist(file_bits)) %>%
     split_pb_filenames() %>% filter(site_id %in% site_ids) %>%
     mutate(out_file = sprintf('%s_%s_%s.csv', exp_prefix, site_id, exp_suffix),
            source_filepath = file.path(model_proj_dir, file)) %>%
-    select(site_id, source_filepath, out_file)
+    select(site_id, source_filepath, out_file, hash)
 }
 
 
