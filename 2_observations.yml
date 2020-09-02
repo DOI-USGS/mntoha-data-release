@@ -26,7 +26,7 @@ targets:
   tmp/filtered_observations.rds:
     command: filter_feather_obs(target_name, site_ids = modeled_lake_ids,
       obs_start = export_start, obs_stop = export_stop,
-      obs_feather = '../lake-temperature-model-prep/7b_temp_merge/out/temp_data_with_sources.feather')
+      obs_feather = I('../lake-temperature-model-prep/7b_temp_merge/out/temp_data_with_sources.feather'))
 
   out_data/temperature_observations.zip:
     command: zip_filter_obs(target_name, 'tmp/filtered_observations.rds')

@@ -1,6 +1,6 @@
 
 split_pb_filenames <- function(files_df){
-  extract(files_df, file, c('prefix','site_id','suffix'), "(pb0|pball)_(.*)_(temperatures_irradiance.feather)", remove = FALSE)
+  extract(files_df, file, c('prefix','site_id','suffix'), "(pb0|pball)_(.*)_(temperatures_irradiance.feather|temperatures.feather)", remove = FALSE)
 }
 
 extract_pb0_ids <- function(model_out_ind){
@@ -274,7 +274,7 @@ zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
 
       model_data <- feather::read_feather(these_files$source_filepath[i]) %>%
         rename(kd = extc_coef_0) %>%
-        mutate(date = as.Date(lubridate::ceiling_date(time, 'days'))) %>%
+        mutate(date = as.Date(lubridate::floor_date(time, 'days'))) %>%
         filter(date >= export_start & date <= export_stop)
 
       switch(export,
