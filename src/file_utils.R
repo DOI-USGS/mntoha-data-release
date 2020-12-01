@@ -1,6 +1,6 @@
 
 split_pb_filenames <- function(files_df){
-  extract(files_df, file, c('prefix','site_id','suffix'), "(pb0|pball)_(.*)_(temperatures_irradiance.feather)", remove = FALSE)
+  extract(files_df, file, c('prefix','site_id','suffix'), "(pb0|pball)_(.*)_(temperatures_irradiance.feather|temperatures.feather)", remove = FALSE)
 }
 
 extract_pb0_ids <- function(model_out_ind){
@@ -216,12 +216,13 @@ zip_meteo_groups <- function(outfile, xwalk_meteo_fl_names, grouped_meteo_fls){
 #' @param exp_suffix suffix to the exported files (e.g., 'irradiance')
 export_pb_df <- function(site_ids, model_out_ind, exp_prefix, exp_suffix){
 
+  file_bits <- yaml.load_file(model_out_ind)
   model_proj_dir <- paste(str_split(model_out_ind, '/')[[1]][1:2], collapse = '/')
-  tibble(file = names(yaml.load_file(model_out_ind))) %>%
+  tibble(file = names(file_bits), hash = unlist(file_bits)) %>%
     split_pb_filenames() %>% filter(site_id %in% site_ids) %>%
     mutate(out_file = sprintf('%s_%s_%s.csv', exp_prefix, site_id, exp_suffix),
            source_filepath = file.path(model_proj_dir, file)) %>%
-    select(site_id, source_filepath, out_file)
+    select(site_id, source_filepath, out_file, hash)
 }
 
 
@@ -273,7 +274,7 @@ zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
 
       model_data <- feather::read_feather(these_files$source_filepath[i]) %>%
         rename(kd = extc_coef_0) %>%
-        mutate(date = as.Date(lubridate::ceiling_date(time, 'days'))) %>%
+        mutate(date = as.Date(lubridate::floor_date(time, 'days'))) %>%
         filter(date >= export_start & date <= export_stop)
 
       switch(export,

@@ -182,6 +182,6 @@ latitude-res: 0.1
 longitude-res: 0.1
 data-name: Model configuration details
 data-description: >-
-  Model configurations for running the General Lake Model (Hipsey et al. 2019) version 2 for each lake.
+  Model configurations for running the General Lake Model (Hipsey et al. 2019) version 3 for each lake.
   The value for "lake_name" in the "morphometry" field is the mapping for "site_id" for the other datasets included in this release.
 file-format: JSON (JavaScript Object Notation) formatted text file
