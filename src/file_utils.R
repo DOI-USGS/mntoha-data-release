@@ -434,14 +434,14 @@ zip_this <- function(outfile, .object){
 
   if ('data.frame' %in% class(.object)){
     filepath <- basename(outfile) %>% tools::file_path_sans_ext() %>% paste0('.csv') %>% file.path(tempdir(), .)
-    write_csv(.object, path = filepath)
+    write_csv(.object, file = filepath)
     zip_this(outfile = outfile, .object = filepath)
   } else if (class(.object) == 'character' & file.exists(.object)){
     # for multiple files?
     curdir <- getwd()
     on.exit(setwd(curdir))
     setwd(dirname(.object))
-    zip(file.path(curdir, outfile), files = basename(.object))
+    zip::zip(file.path(curdir, outfile), files = basename(.object))
   } else {
     stop("don't know how to zip ", .object)
   }
