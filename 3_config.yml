@@ -43,13 +43,13 @@ targets:
     command: simplify_pgdl_configs(
       target_name,
       orig_cfg_file = '../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
-      orig_col_types = I('cccicccdiddddiiiiilccccccil'))
+      orig_col_types = I('cccicccdiddddciiiiilccccccl')) # I('cccicccdiddddiiiiilccccccil')
 
   pgdl_fits_df:
     command: build_pgdl_fits_df(
       orig_cfg_file = '../lake-temperature-neural-networks/3_assess/out/posthoc_config.csv',
-      orig_col_types = I('cccicccdiddddiiiiilccccccil'),
-      phase = I('finetune'), goal = I('predict'))
+      orig_col_types = I('cccicccdiddddciiiiilccccccl'),
+      phase = I('finetune'), goal = I('predict')) # I('cccicccdiddddiiiiilccccccil')
 
   out_data/pgdl_fit_zips.yml:
     command: zip_pgdl_fit_groups(
