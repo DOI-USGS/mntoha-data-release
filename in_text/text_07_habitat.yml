@@ -37,6 +37,60 @@ process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
   two comma-delimited files and 26 compressed zip files
 
+entities:
+  -
+    data-name: {model}_toha_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: >-
+      A zip file containing a csv file for every lake within {group_id} with thermal optical habitat metrics using
+      predictions from the {model} predictions. Files within the zip are named "{model}_toha_{site_id}.csv". {model} is
+      either "pb0" for the uncalibrated Process-Based model outputs or "pgdl" for the Process-Guided Deep Learning model
+      outputs.
+    attributes:
+    -
+      attr-label: site_id
+      attr-def: >-
+        Lake identification number for this dataset. Is the Prmnn_I from NHD high-res prefixed with source, as "nhdhr_{Prmnn_I}"
+      attr-defs: >-
+        http://nhd.usgs.gov/
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: date
+      attr-def: Date of the temperature predictions
+      attr-defs: This data release
+      data-min: 1979-12-01
+      data-max: 2018-12-31
+      data-units: NA
+    -
+      attr-label: opti_hab
+      attr-def: >-
+        Daily optimal optical habitat area of benthos	for walleye; area of lake bottom where light intensity
+        is between 0.0762 W/m^2 and 0.6476 W/m^2.
+      attr-defs: Lester et al 2004
+      data-min: NA
+      data-max: NA
+      data-units: m^2
+    -
+      attr-label: therm_hab
+      attr-def: >-
+        Daily optimal thermal habitat area of benthos	for walleye; area of lake bottom where temperature
+        falls between 11 deg C and 25 deg C.
+      attr-defs: Lester et al 2004
+      data-min: 0
+      data-max: NA
+      data-units: m^2
+    -
+      attr-label: opti_therm_hab
+      attr-def: >-
+        Combined daily optimal thermal and optical habitat area of benthos for walleye; area of lake bottom where both
+        light intensity is between 0.0762 W/m^2 and 0.6476 W/m^2 AND temperature falls between 11 deg C and 25 deg C.
+      attr-defs: Lester et al 2004
+      data-min: 0
+      data-max: NA
+      data-units: m^2
+    # TODO: technically also have Z1 & Z2 for both opti and therm hab, but I am trying to remember - I think we were
+    # going to remove those for what we pushed to SB?
 purpose: Fisheries biology, limnological research, and climate science.
 start-date: 19800401
 end-date: 20191231
