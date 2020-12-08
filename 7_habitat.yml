@@ -6,6 +6,7 @@ include:
 packages:
   - dplyr
   - tidyr
+  - zip
 
 sources:
   - src/file_utils.R
