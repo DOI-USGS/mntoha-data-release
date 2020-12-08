@@ -8,6 +8,7 @@ packages:
   - dplyr
   - tidyr
   - ggplot2
+  - zip
 
 sources:
   - src/file_utils.R

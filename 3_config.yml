@@ -10,6 +10,7 @@ packages:
   - stringr
   - glmtools
   - reticulate
+  - zip
 
 sources:
   - src/spatial_utils.R
