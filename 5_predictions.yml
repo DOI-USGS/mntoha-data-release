@@ -24,9 +24,13 @@ sources:
 targets:
   5_predictions:
     depends:
-      - out/5_predictions_zips.yml
-      - out/5_irradiance_zips.yml
       - out_data/predict_lakes.png
+      - out/5_preds_hashes.yml
+
+  out/5_preds_hashes.yml:
+    command: combine_hash_files(target_name,
+      'out/5_predictions_zips.yml',
+      'out/5_irradiance_zips.yml')
 
   pb_predictions_df:
     command: export_pb_df(site_ids = modeled_lake_ids,

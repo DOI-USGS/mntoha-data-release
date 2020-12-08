@@ -31,154 +31,130 @@ sources:
 targets:
   all:
     depends:
-      - 00_parent_sb_xml
-      - 01_spatial_sb_xml
-      - 01_spatial_sb_data
-      - 02_observations_sb_data
-      - 02_observations_sb_xml
-      - 03_config_sb_xml
-      - 03_config_sb_data
-      - 03_config_sb_data_pgdl
-      - 04_inputs_sb_xml
-      - 04_inputs_sb_meteo
-      - 04_inputs_sb_image
-      - 04_inputs_sb_ice
-      - 04_inputs_sb_clarity
-      - 05_predictions_sb_xml
-      - 05_predictions_sb_image
-      - 05_predictions_sb_pb0
-      - 05_predictions_sb_irr
-      - 05_predictions_sb_pgdl
-      - 06_evaluation_sb_xml
-      - 06_evaluation_sb_data
-      - 06_evaluation_sb_data_pgdl
-      - 07_habitat_sb_xml
-      - 07_habitat_sb_pb0
-      - 07_habitat_sb_pgdl
+      - log/00_parent_sb.csv
+      - log/01_spatial_sb.csv
+      - log/02_observations_sb.csv
+      - log/03_configPB_sb.csv
+      #- log/03_configPGDL_sb.csv
+      - log/04_inputs_sb.csv
+      - log/05_predictionsPB_sb.csv
+      #- log/05_predictionsPGDL_sb.csv
+      - log/06_evaluationPB_sb.csv
+      #- log/06_evaluationPGDL_sb.csv
+      - out_xml/07_habitat.xml
+
 
 
 # in case you want to mess w/ the xml alone:
   out_xml/00_parent.xml:
     command: render(filename = target_name,
       "in_text/text_SHARED.yml",
-      "in_text/text_00_parent.yml")
-
-  00_parent_sb_xml:
-    command: sb_render_post_xml(sbid_00_parent,
-      "in_text/text_SHARED.yml",
       "in_text/text_00_parent.yml",
       spatial_metadata)
 
-  01_spatial_sb_xml:
-    command: sb_render_post_xml(sbid_01_spatial,
+  log/00_parent_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_00_parent,
+      "out_xml/00_parent.xml")
+
+  out_xml/01_spatial.xml:
+    command: render(filename = target_name,
       "in_text/text_SHARED.yml",
       "in_text/text_01_spatial.yml",
       spatial_metadata)
 
-  01_spatial_sb_data:
-    command: sb_replace_files(sbid_01_spatial,
+  log/01_spatial_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_01_spatial,
+      "out_xml/01_spatial.xml",
       "out_data/01_spatial.zip",
       "out_data/lake_metadata.csv")
 
-
-  02_observations_sb_data:
-    command: sb_replace_files(sbid_02_observations,
-      "out_data/temperature_observations.zip")
-
-  02_observations_sb_xml:
-    command: sb_render_post_xml(sbid_02_observations,
+  out_xml/02_observations.xml:
+    command: render(filename = target_name,
       "in_text/text_SHARED.yml",
       "in_text/text_02_observations.yml",
       spatial_metadata)
 
-  03_config_sb_xml:
-    command: sb_render_post_xml(sbid_03_config,
+  log/02_observations_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_02_observations,
+      "out_xml/02_observations.xml",
+      "out_data/temperature_observations.zip")
+
+  out_xml/03_config.xml:
+    command: render(filename = target_name,
       "in_text/text_SHARED.yml",
       "in_text/text_03_config.yml",
       spatial_metadata)
 
-  03_config_sb_data:
-    command: sb_replace_files(sbid_03_config,
+  log/03_configPB_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_03_config,
+      "out_xml/03_config.xml",
       "out_data/pb0_config.json",
       "out_data/pb0_nml_files.zip")
 
-  03_config_sb_data_pgdl:
-    command: sb_replace_files(sbid_03_config,
-      "out_data/pgdl_config.csv")
-
-  03_config_sb_fits_pgdl:
-    command: sb_replace_files(sbid_03_config,
+  log/03_configPGDL_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_03_config,
+      "out_data/pgdl_config.csv",
+      'out_data/pgdl_fit_lakes.png',
       file_hash = "out_data/pgdl_fit_zips.yml")
 
-  03_config_sb_image:
-    command: sb_replace_files(sbid_03_config,
-      'out_data/pgdl_fit_lakes.png')
-
-  04_inputs_sb_xml:
-    command: sb_render_post_xml(sbid_04_inputs,
+  out_xml/04_inputs.xml:
+    command: render(filename = target_name,
       "in_text/text_SHARED.yml",
-      "in_text/text_04_inputs.yml")
+      "in_text/text_04_inputs.yml",
+      spatial_metadata)
 
-  04_inputs_sb_meteo:
-    command: sb_replace_files(sbid_04_inputs,
-      file_hash = "out/4_inputs_zips.yml")
+  log/04_inputs_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_04_inputs,
+      'out_data/input_cells.png',
+      'out_xml/04_inputs.xml',
+      file_hash = "out/4_input_hashes.yml")
 
-  04_inputs_sb_image:
-    command: sb_replace_files(sbid_04_inputs,
-      'out_data/input_cells.png')
 
-  04_inputs_sb_ice:
-    command: sb_replace_files(sbid_04_inputs,
-      file_hash = "out/4_ice_flags_zips.yml")
-
-  04_inputs_sb_clarity:
-    command: sb_replace_files(sbid_04_inputs,
-      file_hash = "out/4_clarity_zips.yml")
-
-  05_predictions_sb_xml:
-    command: sb_render_post_xml(sbid_05_predictions,
+  out_xml/05_predictions.xml:
+    command: render(filename = target_name,
       "in_text/text_SHARED.yml",
       "in_text/text_05_predictions.yml",
       spatial_metadata)
 
-  05_predictions_sb_image:
-    command: sb_replace_files(sbid_05_predictions,
-      'out_data/predict_lakes.png')
+  log/05_predictionsPB_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_05_predictions,
+      file_hash = "out/5_preds_hashes.yml",
+      'out_data/predict_lakes.png',
+      "out_xml/05_predictions.xml")
 
-  05_predictions_sb_pb0:
-    command: sb_replace_files(sbid_05_predictions,
-      file_hash = "out/5_predictions_zips.yml")
-
-  05_predictions_sb_irr:
-    command: sb_replace_files(sbid_05_predictions,
-      file_hash = "out/5_irradiance_zips.yml")
-
-  05_predictions_sb_pgdl:
-    command: sb_replace_files(sbid_05_predictions,
-      file_hash = "out/5_pgdl_predictions_zips.yml")
-
-  06_evaluation_sb_xml:
-    command: sb_render_post_xml(sb_id_06_evaluation,
+  out_xml/06_evaluation.xml:
+    command: render(filename = target_name,
       "in_text/text_SHARED.yml",
       "in_text/text_06_evaluation.yml",
       spatial_metadata)
 
-  06_evaluation_sb_data:
-    command: sb_replace_files(sb_id_06_evaluation,
+  log/06_evaluationPB_sb.csv:
+    command: sb_replace_files(target_name,
+      sb_id_06_evaluation,
+      "out_xml/06_evaluation.xml",
       "out_data/pb0_matched_to_observations.zip",
       "out_data/pb0_evaluation.csv")
 
-  06_evaluation_sb_data_pgdl:
-    command: sb_replace_files(sb_id_06_evaluation,
+  log/06_evaluationPGDL_sb.csv:
+    command: sb_replace_files(target_name,
+      sb_id_06_evaluation,
       "out_data/pgdl_matched_to_observations.zip",
       "out_data/pgdl_evaluation.csv")
 
-  07_habitat_sb_xml:
-    command: sb_render_post_xml(sb_id_07_habitat,
+  out_xml/07_habitat.xml:
+    command: render(filename = target_name,
       "in_text/text_SHARED.yml",
       "in_text/text_07_habitat.yml",
       spatial_metadata)
 
+  # these need to be updated, also need to push the XML!
   07_habitat_sb_pgdl:
     command: sb_replace_files(sb_id_07_habitat,
       file_hash = "out/7_pgdl_toha_zips.yml")

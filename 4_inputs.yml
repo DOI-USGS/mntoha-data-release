@@ -25,11 +25,15 @@ sources:
 targets:
   4_inputs:
     depends:
-      - out/4_inputs_zips.yml
-      - out/4_ice_flags_zips.yml
-      - out/4_clarity_zips.yml
+      - out/4_input_hashes.yml
       - out_data/input_cells.png
 
+  # combining hashes into one file so we have a smaller number of logged upload files
+  out/4_input_hashes.yml:
+    command: combine_hash_files(target_name,
+      'out/4_inputs_zips.yml',
+      'out/4_ice_flags_zips.yml',
+      'out/4_clarity_zips.yml')
 
   ice_flags_df:
     command: export_pb_df(site_ids = modeled_lake_ids,

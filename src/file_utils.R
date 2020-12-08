@@ -9,6 +9,12 @@ extract_pb0_ids <- function(model_out_ind){
     pull(site_id)
 }
 
+combine_hash_files <- function(hash_out, ...){
+  hash_files <- c(...)
+  lapply(hash_files, yaml::yaml.load_file) %>% unlist() %>% as.list() %>%
+    yaml::write_yaml(hash_out)
+}
+
 update_hash_path <- function(yaml_out, yaml_in, add_path){
 
   hash_yaml <- yaml::yaml.load_file(yaml_in)
@@ -188,6 +194,7 @@ zip_meteo_groups <- function(outfile, xwalk_meteo_fl_names, grouped_meteo_fls){
       mutate(pipeline_fl = basename(meteo_filepath)) %>%
       inner_join(xwalk_meteo_fl_names, by = 'pipeline_fl')
     # write these files under the release name in a tempdir:
+
     for (i in 1:length(these_files$meteo_filepath)){
       data.table::fread(these_files$meteo_filepath[i], nrows = 14976) %>%
         data.table::fwrite(file.path(meteo_dir, these_files$release_fl[i]))
