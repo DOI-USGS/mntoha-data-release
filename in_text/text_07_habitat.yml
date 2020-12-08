@@ -91,6 +91,109 @@ entities:
       data-units: m^2
     # TODO: technically also have Z1 & Z2 for both opti and therm hab, but I am trying to remember - I think we were
     # going to remove those for what we pushed to SB?
+  -
+    data-name: annual_metrics_{model}.csv
+    data-description: >-
+      A csv file containing annual summaries of thermal metrics based on modeled temperatures. {model} is either "pb0"
+      for the uncalibrated Process-Based model outputs or "pgdl" for the Process-Guided Deep Learning model outputs.
+    attributes:
+     -
+      attr-label: site_id
+      attr-def: >-
+        Lake identification number for this dataset. Is the Prmnn_I from NHD high-res prefixed with source, as "nhdhr_{Prmnn_I}"
+      attr-defs: >-
+        http://nhd.usgs.gov/
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: year
+      attr-def: Year of the summarized temperature predictions
+      attr-defs: This data release
+      data-min: 1980
+      data-max: 2018
+      data-units: NA
+    -
+      attr-label: peak_temp
+      attr-def: Maximum observed surface temperature
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: degrees C
+    -
+      attr-label: peak_temp_dt
+      attr-def: Date of maximum observed surface temperature
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: ice_on_date
+      attr-def: Date of ice-on
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: ice_off_date
+      attr-def: Date of ice-off
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: winter_dur_0_4
+      attr-def: >-
+        Number of days, beginning October 30 of the previous year and running through June
+        of the given year, that surface water is <4 degrees C
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: days
+    -
+      attr-label: coef_var_31_60
+      attr-def: Coefficient of Variation of surface temperature from 30-60 days post ice off
+      attr-defs: >-
+        This calculation is the same as Winslow et al 2017, but that one wasn't named
+        intuitively (`coef_var_30_60` instead of `coef_var_31_60`)
+      data-min: NA
+      data-max: NA
+      data-units: unitless (CV)
+    -
+      attr-label: coef_var_1_30
+      attr-def: Coefficient of Variation of surface temperature up to 30 days post ice-off
+      attr-defs: >-
+        This calculation is the same as Winslow et al 2017, but that one wasn't named
+        intuitively (`coef_var_0_30` instead of `coef_var_1_30`)
+      data-min: NA
+      data-max: NA
+      data-units: unitless (CV)
+
+    # TODO: Add these, too
+      # stratification_onset_yday
+      # stratification_duration
+      # sthermo_depth_mean
+      # bottom_temp_at_strat
+      # gdd_wtr_0c
+      # gdd_wtr_5c
+      # gdd_wtr_10c
+      # schmidt_daily_annual_sum
+      # [repetitive stuff]
+      # spring_days_in_10.5_15.5
+      # post_ice_warm_rate
+      # date_over_8.9
+      # date_over_16.7
+      # date_over_18
+      # date_over_21
+      # SmetaTopD_mean
+      # SmetaBotD_mean
+      # mean_epi_vol
+      # mean_hyp_vol
+      # mean_epi_hypo_ratio
+      # simulation_length_days
+
+
+
 purpose: Fisheries biology, limnological research, and climate science.
 start-date: 19800401
 end-date: 20191231
