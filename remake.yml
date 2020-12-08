@@ -104,14 +104,15 @@ targets:
 
   out_xml/04_inputs.xml:
     command: render(filename = target_name,
-      sbid_04_inputs,
       "in_text/text_SHARED.yml",
-      "in_text/text_04_inputs.yml")
+      "in_text/text_04_inputs.yml",
+      spatial_metadata)
 
   log/04_inputs_sb.csv:
     command: sb_replace_files(target_name,
       sbid_04_inputs,
       'out_data/input_cells.png',
+      'out_xml/04_inputs.xml',
       file_hash = "out/4_input_hashes.yml")
 
 
