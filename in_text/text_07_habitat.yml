@@ -1,2 +1,86 @@
 title: >-
   Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 7 thermal and optical habitat estimates
+
+abstract: >-
+  Climate change has been shown to influence lake temperatures in different ways. To better understand the diversity
+  of lake responses to climate change and give managers tools to manage individual lakes, we focused on improving
+  prediction accuracy for daily water temperature profiles in 881 lakes in Minnesota and Wisconsin during 1980-2019.
+
+authors: [
+  "Jordan S. Read", "Alison P. Appling", "Kelsey Vitense", "Samantha K. Oliver",
+  "Lindsay Platt", "Gretchen J.A. Hansen", "Hayley Corson-Dosch"]
+pubdate: 2020 # replace with actual year, e.g., 2020
+doi: https://doi.org/YY.XXXXX/XXXXXX # replace with actual DOI
+
+build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source languages R and Python were used on all systems.
+
+# ----associated publication----
+larger-cites:
+  -
+    authors: ["Jordan S. Read", "Xiaowei Jia", "Jared Willard", "Alison P. Appling", "Jacob A. Zwart","Samantha K. Oliver","Anuj Karpatne","Gretchen J.A. Hansen", "Paul C. Hanson", "William Watkins", "Michael Steinbach","Vipin Kumar"]
+    title: >-
+      Process-guided deep learning predictions of lake water temperature
+    pubdate: 2019
+
+# ----supporting publications----
+cross-cites:
+  -
+    authors: ['Luke A. Winslow','Gretchen J.A. Hansen','Jordan S. Read','Michael Notaro']
+    title: >-
+      Large-scale modeled contemporary and future water temperature estimates for 10,774 Midwestern U.S. Lakes
+    pubdate: 2017
+    link: http://dx.doi.org/10.1038/sdata.2017.53
+
+  # TODO: Add Lester et al 2004
+
+process-date: !expr format(Sys.time(),'%Y%m%d')
+file-format: >-
+  two comma-delimited files and 26 compressed zip files
+
+purpose: Fisheries biology, limnological research, and climate science.
+start-date: 19800401
+end-date: 20191231
+
+update: none planned
+themekeywords: ["machine learning", "deep learning", "hybrid modeling", "water","temperature", "temperate lakes","reservoirs","modeling","climate change","thermal profiles"]
+
+usage-rules: >-
+  These data are open access usable via creative commons as long as original data providers are acknowledged
+descgeog: "Lake polygons as defined by the national hydrography dataset high resolution"
+data-publisher: U.S. Geological Survey
+indirect-spatial: U.S.A.
+latitude-res: 0.00001
+longitude-res: 0.00001
+
+# ----contacts----
+contact-person: Jordan S. Read
+contact-phone: 608-821-3922
+contact-email: jread@usgs.gov
+contact-position: Research Civil Engineer
+contact-address: "8505 Research Way"
+contact-city: Middleton
+contact-state: WI
+contact-zip: 53562
+
+metadata-person: Jordan S. Read
+metadata-position: Research Civil Engineer
+metadata-phone: 608-821-3921
+metadata-fax: 608-821-3817
+metadata-email: jread@usgs.gov
+metadata-address: "8505 Research Way"
+metadata-city: Middleton
+metadata-state: WI
+metadata-zip: 53562
+metadata-date: !expr format(Sys.time(),'%Y%m%d')
+
+accur-test: No formal attribute accuracy tests were conducted.
+funding-credits: >-
+  This study was funded by the [DETAILS HERE]
+  This research used resources of the Core Science Analytics and Synthesis Advanced Research Computing program at the U.S. Geological Survey.
+process-description: >-
+  [A description of processing]
+distro-person: Jordan S. Read
+liability-statement: >-
+  Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected.
+  Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS),
+  no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall
