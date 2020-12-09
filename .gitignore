@@ -42,3 +42,7 @@ rsconnect/
 .remake/
 out_data/
 out_xml/
+
+# jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/

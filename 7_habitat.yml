@@ -7,6 +7,7 @@ packages:
   - dplyr
   - tidyr
   - whisker
+  - zip
 
 sources:
   - src/file_utils.R

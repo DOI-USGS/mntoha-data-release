@@ -23,8 +23,15 @@ update_hash_path <- function(yaml_out, yaml_in, add_path){
   yaml::write_yaml(hash_yaml, file = yaml_out)
 }
 
-extract_pgdl_ids <- function(results_dir, pattern, dummy) {
-  dir(results_dir, pattern)
+extract_pgdl_ids <- function(output_indicator_file, dummy) {
+  library(dplyr)
+
+  # read in file names from indicator file and
+  # pull out site ids from preds.npz files generated for finetune predict models
+  tibble::tibble(file = names(yaml::yaml.load_file(output_indicator_file))) %>%
+    filter(grepl("finetune_predict/preds.npz", file)) %>%
+    mutate('site_id' = stringr::str_remove(stringr::str_remove(file, '2_model/out/'), '/finetune_predict/preds.npz')) %>%
+    pull(site_id)
 }
 
 simplify_pgdl_configs <- function(out_file, orig_cfg_file, orig_col_types) {
@@ -441,14 +448,14 @@ zip_this <- function(outfile, .object){
 
   if ('data.frame' %in% class(.object)){
     filepath <- basename(outfile) %>% tools::file_path_sans_ext() %>% paste0('.csv') %>% file.path(tempdir(), .)
-    write_csv(.object, path = filepath)
+    write_csv(.object, file = filepath)
     zip_this(outfile = outfile, .object = filepath)
   } else if (class(.object) == 'character' & file.exists(.object)){
     # for multiple files?
     curdir <- getwd()
     on.exit(setwd(curdir))
     setwd(dirname(.object))
-    zip(file.path(curdir, outfile), files = basename(.object))
+    zip::zip(file.path(curdir, outfile), files = basename(.object))
   } else {
     stop("don't know how to zip ", .object)
   }

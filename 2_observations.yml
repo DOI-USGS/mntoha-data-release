@@ -13,6 +13,7 @@ packages:
   - stringr
   - glmtools
   - sf
+  - zip
 
 
 sources:
