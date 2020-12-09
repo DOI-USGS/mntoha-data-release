@@ -349,7 +349,7 @@ entities:
       data-max: NA
       data-units: unitless (ratio)
     -
-      attr-label: simulation_length_days
+      attr-label: open_water_duration
       attr-def: Number of between ice-on and ice-off.
       attr-defs: ????
       data-min: NA
