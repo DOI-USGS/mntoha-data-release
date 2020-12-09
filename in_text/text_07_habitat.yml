@@ -32,6 +32,10 @@ cross-cites:
     link: http://dx.doi.org/10.1038/sdata.2017.53
 
   # TODO: Add Lester et al 2004
+  # TODO: Add ones referenced in https://github.com/USGS-R/necsc-lake-modeling/blob/d37377ea422b9be324e8bd203fc6eecc36966401/data/habitat_metrics_table_GH.csv
+  #   - Wismer and Christie 1987
+  #   - Busch et al. 1975
+  #   - Madenijan et al. 1996
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
@@ -168,31 +172,189 @@ entities:
       data-min: NA
       data-max: NA
       data-units: unitless (CV)
-
-    # TODO: Add these, too
-      # stratification_onset_yday
-      # stratification_duration
-      # sthermo_depth_mean
-      # bottom_temp_at_strat
-      # gdd_wtr_0c
-      # gdd_wtr_5c
-      # gdd_wtr_10c
-      # schmidt_daily_annual_sum
-      # [repetitive stuff]
-      # spring_days_in_10.5_15.5
-      # post_ice_warm_rate
-      # date_over_8.9
-      # date_over_16.7
-      # date_over_18
-      # date_over_21
-      # SmetaTopD_mean
-      # SmetaBotD_mean
-      # mean_epi_vol
-      # mean_hyp_vol
-      # mean_epi_hypo_ratio
-      # simulation_length_days
-
-
+    -
+      attr-label: stratification_onset_yday
+      attr-def: Julian date at which stratification sets up (longest stratified period)
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: Julian day
+    -
+      attr-label: stratification_duration
+      attr-def: Duration of stratified period
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: days
+    -
+      attr-label: sthermo_depth_mean
+      attr-def: Average thermocline depth in stratified period that is >= 30 days
+      attr-defs: >-
+        This calculation is similar to the one from Winslow et al 2017, except that it
+        uses the longest duration of stratified days as the stratified period and will
+        return NA for any stratified period less than 30 days.
+      data-min: NA
+      data-max: NA
+      data-units: depth (m)
+    -
+      attr-label: bottom_temp_at_strat
+      attr-def: >-
+        Water temperature 0.1m from lake bottom on day of stratification (as defined
+        by "stratification_onset_yday")
+      attr-defs: >-
+        This calculation is similar to the one from Winslow et al 2017, except that it
+        will return NA for any stratified period less than 30 days.
+      data-min: NA
+      data-max: NA
+      data-units: degrees C
+    -
+      attr-label: gdd_wtr_{temp}c
+      attr-def: >-
+        Cumulative sum of degrees greater than {temp} for an entire
+        year. {temp} is one of 0, 5, 10.
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: degrees C * days
+    -
+      attr-label: schmidt_daily_annual_sum
+      attr-def: Sum of daily Schmidt Stability values for calendar year.
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: J/m^2 * days
+    -
+      attr-label: mean_{depth}_JulAugSep
+      attr-def: >-
+        Mean summer (July, August, September) temperature at {depth}. {depth} is
+        either "surf" for surface or "bot" for bottom.
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: degrees C
+    -
+      attr-label: max_{depth}_JulAugSep
+      attr-def: >-
+        Maximum summer (July, August, September) temperature at {depth}. {depth} is
+        either "surf" for surface or "bot" for bottom.
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: degrees C
+    -
+      attr-label: mean_{depth}_{month}
+      attr-def: >-
+        Mean temperature at {depth} for {month}. {depth} is either "surf" for
+        surface or "bot" for bottom. {month} is the 3 letter abbreviation for one
+        of the 12 months, Jan through Dec.
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: degrees C
+    -
+      attr-label: max_{depth}_{month}
+      attr-def: >-
+        Maximum temperature at {depth} for {month}. {depth} is either "surf" for
+        surface or "bot" for bottom. {month} is the 3 letter abbreviation for one
+        of the 12 months, Jan (January) through Dec (December).
+      attr-defs: Winslow et al 2017
+      data-min: NA
+      data-max: NA
+      data-units: degrees C
+  # -- Need to return and break out these height, vol, days definitions per temp range -- #
+    -
+      attr-label: height_{temp_low}_{temp_high}
+      attr-def: Meters of water between {temp_low} and {temp_high} degrees C
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: linear distance (m)
+    -
+      attr-label: vol_{temp_low}_{temp_high}
+      attr-def: Volume of water between {temp_low} and {temp_high} degrees C
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: volume (m^3*1000)
+    -
+      attr-label: days_{temp_low}_{temp_high}
+      attr-def: >-
+        Days in which there is any part of water column between {temp_low} and
+        {temp_high} degrees C
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: days
+  # -- -- #
+    -
+      attr-label: spring_days_in_10.5_15.5
+      attr-def: >-
+        Duration of optimal incubation period where surface temperature
+        is between 10.5-15.5 degrees C (Spring only)
+      attr-defs: Wismer and Christie 1987
+      data-min: NA
+      data-max: NA
+      data-units: days before June 1
+    -
+      attr-label: post_ice_warm_rate
+      attr-def: >-
+        Average change in surface temp (degrees C per day) 30 days post ice off
+      attr-defs: Busch et al. 1975; Madenijan et al. 1996
+      data-min: NA
+      data-max: NA
+      data-units: degrees C per day
+    -
+      attr-label: date_over_{temp}
+      attr-def: >-
+        Date where average surface temperature reaches {temp} degrees C. {temp} is
+        one of 8.9 (date of spawning temp), 16.7 (hatch date), 18 (date of spawning
+        temp for bass), or 21 (date of spawning temp for bass).
+      attr-defs: Wismer and Christie 1987
+      data-min: NA
+      data-max: NA
+      data-units: Julian day
+    -
+      attr-label: SmetaTopD_mean
+      attr-def: Mean epilmnion meters during the longest stratified period
+      attr-defs: ????
+      data-min: NA
+      data-max: NA
+      data-units: linear distance (m)
+    -
+      attr-label: SmetaBotD_mean
+      attr-def: Mean hypolimnion meters during the longest stratified period
+      attr-defs: ????
+      data-min: NA
+      data-max: NA
+      data-units: linear distance (m)
+    -
+      attr-label: mean_epi_vol
+      attr-def: Mean epilmnion volume during longest stratified period
+      attr-defs: ????
+      data-min: NA
+      data-max: NA
+      data-units: volume (m^3*1000)
+    -
+      attr-label: mean_hyp_vol
+      attr-def: Mean hypolimnion volume during longest stratified period
+      attr-defs: ????
+      data-min: NA
+      data-max: NA
+      data-units: volume (m^3*1000)
+    -
+      attr-label: mean_epi_hypo_ratio
+      attr-def: Mean epilmnion volume divided by mean hypolimnion volume
+      attr-defs: ????
+      data-min: NA
+      data-max: NA
+      data-units: unitless (ratio)
+    -
+      attr-label: simulation_length_days
+      attr-def: Number of between ice-on and ice-off.
+      attr-defs: ????
+      data-min: NA
+      data-max: NA
+      data-units: days
 
 purpose: Fisheries biology, limnological research, and climate science.
 start-date: 19800401
