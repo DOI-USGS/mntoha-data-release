@@ -261,7 +261,8 @@ entities:
       data-min: NA
       data-max: NA
       data-units: degrees C
-  # -- Need to return and break out these height, vol, days definitions per temp range -- #
+  # -- START: manually copied contents of `tmp/7_metadata_temp_ranges.yml` -- #
+  # Run `scmake("tmp/7_metadata_temp_ranges.yml", "7_habitat.yml")` to generate
     -
       attr-label: height_{temp_low}_{temp_high}
       attr-def: Meters of water between {temp_low} and {temp_high} degrees C
@@ -285,7 +286,7 @@ entities:
       data-min: NA
       data-max: NA
       data-units: days
-  # -- -- #
+  # -- END: manually copied contents of `tmp/7_metadata_temp_ranges.yml` -- #
     -
       attr-label: spring_days_in_10.5_15.5
       attr-def: >-

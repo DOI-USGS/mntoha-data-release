@@ -6,15 +6,16 @@ include:
 packages:
   - dplyr
   - tidyr
+  - whisker
 
 sources:
   - src/file_utils.R
+  - src/build_temp_range_metadata.R
 
 targets:
   7_habitat:
     depends:
       - out/7_toha_zips.yml
-
 
   out/7_pb0_toha_zips.yml:
     command: update_hash_path(target_name,
@@ -25,3 +26,11 @@ targets:
     command: update_hash_path(target_name,
       '../lake-temperature-out/3_summarize/out/3_summarize_zip_pgdl_toha.yml',
       add_path = I('../lake-temperature-out'))
+
+  # Step to partially automate the manual process of adding metadata for each temp range
+  # variable. Once you build this file, manually copy the contents and place in the
+  # appropriate location in `in_text/text_07_habitat.yml`
+  tmp/7_metadata_temp_ranges.yml:
+    command: generate_temp_range_metadata(
+      out_file = target_name,
+      in_file = "../lake-temperature-out/3_summarize/in/temp_ranges_for_metrics.txt")
