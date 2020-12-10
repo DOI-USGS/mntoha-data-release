@@ -41,7 +41,8 @@ targets:
       #- log/05_predictionsPGDL_sb.csv
       - log/06_evaluationPB_sb.csv
       #- log/06_evaluationPGDL_sb.csv
-      - out_xml/07_habitat.xml
+      log/07_habitatPB_sb.csv
+      log/07_habitatPGDL_sb.csv
 
 
 
