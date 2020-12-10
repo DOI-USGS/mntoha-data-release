@@ -1,8 +1,5 @@
 target_default: 7_habitat
 
-include:
-  - 6_evaluation.yml
-
 packages:
   - dplyr
   - tidyr
