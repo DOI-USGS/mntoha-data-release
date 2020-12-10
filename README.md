@@ -113,7 +113,7 @@ These targets should be built in the `lake-temperature-out` project:
 
 Then post results in an interactive R session (to login to SB) with these commands:
 ```R
-module load legacy R/3.6.3 tools/nco-4.7.8-gnu tools/netcdf-c-4.3.2-intel
+module load legacy R/3.6.3 tools/nco-4.7.8-gnu tools/netcdf-c-4.3.2-intel gdal/3.1.0 proj/7.0.1
 R
 library(scipiper)
 sbtools::authenticate_sb('cidamanager')
