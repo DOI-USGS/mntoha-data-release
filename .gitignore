@@ -46,3 +46,7 @@ out_xml/
 # jupyter notebooks
 *.ipynb
 .ipynb_checkpoints/
+
+# Ignore R configs for Yeti
+Rlib_3_6
+.Renviron
