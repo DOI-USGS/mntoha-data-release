@@ -41,7 +41,8 @@ targets:
       #- log/05_predictionsPGDL_sb.csv
       - log/06_evaluationPB_sb.csv
       #- log/06_evaluationPGDL_sb.csv
-      - out_xml/07_habitat.xml
+      log/07_habitatPB_sb.csv
+      log/07_habitatPGDL_sb.csv
 
 
 
@@ -154,14 +155,20 @@ targets:
       "in_text/text_07_habitat.yml",
       spatial_metadata)
 
-  # these need to be updated, also need to push the XML!
-  07_habitat_sb_pgdl:
-    command: sb_replace_files(sb_id_07_habitat,
-      file_hash = "out/7_pgdl_toha_zips.yml")
+  log/07_habitatPB_sb.csv:
+    command: sb_replace_files(target_name,
+      sb_id_07_habitat,
+      file_hash = "out/7_pb0_toha_zips.yml",
+      "out_xml/07_habitat.xml",
+      "out_data/7_pb0_annual_metrics.csv")
 
-  07_habitat_sb_pb0:
-    command: sb_replace_files(sb_id_07_habitat,
-      file_hash = "out/7_pb0_toha_zips.yml")
+  log/07_habitatPGDL_sb.csv:
+    command: sb_replace_files(target_name,
+      sb_id_07_habitat,
+      file_hash = "out/7_pgdl_toha_zips.yml",
+      "out_xml/07_habitat.xml",
+      "out_data/7_pgdl_annual_metrics.csv")
+
   # ------ SB IDs --------
 
 
