@@ -31,12 +31,12 @@ cross-cites:
     pubdate: 2017
     link: http://dx.doi.org/10.1038/sdata.2017.53
 
-  # TODO: Add Lester et al 2004
+  # TODO: Add Lester et al. 2004
   # TODO: Add ones referenced in https://github.com/USGS-R/necsc-lake-modeling/blob/d37377ea422b9be324e8bd203fc6eecc36966401/data/habitat_metrics_table_GH.csv
   #   - Wismer and Christie 1987
   #   - Busch et al. 1975
   #   - Madenijan et al. 1996
-  #   - Fang et al 2004
+  #   - Fang et al. 2004
   #   - Christie and Regier 1988
   #   - Cline et al. 2013
   #   - Casselman 2002
@@ -81,7 +81,7 @@ entities:
       attr-def: >-
         Daily optimal optical habitat area of benthos	for walleye; area of lake bottom where light intensity
         is between 0.0762 W/m^2 and 0.6476 W/m^2.
-      attr-defs: Lester et al 2004
+      attr-defs: Lester et al. 2004
       data-min: NA
       data-max: NA
       data-units: m^2
@@ -90,7 +90,7 @@ entities:
       attr-def: >-
         Daily optimal thermal habitat area of benthos	for walleye; area of lake bottom where temperature
         falls between 11 deg C and 25 deg C.
-      attr-defs: Lester et al 2004
+      attr-defs: Lester et al. 2004
       data-min: 0
       data-max: NA
       data-units: m^2
@@ -99,7 +99,7 @@ entities:
       attr-def: >-
         Combined daily optimal thermal and optical habitat area of benthos for walleye; area of lake bottom where both
         light intensity is between 0.0762 W/m^2 and 0.6476 W/m^2 AND temperature falls between 11 deg C and 25 deg C.
-      attr-defs: Lester et al 2004
+      attr-defs: Lester et al. 2004
       data-min: 0
       data-max: NA
       data-units: m^2
@@ -130,7 +130,7 @@ entities:
     -
       attr-label: peak_temp
       attr-def: Maximum observed surface temperature
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: degrees C
@@ -160,7 +160,7 @@ entities:
       attr-def: >-
         Number of days, beginning October 30 of the previous year and running through June
         of the given year, that surface water is <4 degrees C
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: days
@@ -168,7 +168,7 @@ entities:
       attr-label: coef_var_31_60
       attr-def: Coefficient of Variation of surface temperature from 30-60 days post ice off
       attr-defs: >-
-        This calculation is the same as Winslow et al 2017, but that one wasn't named
+        This calculation is the same as Winslow et al. 2017, but that one wasn't named
         intuitively (`coef_var_30_60` instead of `coef_var_31_60`)
       data-min: NA
       data-max: NA
@@ -177,7 +177,7 @@ entities:
       attr-label: coef_var_1_30
       attr-def: Coefficient of Variation of surface temperature up to 30 days post ice-off
       attr-defs: >-
-        This calculation is the same as Winslow et al 2017, but that one wasn't named
+        This calculation is the same as Winslow et al. 2017, but that one wasn't named
         intuitively (`coef_var_0_30` instead of `coef_var_1_30`)
       data-min: NA
       data-max: NA
@@ -185,14 +185,14 @@ entities:
     -
       attr-label: stratification_onset_yday
       attr-def: Julian date at which stratification sets up (longest stratified period)
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: Julian day
     -
       attr-label: stratification_duration
       attr-def: Duration of stratified period
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: days
@@ -200,7 +200,7 @@ entities:
       attr-label: sthermo_depth_mean
       attr-def: Average thermocline depth in stratified period that is >= 30 days
       attr-defs: >-
-        This calculation is similar to the one from Winslow et al 2017, except that it
+        This calculation is similar to the one from Winslow et al. 2017, except that it
         uses the longest duration of stratified days as the stratified period and will
         return NA for any stratified period less than 30 days.
       data-min: NA
@@ -212,7 +212,7 @@ entities:
         Water temperature 0.1m from lake bottom on day of stratification (as defined
         by "stratification_onset_yday")
       attr-defs: >-
-        This calculation is similar to the one from Winslow et al 2017, except that it
+        This calculation is similar to the one from Winslow et al. 2017, except that it
         will return NA for any stratified period less than 30 days.
       data-min: NA
       data-max: NA
@@ -222,14 +222,14 @@ entities:
       attr-def: >-
         Cumulative sum of degrees greater than {temp} for an entire
         year. {temp} is one of 0, 5, 10.
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: degrees C * days
     -
       attr-label: schmidt_daily_annual_sum
       attr-def: Sum of daily Schmidt Stability values for calendar year.
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: J/m^2 * days
@@ -238,7 +238,7 @@ entities:
       attr-def: >-
         Mean summer (July, August, September) temperature at {depth}. {depth} is
         either "surf" for surface or "bot" for bottom.
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: degrees C
@@ -247,7 +247,7 @@ entities:
       attr-def: >-
         Maximum summer (July, August, September) temperature at {depth}. {depth} is
         either "surf" for surface or "bot" for bottom.
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: degrees C
@@ -257,7 +257,7 @@ entities:
         Mean temperature at {depth} for {month}. {depth} is either "surf" for
         surface or "bot" for bottom. {month} is the 3 letter abbreviation for one
         of the 12 months, Jan through Dec.
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: degrees C
@@ -267,7 +267,7 @@ entities:
         Maximum temperature at {depth} for {month}. {depth} is either "surf" for
         surface or "bot" for bottom. {month} is the 3 letter abbreviation for one
         of the 12 months, Jan (January) through Dec (December).
-      attr-defs: Winslow et al 2017
+      attr-defs: Winslow et al. 2017
       data-min: NA
       data-max: NA
       data-units: degrees C
@@ -670,7 +670,7 @@ entities:
       attr-def: >-
         Meters of water between 18.2 and 28.2 degrees C.
         This range is used to denote good growth habitat
-      attr-defs: Fang et al 2004
+      attr-defs: Fang et al. 2004
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -679,7 +679,7 @@ entities:
       attr-def: >-
         Volume of water between 18.2 and 28.2 degrees C.
         {description_details}}
-      attr-defs: Fang et al 2004
+      attr-defs: Fang et al. 2004
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -688,7 +688,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 18.2 and 28.2 degrees C.
         This range is used to denote good growth habitat
-      attr-defs: Fang et al 2004
+      attr-defs: Fang et al. 2004
       data-min: NA
       data-max: NA
       data-units: days
@@ -1090,7 +1090,7 @@ entities:
       attr-def: >-
         Meters of water between 29 and 100 degrees C.
         This range is used to denote lethal habitat
-      attr-defs: Fang et al 2004
+      attr-defs: Fang et al. 2004
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -1099,7 +1099,7 @@ entities:
       attr-def: >-
         Volume of water between 29 and 100 degrees C.
         {description_details}}
-      attr-defs: Fang et al 2004
+      attr-defs: Fang et al. 2004
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -1108,7 +1108,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 29 and 100 degrees C.
         This range is used to denote lethal habitat
-      attr-defs: Fang et al 2004
+      attr-defs: Fang et al. 2004
       data-min: NA
       data-max: NA
       data-units: days
