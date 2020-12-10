@@ -45,6 +45,7 @@ cross-cites:
   #   - Eaton et al., 1995
   #   - Stefan et al., 1995
   #   - Xang et al. 1999
+  # TODO: Add Read et al. 2011 (https://www.sciencedirect.com/science/article/pii/S136481521100123X)
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
@@ -1171,14 +1172,14 @@ entities:
     -
       attr-label: SmetaTopD_mean
       attr-def: Mean epilmnion meters during the longest stratified period
-      attr-defs: ????
+      attr-defs: Read et al. 2011
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
     -
       attr-label: SmetaBotD_mean
       attr-def: Mean hypolimnion meters during the longest stratified period
-      attr-defs: ????
+      attr-defs: Read et al. 2011
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
