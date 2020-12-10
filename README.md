@@ -93,3 +93,29 @@ After doing all of the above, you should be able to just load the environment wi
 source activate mntoha_release
 ```
 in future sessions.
+
+## Habitat metrics
+
+Habitat metrics (TOHA + a number of annual metrics) are built on and should be posted directly from Yeti. 
+
+```sh
+ssh yeti.cr.usgs.gov
+cd /cxfs/projects/usgs/water/iidd/data-sci/lake-temp/mntoha-data-release
+```
+
+These targets should be built in the `lake-temperature-out` project:
+```
+3_summarize/out/3_summarize_zip_pb0_toha.yml
+3_summarize/out/annual_metrics_pb0.csv
+3_summarize/out/3_summarize_zip_pgdl_toha.yml
+3_summarize/out/annual_metrics_pgdl.csv
+```
+
+Then post results in an interactive R session (to login to SB) with these commands:
+```R
+R
+library(scipiper)
+sbtools::authenticate_sb('cidamanager')
+scmake('log/07_habitatPB_sb.csv')
+scmake('log/07_habitatPGDL_sb.csv')
+```
