@@ -96,7 +96,7 @@ in future sessions.
 
 ## Habitat metrics
 
-Habitat metrics (TOHA + a number of annual metrics) are built on and should be posted directly from Yeti. 
+Habitat metrics (TOHA + a number of annual metrics) are built on and should be posted directly from Yeti. The `log/07_habitat_xml_sb.csv` target should be built separately, on a machine that can build `spatial_metadata` from `1_spatial`.
 
 ```sh
 ssh yeti.cr.usgs.gov
