@@ -278,7 +278,7 @@ entities:
       attr-def: >-
         Meters of water between 6.4 and 11.8 degrees C.
         This range is used to denote lower good-growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -287,7 +287,7 @@ entities:
       attr-def: >-
         Volume of water between 6.4 and 11.8 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -296,7 +296,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 6.4 and 11.8 degrees C.
         This range is used to denote lower good-growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -306,7 +306,7 @@ entities:
       attr-def: >-
         Meters of water between 13.2 and 18.2 degrees C.
         This range is used to denote lower good-growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -315,7 +315,7 @@ entities:
       attr-def: >-
         Volume of water between 13.2 and 18.2 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -324,7 +324,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 13.2 and 18.2 degrees C.
         This range is used to denote lower good-growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -334,7 +334,7 @@ entities:
       attr-def: >-
         Meters of water between 17.7 and 22.5 degrees C.
         This range is used to denote lower good-growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -343,7 +343,7 @@ entities:
       attr-def: >-
         Volume of water between 17.7 and 22.5 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -352,7 +352,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 17.7 and 22.5 degrees C.
         This range is used to denote lower good-growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -362,7 +362,7 @@ entities:
       attr-def: >-
         Meters of water between 11.5 and 18.7 degrees C.
         This range is used to denote optimum temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -371,7 +371,7 @@ entities:
       attr-def: >-
         Volume of water between 11.5 and 18.7 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -380,7 +380,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 11.5 and 18.7 degrees C.
         This range is used to denote optimum temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -390,7 +390,7 @@ entities:
       attr-def: >-
         Meters of water between 24 and 25.7 degrees C.
         This range is used to denote optimum temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -399,7 +399,7 @@ entities:
       attr-def: >-
         Volume of water between 24 and 25.7 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -408,7 +408,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 24 and 25.7 degrees C.
         This range is used to denote optimum temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -418,7 +418,7 @@ entities:
       attr-def: >-
         Meters of water between 27 and 32 degrees C.
         This range is used to denote optimum temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -427,7 +427,7 @@ entities:
       attr-def: >-
         Volume of water between 27 and 32 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -436,7 +436,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 27 and 32 degrees C.
         This range is used to denote optimum temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -446,7 +446,7 @@ entities:
       attr-def: >-
         Meters of water between 15.5 and 21.2 degrees C.
         This range is used to denote upper good growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -455,7 +455,7 @@ entities:
       attr-def: >-
         Volume of water between 15.5 and 21.2 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -464,7 +464,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 15.5 and 21.2 degrees C.
         This range is used to denote upper good growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -474,7 +474,7 @@ entities:
       attr-def: >-
         Meters of water between 27.7 and 28.8 degrees C.
         This range is used to denote upper good growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -483,7 +483,7 @@ entities:
       attr-def: >-
         Volume of water between 27.7 and 28.8 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -492,7 +492,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 27.7 and 28.8 degrees C.
         This range is used to denote upper good growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -502,7 +502,7 @@ entities:
       attr-def: >-
         Meters of water between 31.3 and 34.7 degrees C.
         This range is used to denote upper good growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -511,7 +511,7 @@ entities:
       attr-def: >-
         Volume of water between 31.3 and 34.7 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -520,7 +520,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 31.3 and 34.7 degrees C.
         This range is used to denote upper good growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -530,7 +530,7 @@ entities:
       attr-def: >-
         Meters of water between 26.6 and 100 degrees C.
         This range is used to denote upper lethal temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -539,7 +539,7 @@ entities:
       attr-def: >-
         Volume of water between 26.6 and 100 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -548,7 +548,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 26.6 and 100 degrees C.
         This range is used to denote upper lethal temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -558,7 +558,7 @@ entities:
       attr-def: >-
         Meters of water between 32.3 and 100 degrees C.
         This range is used to denote upper lethal temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -567,7 +567,7 @@ entities:
       attr-def: >-
         Volume of water between 32.3 and 100 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -576,7 +576,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 32.3 and 100 degrees C.
         This range is used to denote upper lethal temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -586,7 +586,7 @@ entities:
       attr-def: >-
         Meters of water between 36 and 100 degrees C.
         This range is used to denote upper lethal temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -595,7 +595,7 @@ entities:
       attr-def: >-
         Volume of water between 36 and 100 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -604,7 +604,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 36 and 100 degrees C.
         This range is used to denote upper lethal temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
