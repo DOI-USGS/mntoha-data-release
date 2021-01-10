@@ -156,8 +156,6 @@ entities:
       data-min: 0
       data-max: NA
       data-units: m^2
-    # TODO: technically also have Z1 & Z2 for both opti and therm hab, but I am trying to remember - I think we were
-    # going to remove those for what we pushed to SB?
   -
     data-name: annual_metrics_{model}.csv
     data-description: >-
