@@ -1206,7 +1206,10 @@ entities:
       data-units: unitless (ratio)
     -
       attr-label: open_water_duration
-      attr-def: Number of days between ice-on and ice-off.
+      attr-def: >-
+        Number of days between ice-on and ice-off. If `NA`, the open water
+        period could not be calculated because there was not an ice-off or
+        ice-on date for that year.
       attr-defs: ????
       data-min: NA
       data-max: NA
