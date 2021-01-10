@@ -9,7 +9,7 @@ abstract: >-
 authors: [
   "Jordan S. Read", "Alison P. Appling", "Kelsey Vitense", "Samantha K. Oliver",
   "Lindsay Platt", "Gretchen J.A. Hansen", "Hayley Corson-Dosch"]
-pubdate: 2020 # replace with actual year, e.g., 2020
+pubdate: 2021
 doi: https://doi.org/YY.XXXXX/XXXXXX # replace with actual DOI
 
 build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source languages R and Python were used on all systems.
