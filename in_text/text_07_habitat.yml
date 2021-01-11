@@ -6,7 +6,13 @@ abstract: >-
   of lake responses to climate change and give managers tools to manage individual lakes, we focused on improving
   prediction accuracy for daily water temperature profiles in 881 lakes in Minnesota and Wisconsin during 1980-2019.
 
-build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source languages R and Python were used on all systems.
+build-environment: >-
+  This dataset was generated using the USGS Advanced Research Computing, USGS Yeti Supercomputer (https://doi.org/10.5066/F7D798MJ) and
+  open source tools available in the R programming language (R version 3.6.3 (2020-02-29)).
+  The computing platform for generating data and metadata was x86_64-redhat-linux-gnu.
+  R packages loaded into this environment: purrr, version: 0.3.4; feather, version: 0.3.5; tidyr, version: 1.1.2;
+  dplyr, version: 1.0.2; jsonlite, version: 1.7.1; readr, version: 1.4.0; sbtools, version: 1.1.12;
+  scipiper, version: 0.0.23; remake, version: 0.3.0.
 
 # ----associated publication----
 larger-cites:
