@@ -6,12 +6,6 @@ abstract: >-
   of lake responses to climate change and give managers tools to manage individual lakes, we focused on improving
   prediction accuracy for daily water temperature profiles in 881 lakes in Minnesota and Wisconsin during 1980-2019.
 
-authors: [
-  "Jordan S. Read", "Alison P. Appling", "Kelsey Vitense", "Samantha K. Oliver",
-  "Lindsay Platt", "Gretchen J.A. Hansen", "Hayley Corson-Dosch"]
-pubdate: 2021
-doi: https://doi.org/YY.XXXXX/XXXXXX # replace with actual DOI
-
 build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source languages R and Python were used on all systems.
 
 # ----associated publication----
@@ -1280,37 +1274,3 @@ data-publisher: U.S. Geological Survey
 indirect-spatial: U.S.A.
 latitude-res: 0.00001
 longitude-res: 0.00001
-
-# ----contacts----
-contact-person: Jordan S. Read
-contact-phone: 608-821-3922
-contact-email: jread@usgs.gov
-contact-position: Research Civil Engineer
-contact-address: "8505 Research Way"
-contact-city: Middleton
-contact-state: WI
-contact-zip: 53562
-
-metadata-person: Jordan S. Read
-metadata-position: Research Civil Engineer
-metadata-phone: 608-821-3921
-metadata-fax: 608-821-3817
-metadata-email: jread@usgs.gov
-metadata-address: "8505 Research Way"
-metadata-city: Middleton
-metadata-state: WI
-metadata-zip: 53562
-metadata-date: !expr format(Sys.time(),'%Y%m%d')
-
-accur-test: No formal attribute accuracy tests were conducted.
-funding-credits: >-
-  This study was funded by the [DETAILS HERE]
-  This research used resources of the Core Science Analytics and Synthesis Advanced Research Computing program at the U.S. Geological Survey.
-process-description: >-
-  [A description of processing]
-distro-person: Jordan S. Read
-liability-statement: >-
-  Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected.
-  Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS),
-  no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall
-  the act of distribution constitute any such warranty.
