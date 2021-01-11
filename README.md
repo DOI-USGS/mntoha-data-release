@@ -111,7 +111,7 @@ These targets should be built in the `lake-temperature-out` project:
 3_summarize/out/annual_metrics_pgdl.csv
 ```
 
-Then post results in an interactive R session (to login to SB) with these commands:
+Then post results in an interactive R session (to login to SB) with the following commands. Commit the changes to the two CSV targets.
 ```R
 module load legacy R/3.6.3 tools/nco-4.7.8-gnu tools/netcdf-c-4.3.2-intel gdal/3.1.0 proj/7.0.1
 R
@@ -119,4 +119,14 @@ library(scipiper)
 sbtools::authenticate_sb('cidamanager')
 scmake('log/07_habitatPB_sb.csv')
 scmake('log/07_habitatPGDL_sb.csv')
+```
+```
+
+If you are only building those two targets and have not built any other part of the pipeline, you will need to adjust the `include` part of `remake.yml`. First, comment out `6_evaluation.yml` because it will fail on missing the file `src/scratch_plots.R`. Then, add `1_spatial.yml` so that it doesn't fail on `spatial_metadata` being an implicitly created target that must be a file. Now you can run the code above without errors. Revert these changes once done.
+
+```
+include:
+  - 1_spatial.yml
+  #- 6_evaluation.yml
+  - 7_habitat.yml
 ```
