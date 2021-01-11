@@ -93,6 +93,12 @@ cross-cites:
       Derivation of lake mixing and stratification indices from high-resolution lake buoy data
     pubdate: 2011
     link: https://doi.org/10.1016/j.envsoft.2011.05.006
+  -
+    authors: ['USGS Advanced Research Computing']
+    title: >-
+       USGS Yeti Supercomputer
+    pubdate: 2019
+    link: https://doi.org/10.5066/F7D798MJ
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
