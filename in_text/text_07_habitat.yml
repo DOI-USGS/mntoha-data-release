@@ -74,7 +74,8 @@ cross-cites:
       Effects of temperature, global extremes, and climate change on year-class production
       of warmwater, coolwater, and coldwater fishes in the Great Lakes Basin
     pubdate: 2002
-    link: ????
+    # Behind paywall in symposium proceedings, so not including in final metadata
+    # link: https://fisheries.org/bookstore/all-titles/afs-symposia/x54032xm/
   -
     authors: ['Charles C. Coutant']
     title: >-
