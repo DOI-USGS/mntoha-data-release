@@ -1261,7 +1261,7 @@ entities:
         Number of days between ice-on and ice-off. If `NA`, the open water
         period could not be calculated because there was not an ice-off or
         ice-on date for that year.
-      attr-defs: ????
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: days
