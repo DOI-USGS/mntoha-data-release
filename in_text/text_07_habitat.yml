@@ -1237,21 +1237,21 @@ entities:
     -
       attr-label: mean_epi_vol
       attr-def: Mean epilmnion volume during longest stratified period
-      attr-defs: ????
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
     -
       attr-label: mean_hyp_vol
       attr-def: Mean hypolimnion volume during longest stratified period
-      attr-defs: ????
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
     -
       attr-label: mean_epi_hypo_ratio
       attr-def: Mean epilmnion volume divided by mean hypolimnion volume
-      attr-defs: ????
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: unitless (ratio)
