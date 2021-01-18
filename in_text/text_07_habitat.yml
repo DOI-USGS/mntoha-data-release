@@ -6,13 +6,13 @@ abstract: >-
   of lake responses to climate change and give managers tools to manage individual lakes, we focused on improving
   prediction accuracy for daily water temperature profiles in 881 lakes in Minnesota and Wisconsin during 1980-2019.
 
-authors: [
-  "Jordan S. Read", "Alison P. Appling", "Kelsey Vitense", "Samantha K. Oliver",
-  "Lindsay Platt", "Gretchen J.A. Hansen", "Hayley Corson-Dosch"]
-pubdate: 2020 # replace with actual year, e.g., 2020
-doi: https://doi.org/YY.XXXXX/XXXXXX # replace with actual DOI
-
-build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source languages R and Python were used on all systems.
+build-environment: >-
+  This dataset was generated using the USGS Advanced Research Computing, USGS Yeti Supercomputer (https://doi.org/10.5066/F7D798MJ) and
+  open source tools available in the R programming language (R version 3.6.3 (2020-02-29)).
+  The computing platform for generating data and metadata was x86_64-redhat-linux-gnu.
+  R packages loaded into this environment: purrr, version: 0.3.4; feather, version: 0.3.5; tidyr, version: 1.1.2;
+  dplyr, version: 1.0.2; jsonlite, version: 1.7.1; readr, version: 1.4.0; sbtools, version: 1.1.12;
+  scipiper, version: 0.0.23; remake, version: 0.3.0.
 
 # ----associated publication----
 larger-cites:
@@ -30,22 +30,82 @@ cross-cites:
       Large-scale modeled contemporary and future water temperature estimates for 10,774 Midwestern U.S. Lakes
     pubdate: 2017
     link: http://dx.doi.org/10.1038/sdata.2017.53
-
-  # TODO: Add Lester et al. 2004
-  # TODO: Add ones referenced in https://github.com/USGS-R/necsc-lake-modeling/blob/d37377ea422b9be324e8bd203fc6eecc36966401/data/habitat_metrics_table_GH.csv
-  #   - Wismer and Christie 1987
-  #   - Busch et al. 1975
-  #   - Madenijan et al. 1996
-  #   - Fang et al. 2004
-  #   - Christie and Regier 1988
-  #   - Cline et al. 2013
-  #   - Casselman 2002
-  #   - Countant 1977
-  # TODO: Add ones referenced in the additional temp ranges Gretchen and Jonah passed along
-  #   - Eaton et al., 1995
-  #   - Stefan et al., 1995
-  #   - Xang et al. 1999
-  # TODO: Add Read et al. 2011 (https://www.sciencedirect.com/science/article/pii/S136481521100123X)
+  -
+    authors: ['Nigel P. Lester', 'Alan J. Dextrase', 'Robert S. Kushneriuk', 'Michael R. Rawson', 'Phil A. Ryan']
+    title: >-
+      Light and temperature: key factors affecting Walleye abundance and production
+    pubdate: 2004
+    link: https://doi.org/10.1577/T02-111.1
+  -
+    authors: ['Donald A. Wismer', 'Alan E. Christie']
+    title: >-
+      Temperature Relationships of Great Lakes Fishes: A Data Compilation
+    pubdate: 1987
+    link: http://www.glfc.org/pubs/SpecialPubs/Sp87_3.pdf
+  -
+    authors: ['Wolf-Dieter N. Busch', 'Russell L. Scholl', 'Wilbur L. Hartman']
+    title: >-
+      Environmental factors affecting the strength of walleye (Stizostedion
+      vitreum vitreum) year-classes in western Lake Erie, 1960-70
+    pubdate: 1975
+    link: https://doi.org/10.1139/f75-207
+  -
+    authors: ['Charles P. Madenjian', 'Jeffrey T. Tyson', 'Roger L. Knight', 'Mark W. Kershner', 'Michael J. Hansen']
+    title: >-
+      First-year growth, recruitment, and maturity of walleyes in western Lake Erie
+    pubdate: 1996
+    link: https://doi.org/10.1577/1548-8659(1996)125<0821:FYGRAM>2.3.CO;2
+  -
+    authors: ['Xing Fang', 'Heinz G, Stefan', 'John G. Eaton', 'J. Howard McCormick', 'Shoeb R. Alam']
+    title: >-
+      Simulation of thermal/dissolved oxygen habitat for fishes in lakes under different
+      climate scenarios: Part 1. Cool-water fish in the contiguous US
+    pubdate: 2004
+    link: https://doi.org/10.1016/S0304-3800(03)00282-5
+  -
+    authors: ['Gavin C. Christie', 'Henry A. Regier']
+    title: >-
+      Measures of optimal thermal habitat and their relationship to yields for four commercial fish species
+    pubdate: 1988
+    link: https://doi.org/10.1139/f88-036
+  -
+    authors: ['Timothy J. Cline', 'Val Bennington', 'James F. Kitchell']
+    title: >-
+      Climate change expands the spatial extent and duration of preferred thermal habitat for Lake Superior fishes
+    pubdate: 2013
+    link: https://doi.org/10.1371/journal.pone.0062279
+  -
+    authors: ['J.M. Casselman']
+    title: >-
+      Effects of temperature, global extremes, and climate change on year-class production
+      of warmwater, coolwater, and coldwater fishes in the Great Lakes Basin
+    pubdate: 2002
+    # Behind paywall in symposium proceedings, so not including in final metadata
+    # link: https://fisheries.org/bookstore/all-titles/afs-symposia/x54032xm/
+  -
+    authors: ['Charles C. Coutant']
+    title: >-
+      Compilation of temperature preference data
+    pubdate: 1977
+    link: https://doi.org/10.1139/f77-115
+  -
+    authors: ['John G. Eaton', 'J. Howard McCormick', 'B.E. Goodno', "D.G. O'Brien", 'Heinz G. Stefan', 'M. Hondzo', 'Robert M. Scheller']
+    title: >-
+      A field information-based system for estimating fish temperature tolerances
+    pubdate: 1995
+    link: https://doi.org/10.1577/1548-8446(1995)020<0010:AFISFE>2.0.CO;2
+  -
+    authors: ['Jordan S. Read', 'David P. Hamilton', 'Ian D. Jones', 'Kohji Muraoka', 'Luke A. Winslow', 'Ryan Kroiss', 'Chin H. Wu', 'Evelyn Gaiser']
+    title: >-
+      Derivation of lake mixing and stratification indices from high-resolution lake buoy data
+    pubdate: 2011
+    link: https://doi.org/10.1016/j.envsoft.2011.05.006
+  -
+    authors: ['USGS Advanced Research Computing']
+    title: >-
+       USGS Yeti Supercomputer
+    pubdate: 2019
+    link: https://doi.org/10.5066/F7D798MJ
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
@@ -103,8 +163,6 @@ entities:
       data-min: 0
       data-max: NA
       data-units: m^2
-    # TODO: technically also have Z1 & Z2 for both opti and therm hab, but I am trying to remember - I think we were
-    # going to remove those for what we pushed to SB?
   -
     data-name: annual_metrics_{model}.csv
     data-description: >-
@@ -278,7 +336,7 @@ entities:
       attr-def: >-
         Meters of water between 6.4 and 11.8 degrees C.
         This range is used to denote lower good-growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -287,7 +345,7 @@ entities:
       attr-def: >-
         Volume of water between 6.4 and 11.8 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -296,7 +354,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 6.4 and 11.8 degrees C.
         This range is used to denote lower good-growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -306,7 +364,7 @@ entities:
       attr-def: >-
         Meters of water between 13.2 and 18.2 degrees C.
         This range is used to denote lower good-growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -315,7 +373,7 @@ entities:
       attr-def: >-
         Volume of water between 13.2 and 18.2 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -324,7 +382,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 13.2 and 18.2 degrees C.
         This range is used to denote lower good-growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -334,7 +392,7 @@ entities:
       attr-def: >-
         Meters of water between 17.7 and 22.5 degrees C.
         This range is used to denote lower good-growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -343,7 +401,7 @@ entities:
       attr-def: >-
         Volume of water between 17.7 and 22.5 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -352,7 +410,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 17.7 and 22.5 degrees C.
         This range is used to denote lower good-growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -362,7 +420,7 @@ entities:
       attr-def: >-
         Meters of water between 11.5 and 18.7 degrees C.
         This range is used to denote optimum temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -371,7 +429,7 @@ entities:
       attr-def: >-
         Volume of water between 11.5 and 18.7 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -380,7 +438,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 11.5 and 18.7 degrees C.
         This range is used to denote optimum temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -390,7 +448,7 @@ entities:
       attr-def: >-
         Meters of water between 24 and 25.7 degrees C.
         This range is used to denote optimum temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -399,7 +457,7 @@ entities:
       attr-def: >-
         Volume of water between 24 and 25.7 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -408,7 +466,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 24 and 25.7 degrees C.
         This range is used to denote optimum temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -418,7 +476,7 @@ entities:
       attr-def: >-
         Meters of water between 27 and 32 degrees C.
         This range is used to denote optimum temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -427,7 +485,7 @@ entities:
       attr-def: >-
         Volume of water between 27 and 32 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -436,7 +494,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 27 and 32 degrees C.
         This range is used to denote optimum temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -446,7 +504,7 @@ entities:
       attr-def: >-
         Meters of water between 15.5 and 21.2 degrees C.
         This range is used to denote upper good growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -455,7 +513,7 @@ entities:
       attr-def: >-
         Volume of water between 15.5 and 21.2 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -464,7 +522,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 15.5 and 21.2 degrees C.
         This range is used to denote upper good growth temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -474,7 +532,7 @@ entities:
       attr-def: >-
         Meters of water between 27.7 and 28.8 degrees C.
         This range is used to denote upper good growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -483,7 +541,7 @@ entities:
       attr-def: >-
         Volume of water between 27.7 and 28.8 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -492,7 +550,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 27.7 and 28.8 degrees C.
         This range is used to denote upper good growth temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -502,7 +560,7 @@ entities:
       attr-def: >-
         Meters of water between 31.3 and 34.7 degrees C.
         This range is used to denote upper good growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -511,7 +569,7 @@ entities:
       attr-def: >-
         Volume of water between 31.3 and 34.7 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -520,7 +578,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 31.3 and 34.7 degrees C.
         This range is used to denote upper good growth temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -530,7 +588,7 @@ entities:
       attr-def: >-
         Meters of water between 26.6 and 100 degrees C.
         This range is used to denote upper lethal temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -539,7 +597,7 @@ entities:
       attr-def: >-
         Volume of water between 26.6 and 100 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -548,7 +606,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 26.6 and 100 degrees C.
         This range is used to denote upper lethal temperature (cold thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -558,7 +616,7 @@ entities:
       attr-def: >-
         Meters of water between 32.3 and 100 degrees C.
         This range is used to denote upper lethal temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -567,7 +625,7 @@ entities:
       attr-def: >-
         Volume of water between 32.3 and 100 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -576,7 +634,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 32.3 and 100 degrees C.
         This range is used to denote upper lethal temperature (cool thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -586,7 +644,7 @@ entities:
       attr-def: >-
         Meters of water between 36 and 100 degrees C.
         This range is used to denote upper lethal temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: linear distance (m)
@@ -595,7 +653,7 @@ entities:
       attr-def: >-
         Volume of water between 36 and 100 degrees C.
         {description_details}}
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
@@ -604,7 +662,7 @@ entities:
       attr-def: >-
         Days in which there is any part of water column between 36 and 100 degrees C.
         This range is used to denote upper lethal temperature (warm thermal guild)
-      attr-defs: Eaton et al., 1995; Stefan et al., 1995; Xang et al. 1999
+      attr-defs: Eaton et al., 1995
       data-min: NA
       data-max: NA
       data-units: days
@@ -1186,38 +1244,41 @@ entities:
     -
       attr-label: mean_epi_vol
       attr-def: Mean epilmnion volume during longest stratified period
-      attr-defs: ????
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
     -
       attr-label: mean_hyp_vol
       attr-def: Mean hypolimnion volume during longest stratified period
-      attr-defs: ????
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: volume (m^3*1000)
     -
       attr-label: mean_epi_hypo_ratio
       attr-def: Mean epilmnion volume divided by mean hypolimnion volume
-      attr-defs: ????
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: unitless (ratio)
     -
       attr-label: open_water_duration
-      attr-def: Number of days between ice-on and ice-off.
-      attr-defs: ????
+      attr-def: >-
+        Number of days between ice-on and ice-off. If `NA`, the open water
+        period could not be calculated because there was not an ice-off or
+        ice-on date for that year.
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: days
 
 purpose: Fisheries biology, limnological research, and climate science.
-start-date: 19800401
-end-date: 20191231
+start-date: 19791201
+end-date: 20181231
 
 update: none planned
-themekeywords: ["machine learning", "deep learning", "hybrid modeling", "water","temperature", "temperate lakes","reservoirs","modeling","climate change","thermal profiles"]
+themekeywords: ["machine learning", "deep learning", "hybrid modeling", "water","temperature", "temperate lakes","reservoirs","modeling","climate change","thermal profiles","thermal habitat"]
 
 usage-rules: >-
   These data are open access usable via creative commons as long as original data providers are acknowledged
@@ -1226,37 +1287,3 @@ data-publisher: U.S. Geological Survey
 indirect-spatial: U.S.A.
 latitude-res: 0.00001
 longitude-res: 0.00001
-
-# ----contacts----
-contact-person: Jordan S. Read
-contact-phone: 608-821-3922
-contact-email: jread@usgs.gov
-contact-position: Research Civil Engineer
-contact-address: "8505 Research Way"
-contact-city: Middleton
-contact-state: WI
-contact-zip: 53562
-
-metadata-person: Jordan S. Read
-metadata-position: Research Civil Engineer
-metadata-phone: 608-821-3921
-metadata-fax: 608-821-3817
-metadata-email: jread@usgs.gov
-metadata-address: "8505 Research Way"
-metadata-city: Middleton
-metadata-state: WI
-metadata-zip: 53562
-metadata-date: !expr format(Sys.time(),'%Y%m%d')
-
-accur-test: No formal attribute accuracy tests were conducted.
-funding-credits: >-
-  This study was funded by the [DETAILS HERE]
-  This research used resources of the Core Science Analytics and Synthesis Advanced Research Computing program at the U.S. Geological Survey.
-process-description: >-
-  [A description of processing]
-distro-person: Jordan S. Read
-liability-statement: >-
-  Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected.
-  Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS),
-  no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall
-  the act of distribution constitute any such warranty.
