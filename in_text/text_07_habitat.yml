@@ -113,7 +113,7 @@ file-format: >-
 
 entities:
   -
-    data-name: {model}_toha_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-name: "{model}_toha_{group_id}_N{minN-maxN}_W{minW-maxW}.zip"
     data-description: >-
       A zip file containing a csv file for every lake within {group_id} with thermal optical habitat metrics using
       predictions from the {model} predictions. Files within the zip are named "{model}_toha_{site_id}.csv". {model} is
