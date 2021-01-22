@@ -1,8 +1,5 @@
 target_default: 7_habitat
 
-include:
-  - 6_evaluation.yml
-
 packages:
   - dplyr
   - tidyr
@@ -16,16 +13,29 @@ sources:
 targets:
   7_habitat:
     depends:
-      - out/7_toha_zips.yml
+      - out/7_pb0_toha_zips.yml
+      - out_data/7_pb0_annual_metrics.csv
+      - out/7_pgdl_toha_zips.yml
+      - out_data/7_pgdl_annual_metrics.csv
 
   out/7_pb0_toha_zips.yml:
     command: update_hash_path(target_name,
       '../lake-temperature-out/3_summarize/out/3_summarize_zip_pb0_toha.yml',
       add_path = I('../lake-temperature-out'))
 
+  out_data/7_pb0_annual_metrics.csv:
+    command: update_hash_path(target_name,
+      '../lake-temperature-out/3_summarize/out/annual_metrics_pb0.csv',
+      add_path = I('../lake-temperature-out'))
+
   out/7_pgdl_toha_zips.yml:
     command: update_hash_path(target_name,
       '../lake-temperature-out/3_summarize/out/3_summarize_zip_pgdl_toha.yml',
+      add_path = I('../lake-temperature-out'))
+
+  out_data/7_pgdl_annual_metrics.csv:
+    command: update_hash_path(target_name,
+      '../lake-temperature-out/3_summarize/out/annual_metrics_pgdl.csv',
       add_path = I('../lake-temperature-out'))
 
   # Step to partially automate the manual process of adding metadata for each temp range
