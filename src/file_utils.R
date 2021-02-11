@@ -58,7 +58,6 @@ create_release_fl <- function(geometry){
 }
 xwalk_meteo_lat_lon <- function(meteo_fl, meteo_dir, ldas_grid){
 
-
   all_meteo_fls <- data.frame(pipeline_fl = dir(meteo_dir), stringsAsFactors = FALSE) %>%
     filter(stringr::str_detect(pipeline_fl, "[0-9n]\\].csv")) %>%
     mutate(x = stringr::str_extract(pipeline_fl, 'x\\[[0-9]+\\]') %>% str_remove('x\\[') %>% str_remove('\\]') %>% as.numeric(),
@@ -66,7 +65,9 @@ xwalk_meteo_lat_lon <- function(meteo_fl, meteo_dir, ldas_grid){
     left_join(suppressWarnings(st_centroid(ldas_grid))) %>% rename(geometry = ldas_grid_sfc) %>% select(-x, -y) %>%
     st_sf() %>% mutate(release_fl = create_release_fl(geometry))
 
-  meteo_data <- readRDS(meteo_fl) %>% rename(pipeline_fl = meteo_fl)
+  message('a hack to deal with meteo file change')
+  meteo_data <- readRDS(meteo_fl) %>% rename(pipeline_fl = meteo_fl) %>%
+    mutate(pipeline_fl = stringr::str_replace(pipeline_fl, '367700', replacement = '359420'))
   left_join(all_meteo_fls, meteo_data, by = 'pipeline_fl') %>% select(site_id, everything()) %>% st_drop_geometry()
 
 }
