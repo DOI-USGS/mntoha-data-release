@@ -171,6 +171,54 @@ entities:
       data-min: NA
       data-max: NA
       data-units: NA
+  -
+    data-name: pgdl_fits_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: see this example https://github.com/USGS-R/mntoha-data-release/blob/master/in_text/text_07_habitat.yml#L117-L121
+    attributes:
+      -
+        attr-label: [COLUMN NAME]
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: [COLUMN NAME]
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: pgdl_config.csv
+    data-description: A CSV file containing parameters for each of the lakes in this study
+    attributes:
+      -
+        attr-label: [COLUMN NAME]
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: [COLUMN NAME]
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: pgdl_fit_lakes.png
+    data-description: A PNG file ... see example https://github.com/USGS-R/pgmtl-data-release/blob/master/in_text/text_05_predictions.yml#L47
+    attributes:
+      -
+        attr-label: PNG image
+        attr-def: NA
+        attr-defs: This data release
+        data-min: NA
+        data-max: NA
+        data-units: NA
+
 build-environment: >-
   This dataset was generated using open source tools available in the R programming language (R version 3.6.1 (2019-07-05)).
   The computing platform for generating data and metadata was x86_64-apple-darwin15.6.0.
