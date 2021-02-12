@@ -1,10 +1,10 @@
 title: >-
-  Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 1 Lake information for 909 lakes
+  Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 1 Lake information for 881 lakes
 
 abstract: >-
-  This dataset provides shapefile outlines of the 909 lakes that had temperature modeled as part of this study.
+  This dataset provides shapefile outlines of the 881 lakes that had temperature modeled as part of this study.
   The format is a shapefile for all lakes combined (.shp, .shx, .dbf, and .prj files). A csv file of lake metadata is also included.
-  This dataset is part of a larger data release of lake temperature model inputs and outputs for 909 lakes in the U.S.
+  This dataset is part of a larger data release of lake temperature model inputs and outputs for 881 lakes in the U.S.
   state of Minnesota (https://doi.org/10.5066/P9PPHJE2).
 
 cross-cites:
@@ -26,7 +26,7 @@ cross-cites:
 entities:
   -
     data-name: 01_spatial.zip
-    data-description: GIS polygon data for the 909 lakes included in this study
+    data-description: GIS polygon data for the 881 lakes included in this study
     attributes:
     -
       attr-label: site_id
@@ -39,7 +39,7 @@ entities:
       data-units: NA
   -
     data-name: lake_metadata.csv
-    data-description: Select metadata for the 909 lakes included in this study
+    data-description: Select metadata for the 881 lakes included in this study
     attributes:
     -
       attr-label: site_id
@@ -62,15 +62,15 @@ entities:
       attr-label: centroid_lon centroid_lat
       attr-def: longitude (decimal-degrees) of the centroid of this lake (for purposes of calculating group_id and linking meteorological data cells)
       attr-defs: NA
-      data-min: -99.42552
-      data-max: -83.08698
+      data-min: -96.7314
+      data-max: -90.0598
       data-units: decimal-degrees
     -
       attr-label: centroid_lat
       attr-def: latitude (decimal-degrees) of the centroid of this lake (for purposes of calculating group_id and linking meteorological data cells)
       attr-defs: NA
-      data-min: 40.9117
-      data-max: 48.88107
+      data-min: 43.5204
+      data-max: 49.05203
       data-units: decimal-degrees
     -
       attr-label: state
