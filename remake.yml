@@ -14,6 +14,7 @@ packages:
   - httr
   - rgdal
   - stringr
+  - scipiper
   - glmtools
   - sp
   - RJSONIO
@@ -39,9 +40,9 @@ targets:
       #- log/05_predictionsPGDL_sb.csv
       - log/06_evaluationPB_sb.csv
       #- log/06_evaluationPGDL_sb.csv
-      - log/07_habitatPB_sb.csv
-      - log/07_habitatPGDL_sb.csv
-      - log/07_habitat_xml_sb.csv
+      #- log/07_habitatPB_sb.csv
+      #- log/07_habitatPGDL_sb.csv
+      #- log/07_habitat_xml_sb.csv
 
 
 
@@ -166,7 +167,7 @@ targets:
       file_hash = "out/7_pgdl_toha_zips.yml",
       "out_data/7_pgdl_annual_metrics.csv")
 
-  # Decouple from habitat data file uploads so that 
+  # Decouple from habitat data file uploads so that
   # `spatial_metadata` isn't a blocker for those.
   log/07_habitat_xml_sb.csv:
     command: sb_replace_files(target_name,
