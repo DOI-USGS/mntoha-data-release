@@ -73,6 +73,7 @@ targets:
 
   xwalk_meteo_fl_names:
     command: xwalk_meteo_lat_lon(meteo_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
+      sites = site_ids_grouped,
       meteo_dir = I('../lake-temperature-model-prep/7_drivers_munge/out'),
       ldas_grid)
 
@@ -82,10 +83,10 @@ targets:
       county_state_overlaps,
       lakes_sf = modeled_lakes_sf,
       benthic_area_fl = '../lake-temperature-out/3_summarize/out/total_benthic_areas.csv',
-      lat_lon_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_lat_lon_values.rds',
       nml_json_fl = 'out_data/pb0_config.json',
       meteo_fl_info = xwalk_meteo_fl_names,
-      gnis_names_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/gnisname_nhdhr_xwalk.rds')
+      gnis_names_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/gnisname_nhdhr_xwalk.rds',
+      mndow_xwalk_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/mndow_nhdhr_xwalk.rds')
 
 
   spatial_metadata:

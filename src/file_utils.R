@@ -56,26 +56,31 @@ create_release_fl <- function(geometry){
   }
   return(release_fl)
 }
-xwalk_meteo_lat_lon <- function(meteo_fl, meteo_dir, ldas_grid){
+xwalk_meteo_lat_lon <- function(meteo_fl, sites, meteo_dir, ldas_grid){
 
   all_meteo_fls <- data.frame(pipeline_fl = dir(meteo_dir), stringsAsFactors = FALSE) %>%
     filter(stringr::str_detect(pipeline_fl, "[0-9n]\\].csv")) %>%
-    mutate(x = stringr::str_extract(pipeline_fl, 'x\\[[0-9]+\\]') %>% str_remove('x\\[') %>% str_remove('\\]') %>% as.numeric(),
-           y = stringr::str_extract(pipeline_fl, 'y\\[[0-9]+\\]') %>% str_remove('y\\[') %>% str_remove('\\]') %>% as.numeric()) %>%
+    mutate(x = stringr::str_extract(pipeline_fl, '(?<=x\\[).+?(?=\\])') %>% as.numeric(),
+           y = stringr::str_extract(pipeline_fl, '(?<=y\\[).+?(?=\\])') %>% as.numeric()) %>%
     left_join(suppressWarnings(st_centroid(ldas_grid))) %>% rename(geometry = ldas_grid_sfc) %>% select(-x, -y) %>%
     st_sf() %>% mutate(release_fl = create_release_fl(geometry))
 
   message('a hack to deal with meteo file change')
   meteo_data <- readRDS(meteo_fl) %>% rename(pipeline_fl = meteo_fl) %>%
     mutate(pipeline_fl = stringr::str_replace(pipeline_fl, '367700', replacement = '359420'))
-  left_join(all_meteo_fls, meteo_data, by = 'pipeline_fl') %>% select(site_id, everything()) %>% st_drop_geometry()
+  left_join(all_meteo_fls, meteo_data, by = 'pipeline_fl') %>% select(site_id, everything()) %>% st_drop_geometry() %>%
+    filter(site_id %in% sites$site_id)
 
 }
 
-create_metadata_file <- function(fileout, sites, table, lakes_sf, lat_lon_fl, nml_json_fl, benthic_area_fl, meteo_fl_info, gnis_names_fl){
+create_metadata_file <- function(fileout, sites, table, lakes_sf, nml_json_fl, benthic_area_fl, meteo_fl_info, gnis_names_fl, mndow_xwalk_fl){
   sdf <- sf::st_transform(lakes_sf, 2811) %>%
     mutate(perim = lwgeom::st_perimeter_2d(Shape), area = sf::st_area(Shape), circle_perim = 2*pi*sqrt(area/pi), SDF = perim/circle_perim) %>%
     sf::st_drop_geometry() %>% select(site_id, SDF)
+
+  lat_lon <- lakes_sf %>% st_centroid() %>%
+    mutate(centroid_lon = {st_coordinates(Shape)[,1]}, centroid_lat = {st_coordinates(Shape)[,2]}) %>%
+    st_drop_geometry()
 
   benthic_area <- read_csv(benthic_area_fl)
   nml_list <- RJSONIO::fromJSON(nml_json_fl)
@@ -87,14 +92,17 @@ create_metadata_file <- function(fileout, sites, table, lakes_sf, lat_lon_fl, nm
            area = tail(glmtools::get_nml_value(this_nml, "A"), 1))
   }) %>% purrr::reduce(bind_rows)
 
-  sites %>% inner_join((readRDS(lat_lon_fl)), by = 'site_id') %>%
+  mndow_xwalk <- readRDS(mndow_xwalk_fl) %>%
+    group_by(site_id) %>% summarize(mndow_id = paste(MNDOW_ID, collapse = '|'), .groups = 'drop')
+
+  sites %>% inner_join(lat_lon, by = 'site_id') %>%
     inner_join(sdf, by = 'site_id') %>%
     inner_join(basic_info, by = 'site_id') %>%
     inner_join(benthic_area, by = 'site_id') %>%
-    rename(centroid_lon = longitude, centroid_lat = latitude) %>%
     inner_join(table, by = 'site_id') %>%
     inner_join(meteo_fl_info, by = 'site_id') %>% select(-pipeline_fl) %>%
     inner_join((readRDS(gnis_names_fl)), by = 'site_id') %>%
+    inner_join(mndow_xwalk, by = 'site_id') %>%
     select(site_id, lake_name = GNIS_Name, group_id, meteo_filename = release_fl, depth, area, everything()) %>%
     write_csv(fileout)
 
