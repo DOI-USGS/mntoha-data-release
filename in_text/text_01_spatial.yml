@@ -51,6 +51,14 @@ entities:
       data-max: NA
       data-units: NA
     -
+      attr-label: lake_name
+      attr-def: GNIS Name for each lake. Usually the common name of the lake. NA when missing.
+      attr-defs: >-
+        http://nhd.usgs.gov/
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
       attr-label: group_id
       attr-def: >-
         group identifier for files that are spatially grouped in this data release. Groups are based on lat/lon bounding boxes.
@@ -59,7 +67,29 @@ entities:
       data-max: NA
       data-units: NA
     -
-      attr-label: centroid_lon centroid_lat
+      attr-label: meteo_filename
+      attr-def: filename for meteorological information used to drive models for this lake.
+      attr-defs: this release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: depth
+      attr-def: Maximum depth for this lake, in meters
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: meters
+    -
+      attr-label: area
+      attr-def: Area for this lake, in square meters
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: >-
+        meters^2
+    -
+      attr-label: centroid_lon
       attr-def: longitude (decimal-degrees) of the centroid of this lake (for purposes of calculating group_id and linking meteorological data cells)
       attr-defs: NA
       data-min: -96.7314
@@ -72,6 +102,21 @@ entities:
       data-min: 43.5204
       data-max: 49.05203
       data-units: decimal-degrees
+    -
+      attr-label: SDF
+      attr-def: Shoreline development factor
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: unitless
+    -
+      attr-label: total_benthic_area
+      attr-def: LINDSAY HELP FILL THIS OUT!!!!!
+      attr-defs: NA
+      data-min: NA
+      data-max: NA
+      data-units: >-
+        meters^2
     -
       attr-label: state
       attr-def: >-
@@ -91,10 +136,11 @@ entities:
       data-max: NA
       data-units: NA
     -
-      attr-label: lake_name
-      attr-def: GNIS Name for each lake. Usually the common name of the lake. NA when missing.
-      attr-defs: >-
-        http://nhd.usgs.gov/
+      attr-label: mndow_id
+      attr-def: >-
+        MN lake idenfifier ("DOW").
+        When more than one DOW exists for one site_id, mndow_ids are separated by "|", such as "mndow_37004600|mndow_37004601"
+      attr-defs: NA
       data-min: NA
       data-max: NA
       data-units: NA
