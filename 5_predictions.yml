@@ -21,6 +21,7 @@ sources:
   - src/file_utils.R
   - src/spatial_utils.R
   - src/plot_utils.R
+  - src/do_sorting_tasks.R
 
 targets:
   5_predictions:
@@ -78,19 +79,41 @@ targets:
     command: build_pgdl_df(
       pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_final.ind',
       prefix = I('pgdl'), suffix = I('temperatures'))
+   
+  out/pgdl_predictions_final_sorted.ind:
+      command: do_sorting_tasks(
+          final_target = target_name,
+          site_id_list = pgdl_lake_ids,
+          prediction_files = I('pgdl_predictions_df'),
+          prediction_type = I('pgdl_final'),
+          'src/do_sorting_tasks.R',
+          'src/file_utils.R')
+      depends: pgdl_predictions_df
 
   out/5_pgdl_predictions_zips.yml:
     command: zip_pgdl_prediction_groups(target_name, pgdl_predictions_df,
       site_groups = pgdl_site_ids_grouped, phase = I('finetune'))
+    depends: out/pgdl_predictions_final_sorted.ind
 
   pgdl_test_predictions_df:
     command: build_pgdl_df(
       pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
-      prefix = I('pgdl'), suffix = I('test_temperatures'))
+      prefix = I('tmppgdl'), suffix = I('test_temperatures'))
+       
+  out/pgdl_predictions_test_sorted.ind:
+      command: do_sorting_tasks(
+          final_target = target_name,
+          site_id_list = pgdl_lake_ids,
+          prediction_files = I('pgdl_test_predictions_df'),
+          prediction_type = I('pgdl_test'),
+          'src/do_sorting_tasks.R',
+          'src/file_utils.R')
+      depends: pgdl_test_predictions_df
 
   out/5_pgdl_test_predictions_zips.yml:
     command: zip_pgdl_test_groups(target_name, pgdl_test_predictions_df,
       site_groups = pgdl_site_ids_grouped)
+    depends: out/pgdl_predictions_test_sorted.ind
 
   out_data/predict_lakes.png:
     command: plot_grouped_lakes_preview(target_name,

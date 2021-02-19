@@ -260,8 +260,9 @@ build_pgdl_df <- function(
   ) %>%
     filter(grepl('pgdl_.*_preds.csv', source_filepath)) %>% # exclude pgdl_test_dates.csv files
     extract(source_filepath, 'site_id', regex='.*(nhdhr_.*)/pgdl_.*_preds\\.csv', remove=FALSE) %>%
+    mutate(raw_file = paste0(prefix, '_', site_id, '_UNSORTED_', suffix, '.csv')) %>%
     mutate(out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
-    select(site_id, source_filepath, source_hash, out_file)
+    select(site_id, source_filepath, source_hash, raw_file, out_file)
 }
 
 zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
@@ -382,6 +383,12 @@ zip_pgdl_fit_groups <- function(outfile, fits_df, site_groups, phase){
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
+copy_pgdl_predictions <- function(predictions_df) {
+   
+  # copy the raw (unsorted) prediction csv files from the lake temperature neural network repo
+  file.copy(predictions_df$source_filepath, file.path(tempdir(), predictions_df$raw_file), overwrite=TRUE) #tempdir()
+
+}  
 
 zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
 
@@ -401,8 +408,11 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     if (file.exists(zippath)){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
-    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
+      
+    # commenting out file copy b/c files now copied during sorting tasks
+#     file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
 
+    # set wd to tempdir b/c that's where we're placing predictions after sorting
     setwd(tempdir())
 
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
@@ -428,14 +438,18 @@ zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
     zipfile <- paste0('tmp/pgdl_test_predictions_', group, '.zip')
     these_files <- model_csvs %>% filter(group_id == !!group)
 
-    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file))
+    # commenting out file copy b/c files now copied during sorting tasks
+#     file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file))
 
     # zip the files
     zippath <- file.path(getwd(), zipfile)
     if (file.exists(zippath)){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
+      
+    # set wd to tempdir b/c that's where we're placing predictions after sorting
     setwd(tempdir())
+      
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
     zip(zippath, files = these_files$out_file)
     setwd(cd)
