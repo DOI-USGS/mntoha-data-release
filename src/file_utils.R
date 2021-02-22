@@ -410,7 +410,10 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     }
       
     # commenting out file copy b/c files now copied during sorting tasks
-#     file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
+    # EXCEPT if phase = pretrain, since not sorting pretrain preds
+    if (phase == 'pretrain') {
+        file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
+    }
 
     # set wd to tempdir b/c that's where we're placing predictions after sorting
     setwd(tempdir())
