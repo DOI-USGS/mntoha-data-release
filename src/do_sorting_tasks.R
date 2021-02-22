@@ -1,8 +1,9 @@
 do_sorting_tasks <- function(final_target, site_id_list, prediction_files, prediction_type, ...) {
-      
+
     ##### DEFINE TASK TABLE ROWS #####
     # set task names
-    task_names <- site_id_list  
+    task_names <- site_id_list
+    
     
     ##### DEFINE TASK TABLE COLUMNS #####
     ### STEP 1 ###
@@ -113,6 +114,7 @@ sort_profiles <- function(site_filepaths_file) {
     # save sorted predictions
     setwd(tempdir())
     write_csv(pgdl_sorted, file = file.path(site_filepaths$out_file))
+#     write_csv(pgdl_sorted, file = file.path(tempdir(), site_filepaths$out_file))
     
     setwd(cd)
     
@@ -142,4 +144,9 @@ combine_comparisons <- function(outfile, ...) {
 
     # make indicator file
     scipiper::sc_indicate(outfile, data_file = all_comparison_csvs)
+}
+
+get_site_ids <- function(predictions_df) {
+    predictions_df %>%
+        pull(site_id)
 }
