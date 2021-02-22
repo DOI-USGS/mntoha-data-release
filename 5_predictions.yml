@@ -99,11 +99,14 @@ targets:
     command: build_pgdl_df(
       pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_holdout.ind',
       prefix = I('pgdl'), suffix = I('test_temperatures'))
-       
+
+  pgdl_test_site_ids:
+      command: get_site_ids(pgdl_test_predictions_df)
+
   out/pgdl_predictions_test_sorted.ind:
       command: do_sorting_tasks(
           final_target = target_name,
-          site_id_list = pgdl_lake_ids,
+          site_id_list = pgdl_test_site_ids,
           prediction_files = I('pgdl_test_predictions_df'),
           prediction_type = I('pgdl_test'),
           'src/do_sorting_tasks.R',
