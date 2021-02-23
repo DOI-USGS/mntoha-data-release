@@ -391,7 +391,7 @@ copy_pgdl_predictions <- function(predictions_df) {
 }  
 
 zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
-
+    
   model_npzs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
     select(-site_id)
 
@@ -419,11 +419,14 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     setwd(tempdir())
 
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
+#     files_to_zip <- paste(tempdir(), these_files$out_file, sep="/")
+#     zip(zippath, files = files_to_zip)
     zip(zippath, files = these_files$out_file)
     unlink(these_files$out_file)
     setwd(cd)
     data_files <- c(data_files, zipfile)
   }
+  setwd(cd)
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
@@ -460,6 +463,7 @@ zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
     # make note of the files
     data_files <- c(data_files, zipfile)
   }
+  setwd(cd)
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
@@ -488,7 +492,7 @@ zip_this <- function(outfile, .object){
 }
 
 unzip_to_tibble <- function(zipfile, ...) {
-  file_to_unzip <- unzip(zipfile, list =TRUE) %>% pull(Name)
+  file_to_unzip <- utils::unzip(zipfile, list =TRUE) %>% pull(Name)
   unzip(zipfile, exdir=tempdir(), files=file_to_unzip)
   readr::read_csv(file.path(tempdir(), file_to_unzip), ...)
 }

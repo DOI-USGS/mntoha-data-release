@@ -46,8 +46,8 @@ compare_as_rmse <- function(target_name, matched_preds){
 
 # Match model predictions to observation depths and dates
 match_preds_to_obs  <- function(out_zip, observations_zip='out_data/temperature_observations.zip', predictions_zips_ind, min_obs_dates){
-
-  # load the observations. only bother assessing those sites with at least
+  
+    # load the observations. only bother assessing those sites with at least
   # min_obs_dates of observations
   obs <- unzip_to_tibble(observations_zip, col_types='cDddc')
   obs_sites <- obs %>%
@@ -61,7 +61,7 @@ match_preds_to_obs  <- function(out_zip, observations_zip='out_data/temperature_
   pred_zips <- names(yaml::yaml.load_file(predictions_zips_ind))
   pred_site_info <- bind_rows(lapply(pred_zips, function(pred_zip) {
     tibble(
-      source_csv = unzip(pred_zip, list=TRUE)$Name,
+      source_csv = utils::unzip(pred_zip, list=TRUE)$Name,
       source_zip = pred_zip)
   })) %>%
     extract(source_csv, into='site_id', regex='pgdl_(nhdhr_.+)_test_temperatures\\.csv', remove=FALSE) %>%
