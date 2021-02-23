@@ -66,7 +66,7 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files, predi
         include =c('5_predictions.yml'),
         packages = c('tidyverse', 'purrr', 'readr', 'scipiper'),
         final_targets = final_target,
-        finalize_funs = 'combine_comparisons',
+        finalize_funs = 'combine_all_comparisons',
         as_promises = TRUE,
         tickquote_combinee_objects = TRUE
     )
@@ -98,8 +98,8 @@ sort_pgdl <- function(matrix_row) {
 }
 
 sort_profiles <- function(site_filepaths_file) { 
-    cd <- getwd()
-    on.exit(setwd(cd))
+#     cd <- getwd()
+#     on.exit(setwd(cd))
     
     # load site filepaths file
     site_filepaths <- readr::read_csv(site_filepaths_file, col_types='ccccc')
@@ -112,11 +112,11 @@ sort_profiles <- function(site_filepaths_file) {
     pgdl_sorted[-1] <- pgdl_sorted_matrix
     
     # save sorted predictions
-    setwd(tempdir())
-    write_csv(pgdl_sorted, file = file.path(site_filepaths$out_file))
-#     write_csv(pgdl_sorted, file = file.path(tempdir(), site_filepaths$out_file))
+#     setwd(tempdir())
+#     write_csv(pgdl_sorted, file = file.path(site_filepaths$out_file))
+    write_csv(pgdl_sorted, file = file.path(tempdir(), site_filepaths$out_file))
     
-    setwd(cd)
+#     setwd(cd)
     
     # return sorted dataframe
     return(pgdl_sorted)
@@ -138,15 +138,17 @@ compare_profiles <- function(outfile, site_filepaths_file, pgdl_sorted) {
     write_csv(pgdl_compared, file = outfile)
 }
 
-combine_comparisons <- function(outfile, ...) {    
+get_site_ids <- function(predictions_df) {
+    predictions_df %>%
+        pull(site_id)
+}
+
+combine_all_comparisons <- function(outfile, ...) {  
+    print('final combine step')
+    
     # make vector of results from final steps (compare steps)
     all_comparison_csvs <- c(...)
 
     # make indicator file
     scipiper::sc_indicate(outfile, data_file = all_comparison_csvs)
-}
-
-get_site_ids <- function(predictions_df) {
-    predictions_df %>%
-        pull(site_id)
 }
