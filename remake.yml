@@ -37,7 +37,7 @@ targets:
       #- log/03_configPGDL_sb.csv
       - log/04_inputs_sb.csv
       - log/05_predictionsPB_sb.csv
-      #- log/05_predictionsPGDL_sb.csv
+      - log/05_predictionsPGDL_sb.csv
       - log/06_evaluationPB_sb.csv
       #- log/06_evaluationPGDL_sb.csv
       - log/07_habitatPB_sb.csv
