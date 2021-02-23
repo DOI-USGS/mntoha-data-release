@@ -130,6 +130,11 @@ targets:
       'out_data/predict_lakes.png',
       "out_xml/05_predictions.xml")
 
+  log/05_predictionsPGDL_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_05_predictions,
+      file_hash = "out/5_pgdl_predictions_zips.yml")
+
   out_xml/06_evaluation.xml:
     command: render(filename = target_name,
       "in_text/text_SHARED.yml",
