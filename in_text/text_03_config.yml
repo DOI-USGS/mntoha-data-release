@@ -183,16 +183,116 @@ entities:
     data-description: see this example https://github.com/USGS-R/mntoha-data-release/blob/master/in_text/text_07_habitat.yml#L117-L121
     attributes:
       -
-        attr-label: [COLUMN NAME]
+        attr-label: site_id
+        attr-def: >-
+        Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhd_{Prmnn_I}"
+        attr-defs: >-
+        http://nhd.usgs.gov/
+        data-min: NA
+        data-max: NA
+        data-units: NA
+      -
+        attr-label: phase
         attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
+        attr-defs: This data release
         data-min: [COLUMN MIN if applicable, NA if not]
         data-max: [COLUMN MAX if applicable, NA if not]
         data-units: [COLUMN UNITS if applicable, NA if not]
       -
-        attr-label: [COLUMN NAME]
+        attr-label: goal
         attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: fold
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: learning_rate
+        attr-def: Neural network learning rate
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: n_epochs
+        attr-def: Total number of epochs to run during training. Needs to be larger than the n epochs needed for the model to converge
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: state_size
+        attr-def: Number of units in each cell's hidden state
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: ec_threshold
+        attr-def: Energy imbalance beyond which neural network will be penalized
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: dd_lambda
+        attr-def: PRESENTLY IGNORED. Depth-density penalty lambda, a hyperparameter that needs manual tuning. Multiplier to depth-density loss when adding to other losses
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: ec_lambda
+        attr-def: Energy-conservation penalty lambda, another hyperparameter that needs manual tuning. Multiplier to energy-conservation loss when adding to other losses. Could set ec_lambda=0 if we wanted recurrent neural network only, no energy conservation component
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: l1_lambda
+        attr-def: L1-regularization penalty lambda, another hyperparameter that needs manual tuning
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: sequence_length
+        attr-def: Length of each data sequence
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: sequence_offset
+        attr-def: Number of observations by which each data sequence in inputs['predict.features'] is offset from the previous sequence. Used to reconstruct a complete prediction sequence without duplicates.
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: max_batch_obs
+        attr-def: Upper limit on number of individual temperature predictions (date-depth-split combos) to generate and test against observations or internal consistency per batch. Used to decide how many batches to run. True batch size will differ between supervised and unsupervised datasets and will be capped at (1) for the larger of supervised and unsupervised, the largest number of completes sequences for complete depth profiles that fit within this max_batch_size, and (2) for the smaller of supervised adn unsupervised, the number of complete sequences that will make an equal number of batches to the other dataset type.
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: restore_path
+        attr-def: Path to restore a model from, or ''
+        attr-defs: This data release
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: save_path
+        attr-def: Path (directory) to save a model to. Will always be saved as ('checkpoint_%s' %>% epoch)
+        attr-defs: This data release
         data-min: [COLUMN MIN if applicable, NA if not]
         data-max: [COLUMN MAX if applicable, NA if not]
         data-units: [COLUMN UNITS if applicable, NA if not]
