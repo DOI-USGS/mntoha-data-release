@@ -88,9 +88,13 @@ subset_prediction_files <- function(outfile, site_id, prediction_files) {
 }
 
 sort_pgdl <- function(matrix_row) {
+    # if all temperatures below 4 deg C...
     if (length(matrix_row[which(matrix_row <= 4)]) == length(matrix_row)) {
+        # sort profile to be monontonic by temperature and density
         matrix_row_sorted <- sort(matrix_row, decreasing=FALSE)
+    # otherwise...
     } else {
+        # sort profile to be monotonic by temperature
         matrix_row_sorted <- sort(matrix_row, decreasing=TRUE)
     }
     return(matrix_row_sorted)
@@ -98,8 +102,6 @@ sort_pgdl <- function(matrix_row) {
 }
 
 sort_profiles <- function(site_filepaths_file) { 
-#     cd <- getwd()
-#     on.exit(setwd(cd))
     
     # load site filepaths file
     site_filepaths <- readr::read_csv(site_filepaths_file, col_types='ccccc')
@@ -112,12 +114,8 @@ sort_profiles <- function(site_filepaths_file) {
     pgdl_sorted[-1] <- pgdl_sorted_matrix
     
     # save sorted predictions
-#     setwd(tempdir())
-#     write_csv(pgdl_sorted, file = file.path(site_filepaths$out_file))
     write_csv(pgdl_sorted, file = file.path(tempdir(), site_filepaths$out_file))
-    
-#     setwd(cd)
-    
+       
     # return sorted dataframe
     return(pgdl_sorted)
 }
