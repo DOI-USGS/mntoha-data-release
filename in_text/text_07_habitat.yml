@@ -109,7 +109,7 @@ cross-cites:
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
-  two comma-delimited files and 26 compressed zip files
+  two comma-delimited text files and 26 compressed zip files
 
 entities:
   -

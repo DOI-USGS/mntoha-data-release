@@ -24,9 +24,9 @@ targets:
       add_path = I('../lake-temperature-out'))
 
   out_data/7_pb0_annual_metrics.csv:
-    command: update_hash_path(target_name,
-      '../lake-temperature-out/3_summarize/out/annual_metrics_pb0.csv',
-      add_path = I('../lake-temperature-out'))
+    command: file.copy(to = target_name,
+      from = '../lake-temperature-out/3_summarize/out/annual_metrics_pb0.csv',
+      overwrite = TRUE)
 
   out/7_pgdl_toha_zips.yml:
     command: update_hash_path(target_name,
@@ -34,9 +34,9 @@ targets:
       add_path = I('../lake-temperature-out'))
 
   out_data/7_pgdl_annual_metrics.csv:
-    command: update_hash_path(target_name,
-      '../lake-temperature-out/3_summarize/out/annual_metrics_pgdl.csv',
-      add_path = I('../lake-temperature-out'))
+    command: file.copy(to = target_name,
+      from = '../lake-temperature-out/3_summarize/out/annual_metrics_pgdl.csv',
+      overwrite = TRUE)
 
   # Step to partially automate the manual process of adding metadata for each temp range
   # variable. Once you build this file, manually copy the contents and place in the
