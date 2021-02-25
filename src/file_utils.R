@@ -419,8 +419,6 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     setwd(tempdir())
 
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
-#     files_to_zip <- paste(tempdir(), these_files$out_file, sep="/")
-#     zip(zippath, files = files_to_zip)
     zip(zippath, files = these_files$out_file)
     unlink(these_files$out_file)
     setwd(cd)
@@ -443,9 +441,6 @@ zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
   for (group in groups){
     zipfile <- paste0('tmp/pgdl_test_predictions_', group, '.zip')
     these_files <- model_csvs %>% filter(group_id == !!group)
-
-    # commenting out file copy b/c files now copied during sorting tasks
-#     file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file))
 
     # zip the files
     zippath <- file.path(getwd(), zipfile)
