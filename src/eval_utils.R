@@ -74,9 +74,9 @@ match_preds_to_obs  <- function(out_zip, observations_zip='out_data/temperature_
   matched_preds <- purrr::pmap_dfr(pred_site_info, function(source_csv, source_zip, site_id) {
     message('.', appendLF=FALSE)
     these_obs <- obs_eval %>% filter(site_id == !!site_id)
-    pred_path <- file.path(tempdir(), source_csv)
+    pred_path <- file.path(source_csv) #file.path(tempdir(), source_csv)
     if(!file.exists(pred_path)) {
-      unzip(source_zip, exdir = tempdir(), overwrite = TRUE)
+      unzip(source_zip, overwrite = TRUE)
     }
     these_preds <- read_preds_release(pred_path)
     prep_pred_obs(these_obs, these_preds)

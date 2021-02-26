@@ -260,9 +260,8 @@ build_pgdl_df <- function(
   ) %>%
     filter(grepl('pgdl_.*_preds.csv', source_filepath)) %>% # exclude pgdl_test_dates.csv files
     extract(source_filepath, 'site_id', regex='.*(nhdhr_.*)/pgdl_.*_preds\\.csv', remove=FALSE) %>%
-    mutate(raw_file = paste0(prefix, '_', site_id, '_UNSORTED_', suffix, '.csv')) %>%
     mutate(out_file = paste0(prefix, '_', site_id, '_', suffix, '.csv')) %>%
-    select(site_id, source_filepath, source_hash, raw_file, out_file)
+    select(site_id, source_filepath, source_hash, out_file)
 }
 
 zip_pb_export_groups <- function(outfile, file_info_df, site_groups,
@@ -383,21 +382,13 @@ zip_pgdl_fit_groups <- function(outfile, fits_df, site_groups, phase){
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
-copy_pgdl_predictions <- function(predictions_df) {
-   
-  # copy the raw (unsorted) prediction csv files from the lake temperature neural network repo
-  file.copy(predictions_df$source_filepath, file.path(tempdir(), predictions_df$raw_file), overwrite=TRUE) #tempdir()
-
-}  
-
 zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
     
   model_npzs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
     select(-site_id)
 
-  cd <- getwd()
-  on.exit(setwd(cd))
-
+  cd <- getwd()  
+    
   groups <- rev(sort(unique(model_npzs$group_id)))
   data_files <- c()
   for (group in groups){
@@ -412,19 +403,14 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     # commenting out file copy b/c files now copied during sorting tasks
     # EXCEPT if phase = pretrain, since not sorting pretrain preds
     if (phase == 'pretrain') {
-        file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
+        file.copy(these_files$source_filepath, file.path(cd,'tmp', these_files$out_file), overwrite=TRUE)
     }
 
-    # set wd to tempdir b/c that's where we're placing predictions after sorting
-    setwd(tempdir())
-
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
-    zip(zippath, files = these_files$out_file)
-    unlink(these_files$out_file)
-    setwd(cd)
+    files_to_zip <- paste0('tmp/', these_files$out_file)
+    zip(zippath, files = files_to_zip)
     data_files <- c(data_files, zipfile)
   }
-  setwd(cd)
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
@@ -432,9 +418,6 @@ zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
 
   model_csvs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
     select(-site_id)
-
-  cd <- getwd()
-  on.exit(setwd(cd))
 
   groups <- rev(sort(unique(model_csvs$group_id)))
   data_files <- c()
@@ -448,17 +431,13 @@ zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
       
-    # set wd to tempdir b/c that's where we're placing predictions after sorting
-    setwd(tempdir())
-      
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
-    zip(zippath, files = these_files$out_file)
-    setwd(cd)
+    files_to_zip <- paste0('tmp/', these_files$out_file)
+    zip(zippath, files = files_to_zip)
 
     # make note of the files
     data_files <- c(data_files, zipfile)
   }
-  setwd(cd)
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
