@@ -151,6 +151,7 @@ entities:
 data-name: Polygons for study lakes
 data-description: Shapefile of study lakes included in this data release; metadata file for lakes in this data release
 
+process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: Shapefile Data Set
 
 build-environment: >-
