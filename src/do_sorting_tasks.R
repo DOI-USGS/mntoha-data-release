@@ -1,4 +1,4 @@
-do_sorting_tasks <- function(final_target, site_id_list, prediction_files, prediction_type, ...) {
+do_sorting_tasks <- function(final_target, site_id_list, prediction_files_df, prediction_type, ...) {
 
     ##### DEFINE TASK TABLE ROWS #####
     # set task names
@@ -8,29 +8,40 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files, predi
     ##### DEFINE TASK TABLE COLUMNS #####
     ### STEP 1 ###
     ## subset predictions_files dataframe using site id
-    filepaths_step <- create_task_step(
-        step_name = 'filepaths',
+    # copy prediction file to tmp/ folder
+    copy_step <- create_task_step(
+        step_name = 'copy',
         target_name = function(task_name, step_name, ...) {
-            sprintf('tmp/%s_%s_%s.csv', task_name, step_name, prediction_type)
+            sprintf('tmp/%s_%s_UNSORTED.csv', task_name, prediction_type)
         },
-        command = function(task_name, target_name, step_name, ...) {
-            psprintf("subset_prediction_files(",
+        command = function(task_name, step_name, ...) {
+            # filter prediction files by site_id
+            site_files <- filter(prediction_files_df, site_id == task_name)
+            # build command to copy files
+            psprintf("copy_prediction_file(",
                      "outfile = target_name,",
                      "site_id = I('%s')," = task_name,
-                     "prediction_files = %s)" = prediction_files
+                     "infile = '%s')" = site_files$source_filepath
                     )
         }
     )
     
     ###STEP 2 ###
     ## pass source filepath, outfile path to sorting function
+    # pass unsorted file instead of filepaths
     sorting_step <- create_task_step(
         step_name = "sort",
         target_name = function(task_name, step_name, ...) {
-            sprintf("%s_%s_%s", task_name, step_name, prediction_type)
+            sprintf("%s_%s_%s", task_name, prediction_type, step_name)
         },
-        command = function(target_name, steps, ...) {
-            sprintf("sort_profiles(site_filepaths_file = '%s')", steps[['filepaths']]$target_name) # if target in previous step = object, site_filepaths = `%s`
+        command = function(task_name, target_name, steps, ...) {
+            # filter prediction files by site_id
+            site_files <- filter(prediction_files_df, site_id == task_name)
+            # build command to sort profiles
+            psprintf("sort_profiles(",
+                     "unsorted_predictions_file = '%s'," = steps[['copy']]$target_name,
+                     "outfile = I('%s'))" = file.path('tmp',site_files$out_file)
+                    )
         }
     )
     
@@ -39,12 +50,12 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files, predi
     comparison_step <- create_task_step(
         step_name = 'compare',
         target_name = function(task_name, step_name, ...) {
-            sprintf('tmp/%s_%s_%s.csv', task_name, step_name, prediction_type)
+            sprintf('tmp/%s_%s_%s.csv', task_name, prediction_type, step_name)
         },
         command = function(target_name, steps, ...) {
             psprintf("compare_profiles(",
                      "outfile = target_name,",
-                     "site_filepaths_file = '%s'," = steps[['filepaths']]$target_name,
+                     "unsorted_predictions_file = '%s'," = steps[['copy']]$target_name,
                      "pgdl_sorted = `%s`)" = steps[['sort']]$target_name
                     )
         })
@@ -52,7 +63,7 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files, predi
     ##### CREATE TASK PLAN #####
     task_plan <- create_task_plan(
         task_names = task_names,
-        task_steps = list(filepaths_step, sorting_step, comparison_step),
+        task_steps = list(copy_step, sorting_step, comparison_step),
         final_steps = c('compare'),
         add_complete = FALSE
     )
@@ -73,18 +84,22 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files, predi
     
     ##### BUILD THE TASKS #####
     loop_tasks(task_plan = task_plan, task_makefile = task_makefile, num_tries = 100)
+    
+    ##### CLEAN UP FILES #####
+    # remove the temporary target from remake's DB -- we don't need it to persist
+    scdel(sprintf("%s_promise", basename(final_target)), remake_file=task_makefile)
+    # Delete the task makefile since it is only needed internally for this function
+    #  and not needed at all once loop_tasks is complete.
+    file.remove(task_makefile)
 }
 
-subset_prediction_files <- function(outfile, site_id, prediction_files) {  
-  
-    # subset prediction files dataframe to row for selected site
-    # and save the dataframe of site-specific filepaths as a csv
-    prediction_files_subset <- prediction_files %>%
-        filter(site_id == !!site_id) %>%
-        write_csv(file = outfile)
+copy_prediction_file <- function(outfile, site_id, infile) {  
+
+    cd <- getwd()
     
-    # copy over predictions for that site
-    copy_pgdl_predictions(prediction_files_subset)
+    # copy the raw (unsorted) prediction csv files from the lake temperature neural network repo
+    file.copy(infile, file.path(cd, outfile), overwrite=TRUE)
+
 }
 
 sort_pgdl <- function(matrix_row) {
@@ -101,36 +116,56 @@ sort_pgdl <- function(matrix_row) {
 
 }
 
-sort_profiles <- function(site_filepaths_file) { 
+sort_profiles <- function(unsorted_predictions_file, outfile) { 
+    cd <- getwd()
     
-    # load site filepaths file
-    site_filepaths <- readr::read_csv(site_filepaths_file, col_types='ccccc')
     # load unsorted predictions
-    pgdl_unsorted <- readr::read_csv(file.path(tempdir(), site_filepaths$raw_file))
+    pgdl_unsorted <- readr::read_csv(unsorted_predictions_file)
+    # make copy of unsorted dataframe
     pgdl_sorted <- data.frame(pgdl_unsorted)
     
     # sort predictions using conditions defined in sort_pgdl function
+    # pass data to sort function as matrix (without date column)
     pgdl_sorted_matrix <- t(apply(pgdl_sorted[-1], 1, sort_pgdl))
+    # replace all but date column of pgdl_sorted dataframe with sorted data
     pgdl_sorted[-1] <- pgdl_sorted_matrix
     
     # save sorted predictions
-    write_csv(pgdl_sorted, file = file.path(tempdir(), site_filepaths$out_file))
+    write_csv(pgdl_sorted, file = file.path(cd, outfile))
        
     # return sorted dataframe
     return(pgdl_sorted)
 }
 
-compare_profiles <- function(outfile, site_filepaths_file, pgdl_sorted) {
-    # load site filepaths file
-    site_filepaths <- readr::read_csv(site_filepaths_file, col_types='ccccc')
+compare_profiles <- function(outfile, unsorted_predictions_file, pgdl_sorted) {
+
     # load unsorted predictions
-    pgdl_unsorted <- readr::read_csv(file.path(tempdir(), site_filepaths$raw_file))
+    pgdl_unsorted <- readr::read_csv(unsorted_predictions_file)
+    
+    # compare sorted and unsorted dataframes using rowSums and == comparison
+    # When applying the == test, every cell in a given row is compared between
+    # the sorted and unsorted dataframes. If the value is identical, the cell value
+    # in the dataframe generated by the test is 1 (TRUE, the values do match). If the 
+    # values differ, the cell value will be 0 (FALSE, the values do not match). Since 
+    # each row represents a single day and each column the water temperature at a 
+    # particular depth, we can determine if the sorted profile differs from the 
+    # unsorted profile by using rowSums to compute the sum of all cells in each row in 
+    # the output dataframe generated by the == test. For each row (each day) this 
+    # sum represents the number of depths at which the sorted temperature is the same 
+    # as the unsorted temperature
+    row_comparison <- rowSums(pgdl_sorted == pgdl_unsorted)
     
     # compare profile for each day to test if has been sorted
     pgdl_compared <- data.frame(date = pgdl_sorted$date, 
-                                profile_sorted = (ncol(pgdl_unsorted) != rowSums(pgdl_sorted == pgdl_unsorted)),
+                                # To determine if the profile is sorted, test whether the comparison sum for each row
+                                # is equal to (not sorted) or less than (sorted) the number of columns in the unsorted dataframe
+                                profile_sorted = (ncol(pgdl_unsorted) != row_comparison),
+                                # The number of depths at that profile is equivalent to the number of columns in the unsorted dataframe
                                 num_depths = ncol(pgdl_unsorted),
-                                num_depths_w_changed_temp = (ncol(pgdl_unsorted) - rowSums(pgdl_sorted == pgdl_unsorted)))
+                                # The number of depths for which the temperature has changed (due to sorting) can be computed by
+                                # subtracting the row_comparison value (number of depths at which temp is unchanged) from
+                                # the total number of depth (# of column in unsorted dataframe)
+                                num_depths_w_changed_temp = (ncol(pgdl_unsorted) - row_comparison))   
     
     # save comparison results
     write_csv(pgdl_compared, file = outfile)
