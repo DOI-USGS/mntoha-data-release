@@ -1269,6 +1269,18 @@ entities:
         data-min: NA
         data-max: NA
         data-units: days
+  -
+    data-name: habitat_lakes.png
+    data-description: >-
+      A PNG file showing the locations of the 13 different lake groups that are used in the TOHA zipfile names.
+    attributes:
+      -
+        attr-label: PNG image
+        attr-def: NA
+        attr-defs: This data release
+        data-min: NA
+        data-max: NA
+        data-units: NA
 
 purpose: Fisheries biology, limnological research, and climate science.
 start-date: 19791201
