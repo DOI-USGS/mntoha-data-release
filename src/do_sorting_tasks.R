@@ -40,9 +40,9 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files_df, pr
             # build command to sort profiles
             psprintf("sort_profiles(",
                      "unsorted_predictions_file = '%s'," = steps[['copy']]$target_name,
-                     "outfile = I('%s'))" = file.path('tmp',site_files$out_file)
+                     "outfile = I('%s'))" = file.path('tmp', site_files$out_file)
                     )
-        }
+        } 
     )
     
     ##### STEP 3 #####
