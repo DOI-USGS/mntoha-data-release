@@ -164,7 +164,7 @@ entities:
         data-max: NA
         data-units: m^2
   -
-    data-name: annual_metrics_{model}.csv
+    data-name: 7_{model}_annual_metrics.csv
     data-description: >-
       A csv file containing annual summaries of thermal metrics based on modeled temperatures. {model} is either "pb0"
       for the uncalibrated Process-Based model outputs or "pgdl" for the Process-Guided Deep Learning model outputs.
