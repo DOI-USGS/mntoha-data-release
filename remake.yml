@@ -37,7 +37,7 @@ targets:
       #- log/03_configPGDL_sb.csv
       - log/04_inputs_sb.csv
       - log/05_predictionsPB_sb.csv
-      #- log/05_predictionsPGDL_sb.csv
+      - log/05_predictionsPGDL_sb.csv
       - log/06_evaluationPB_sb.csv
       #- log/06_evaluationPGDL_sb.csv
       - log/07_habitatPB_sb.csv
@@ -129,6 +129,11 @@ targets:
       file_hash = "out/5_preds_hashes.yml",
       'out_data/predict_lakes.png',
       "out_xml/05_predictions.xml")
+
+  log/05_predictionsPGDL_sb.csv:
+    command: sb_replace_files(target_name,
+      sbid_05_predictions,
+      file_hash = "out/5_pgdl_predictions_zips.yml")
 
   out_xml/06_evaluation.xml:
     command: render(filename = target_name,
