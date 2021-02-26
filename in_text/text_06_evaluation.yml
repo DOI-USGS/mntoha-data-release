@@ -1,6 +1,9 @@
 title: >-
   Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 6 model evaluation
 
+abstract: >-
+  NEED TO FILL THIS IN
+
 entities:
   -
     data-name: pb0_evaluation.csv
@@ -131,3 +134,7 @@ entities:
         data-min: [COLUMN MIN if applicable, NA if not]
         data-max: [COLUMN MAX if applicable, NA if not]
         data-units: [COLUMN UNITS if applicable, NA if not]
+
+process-date: !expr format(Sys.time(),'%Y%m%d')
+file-format: >-
+  two compressed zip files and two csv files
