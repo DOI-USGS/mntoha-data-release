@@ -111,7 +111,10 @@ entities:
       data-units: unitless
     -
       attr-label: total_benthic_area
-      attr-def: LINDSAY HELP FILL THIS OUT!!!!!
+      attr-def: >-
+        Using the available hypsography for each lake, a benthic area (area of lake bottom) was estimated by assuming the lake
+        cross section resembled a trapezoid. Using each known depth-area relationship, the sides of the trapezoid were calculated
+        and then summed along with the deepest known area (to capture the actual lake bottom) to get a total benthic area.
       attr-defs: NA
       data-min: NA
       data-max: NA
