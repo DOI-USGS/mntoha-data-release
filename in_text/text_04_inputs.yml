@@ -18,7 +18,120 @@ cross-cites:
     pubdate: 2019
     link: https://doi.org/10.5194/gmd-12-473-2019
 
-
+entities:
+  -
+    data-name: clarity_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: >-
+      A zip file containing a csv file for every lake within {group_id} with clarity data. Files within the
+      zip are named "gam_{site_id}_clarity.csv", where `site_id` is the lake nhdhr id.
+    attributes:
+      -
+        attr-label: date
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: kd
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: ice_flags_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: >-
+      A zip file containing a csv file for every lake within {group_id} with ice cover data. Files within the
+      zip are named "pb0_{site_id}_ice_flags.csv", where `site_id` is the lake nhdhr id.
+    attributes:
+      -
+        attr-label: date
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: ice
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: inputs_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: >-
+      A zip file containing a csv file for every lake within {group_id} with input data. Files within the
+      zip are named "nldas_meteo_N{minN-maxN}_W{minW-maxW}.csv", where ???? these min/max are different from group ????.
+    attributes:
+      -
+        attr-label: time
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: ShortWave
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: LongWave
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: AirTemp
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: RelHum
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: WindSpeed
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: Rain
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: Snow
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: input_cells.png
+    data-description: A PNG file ... see example https://github.com/USGS-R/pgmtl-data-release/blob/master/in_text/text_05_predictions.yml#L47
+    attributes:
+      -
+        attr-label: PNG image
+        attr-def: NA
+        attr-defs: This data release
+        data-min: NA
+        data-max: NA
+        data-units: NA
 
 build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source language R was used on all systems, as well as the open-source model GLM.
 

@@ -1,5 +1,8 @@
 target_default: 7_habitat
 
+include:
+  - 5_predictions.yml
+
 packages:
   - dplyr
   - tidyr
@@ -45,3 +48,6 @@ targets:
     command: generate_temp_range_metadata(
       out_file = target_name,
       in_file = "../lake-temperature-out/3_summarize/in/temp_ranges_for_metrics.txt")
+
+  out_data/habitat_lakes.png:
+    command: file.copy(to = target_name, from = 'out_data/predict_lakes.png', overwrite = TRUE)

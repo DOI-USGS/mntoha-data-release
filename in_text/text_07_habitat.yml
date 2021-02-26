@@ -2,9 +2,9 @@ title: >-
   Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 7 thermal and optical habitat estimates
 
 abstract: >-
-  Climate change has been shown to influence lake temperatures in different ways. To better understand the diversity
-  of lake responses to climate change and give managers tools to manage individual lakes, we focused on improving
-  prediction accuracy for daily water temperature profiles in 881 lakes in Minnesota and Wisconsin during 1980-2019.
+  Using predicted lake temperatures from uncalibrated models (PB0) and process-guided deep learning models (PGDL), this
+  dataset summarized a collection of thermal metrics to characterize lake temperature impacts on fish habitat for 881
+  lakes. Included in the metrics are daily thermal optical habitat areas and a set of over 172 annual thermal metrics.
 
 build-environment: >-
   This dataset was generated using the USGS Advanced Research Computing, USGS Yeti Supercomputer (https://doi.org/10.5066/F7D798MJ) and
@@ -164,7 +164,7 @@ entities:
         data-max: NA
         data-units: m^2
   -
-    data-name: annual_metrics_{model}.csv
+    data-name: 7_{model}_annual_metrics.csv
     data-description: >-
       A csv file containing annual summaries of thermal metrics based on modeled temperatures. {model} is either "pb0"
       for the uncalibrated Process-Based model outputs or "pgdl" for the Process-Guided Deep Learning model outputs.
@@ -1269,6 +1269,18 @@ entities:
         data-min: NA
         data-max: NA
         data-units: days
+  -
+    data-name: habitat_lakes.png
+    data-description: >-
+      A PNG file showing the locations of the 13 different lake groups that are used in the TOHA zipfile names.
+    attributes:
+      -
+        attr-label: PNG image
+        attr-def: NA
+        attr-defs: This data release
+        data-min: NA
+        data-max: NA
+        data-units: NA
 
 purpose: Fisheries biology, limnological research, and climate science.
 start-date: 19791201

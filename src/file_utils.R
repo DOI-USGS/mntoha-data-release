@@ -382,15 +382,11 @@ zip_pgdl_fit_groups <- function(outfile, fits_df, site_groups, phase){
   scipiper::sc_indicate(outfile, data_file = data_files)
 }
 
-
 zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
-
+    
   model_npzs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
-    select(-site_id)
-
-  cd <- getwd()
-  on.exit(setwd(cd))
-
+    select(-site_id) 
+    
   groups <- rev(sort(unique(model_npzs$group_id)))
   data_files <- c()
   for (group in groups){
@@ -401,14 +397,16 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     if (file.exists(zippath)){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
-    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file), overwrite=TRUE)
-
-    setwd(tempdir())
+      
+    # commenting out file copy b/c files now copied during sorting tasks
+    # EXCEPT if phase = pretrain, since not sorting pretrain preds
+    if (phase == 'pretrain') {
+        file.copy(these_files$source_filepath, file.path('tmp', these_files$out_file), overwrite=TRUE)
+    }
 
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
-    zip(zippath, files = these_files$out_file)
-    unlink(these_files$out_file)
-    setwd(cd)
+    files_to_zip <- paste0('tmp/', these_files$out_file)
+    zip(zippath, files = files_to_zip)
     data_files <- c(data_files, zipfile)
   }
   scipiper::sc_indicate(outfile, data_file = data_files)
@@ -419,26 +417,21 @@ zip_pgdl_test_groups <- function(outfile, predictions_df, site_groups){
   model_csvs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
     select(-site_id)
 
-  cd <- getwd()
-  on.exit(setwd(cd))
-
   groups <- rev(sort(unique(model_csvs$group_id)))
   data_files <- c()
   for (group in groups){
     zipfile <- paste0('tmp/pgdl_test_predictions_', group, '.zip')
     these_files <- model_csvs %>% filter(group_id == !!group)
 
-    file.copy(these_files$source_filepath, file.path(tempdir(), these_files$out_file))
-
     # zip the files
     zippath <- file.path(getwd(), zipfile)
     if (file.exists(zippath)){
       unlink(zippath) #seems it was adding to the zip as opposed to wiping and starting fresh...
     }
-    setwd(tempdir())
+      
     Sys.setenv('R_ZIPCMD' = system('which zip', intern=TRUE)) # needed for Unix-like
-    zip(zippath, files = these_files$out_file)
-    setwd(cd)
+    files_to_zip <- paste0('tmp/', these_files$out_file)
+    zip(zippath, files = files_to_zip)
 
     # make note of the files
     data_files <- c(data_files, zipfile)
@@ -471,7 +464,7 @@ zip_this <- function(outfile, .object){
 }
 
 unzip_to_tibble <- function(zipfile, ...) {
-  file_to_unzip <- unzip(zipfile, list =TRUE) %>% pull(Name)
+  file_to_unzip <- utils::unzip(zipfile, list =TRUE) %>% pull(Name)
   unzip(zipfile, exdir=tempdir(), files=file_to_unzip)
   readr::read_csv(file.path(tempdir(), file_to_unzip), ...)
 }

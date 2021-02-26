@@ -40,9 +40,85 @@ cross-cites:
     pubdate: 2019
     link: https://doi.org/10.5066/F7D798MJ
 
+entities:
+  -
+    data-name: irradiance_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: >-
+      A zip file containing a csv file for every lake within {group_id} with irradiance data. Files within the
+      zip are named "pb0_{site_id}_irradiance.csv", where `site_id` is the lake nhdhr id.
+    attributes:
+      -
+        attr-label: date
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: rad_0
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: pb0_predictions_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: >-
+      A zip file containing a csv file for every lake within {group_id} with uncalibrated model output temperature data. Files within the
+      zip are named "pb0_{site_id}_temperatures.csv", where `site_id` is the lake nhdhr id.
+    attributes:
+      -
+        attr-label: date
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: temp_{depth}
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: pgdl_predictions_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
+    data-description: >-
+      A zip file containing a csv file for every lake within {group_id} with Process-Guided Deep Learning model output
+      temperature data. Files within the zip are named "pgdl_{site_id}_temperatures.csv", where `site_id` is the lake nhdhr id.
+    attributes:
+      -
+        attr-label: date
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+      -
+        attr-label: temp_{depth}
+        attr-def: [COLUMN DESCRIPTION]
+        attr-defs: [SOURCE, saying "This data release" is OK]
+        data-min: [COLUMN MIN if applicable, NA if not]
+        data-max: [COLUMN MAX if applicable, NA if not]
+        data-units: [COLUMN UNITS if applicable, NA if not]
+  -
+    data-name: predict_lakes.png
+    data-description: A PNG file ... see example https://github.com/USGS-R/pgmtl-data-release/blob/master/in_text/text_05_predictions.yml#L47
+    attributes:
+      -
+        attr-label: PNG image
+        attr-def: NA
+        attr-defs: This data release
+        data-min: NA
+        data-max: NA
+        data-units: NA
+
 build-environment: >-
   For PB and PB0 predictions we used USGS Advanced Research Computing, USGS Yeti Supercomputer (https://doi.org/10.5066/F7D798MJ); process-based predictions were generated with the following open source tools available in the R programming language (R version 3.5.0 (2018-04-23)).\n
   The computing platform for generating data and metadata was x86_64-redhat-linux-gnu. R packages loaded into this environment: dplyr, version: 0.8.1; glmtools, version: 0.15.0; rLakeAnalyzer, version: 1.11.4; GLMr, version: 3.1.14; readr, version: 1.3.1;
   Yeti modules tools/nco-4.7.8-gnu; tools/netcdf-4.3.2-gnu
   For PGDL predictions, the {{{{{ FILL IN HERE }}}}}
 
+process-date: !expr format(Sys.time(),'%Y%m%d')
+file-format: >-
+  39 compressed zip files and one PNG file
