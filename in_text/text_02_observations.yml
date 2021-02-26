@@ -64,4 +64,5 @@ entities:
       data-max: NA
       data-units: NA
 
+process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: a single comma-delimited file
