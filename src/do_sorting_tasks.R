@@ -18,10 +18,10 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files_df, pr
             # filter prediction files by site_id
             site_files <- filter(prediction_files_df, site_id == task_name)
             # build command to copy files
-            psprintf("copy_prediction_file(",
-                     "outfile = target_name,",
-                     "site_id = I('%s')," = task_name,
-                     "infile = '%s')" = site_files$source_filepath
+            psprintf("file.copy(",
+                     "to = target_name,",
+                     "from = '%s'," = site_files$source_filepath,
+                     "overwrite = TRUE)"
                     )
         }
     )
@@ -93,15 +93,6 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files_df, pr
     file.remove(task_makefile)
 }
 
-copy_prediction_file <- function(outfile, site_id, infile) {  
-
-    cd <- getwd()
-    
-    # copy the raw (unsorted) prediction csv files from the lake temperature neural network repo
-    file.copy(infile, file.path(cd, outfile), overwrite=TRUE)
-
-}
-
 sort_pgdl <- function(matrix_row) {
     # if all temperatures below 4 deg C...
     if (length(matrix_row[which(matrix_row <= 4)]) == length(matrix_row)) {
@@ -117,7 +108,6 @@ sort_pgdl <- function(matrix_row) {
 }
 
 sort_profiles <- function(unsorted_predictions_file, outfile) { 
-    cd <- getwd()
     
     # load unsorted predictions
     pgdl_unsorted <- readr::read_csv(unsorted_predictions_file)
@@ -131,8 +121,8 @@ sort_profiles <- function(unsorted_predictions_file, outfile) {
     pgdl_sorted[-1] <- pgdl_sorted_matrix
     
     # save sorted predictions
-    write_csv(pgdl_sorted, file = file.path(cd, outfile))
-       
+    write_csv(pgdl_sorted, file = outfile) 
+    
     # return sorted dataframe
     return(pgdl_sorted)
 }

@@ -385,9 +385,7 @@ zip_pgdl_fit_groups <- function(outfile, fits_df, site_groups, phase){
 zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, phase){
     
   model_npzs <- inner_join(predictions_df, site_groups, by = 'site_id') %>%
-    select(-site_id)
-
-#   cd <- getwd()  
+    select(-site_id) 
     
   groups <- rev(sort(unique(model_npzs$group_id)))
   data_files <- c()
@@ -403,7 +401,6 @@ zip_pgdl_prediction_groups <- function(outfile, predictions_df, site_groups, pha
     # commenting out file copy b/c files now copied during sorting tasks
     # EXCEPT if phase = pretrain, since not sorting pretrain preds
     if (phase == 'pretrain') {
-#         file.copy(these_files$source_filepath, file.path(cd,'tmp', these_files$out_file), overwrite=TRUE)
         file.copy(these_files$source_filepath, file.path('tmp', these_files$out_file), overwrite=TRUE)
     }
 
