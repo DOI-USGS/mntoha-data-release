@@ -213,23 +213,23 @@ entities:
         attr-label: phase
         attr-def: [COLUMN DESCRIPTION]
         attr-defs: This data release
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
         attr-label: goal
         attr-def: [COLUMN DESCRIPTION]
         attr-defs: This data release
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
         attr-label: fold
-        attr-def: [COLUMN DESCRIPTION]
+        attr-def: If the model phase is finetune and the model goal is uncertainty, this attribute is a letter (a, b, c, or d) indicating the fold in a four fold cross validation of predictions, otherwise the value is NA.
         attr-defs: This data release
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
         attr-label: learning_rate
         attr-def: Neural network learning rate
