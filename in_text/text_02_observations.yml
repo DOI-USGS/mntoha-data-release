@@ -23,8 +23,8 @@ cross-cites:
 
 entities:
   -
-    data-name: 03_temperature_observations.csv
-    data-description: Temperature observation data for 877 lakes
+    data-name: temperature_observations.zip
+    data-description: A zip file containing one csv of all temperature observation data for 877 lakes
     attributes:
     -
       attr-label: site_id
