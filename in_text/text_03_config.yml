@@ -180,23 +180,9 @@ entities:
       data-units: NA
   -
     data-name: pgdl_fits_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
-    data-description: see this example https://github.com/USGS-R/mntoha-data-release/blob/master/in_text/text_07_habitat.yml#L117-L121
+    data-description: A zip file containing a folder for every lake within {group_id} with the files needed to re-run the trained model with tensorflow.
     attributes:
-     -
-        attr-label: [COLUMN NAME]
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
-      -
-        attr-label: [COLUMN NAME]
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
-  -       
+  -
     data-name: pgdl_config.csv
     data-description: A CSV file containing parameters for each of the lakes in this study
     attributes:
@@ -211,21 +197,21 @@ entities:
         data-units: NA
       -
         attr-label: phase
-        attr-def: [COLUMN DESCRIPTION]
+        attr-def: Pretrain or finetune. [NEED TO ADD MORE DETAIL].
         attr-defs: This data release
         data-min: NA
         data-max: NA
         data-units: NA
       -
         attr-label: goal
-        attr-def: [COLUMN DESCRIPTION]
+        attr-def: The goal of the model run -- uncertainty if the model run is one of four folds in a four-fold cross validation of predictions, and predict otherwise.
         attr-defs: This data release
         data-min: NA
         data-max: NA
         data-units: NA
       -
         attr-label: fold
-        attr-def: If the model phase is finetune and the model goal is uncertainty, this attribute is a letter (a, b, c, or d) indicating the fold in a four fold cross validation of predictions, otherwise the value is NA.
+        attr-def: If the model phase is finetune and the model goal is uncertainty, this attribute is a letter (a, b, c, or d) indicating the fold in a four-fold cross validation of predictions, otherwise the value is NA.
         attr-defs: This data release
         data-min: NA
         data-max: NA
@@ -288,7 +274,7 @@ entities:
         data-units: daily observations
       -
         attr-label: sequence_offset
-        attr-def: Number of observations by which each data sequence in inputs['predict.features'] is offset from the previous sequence. Used to reconstruct a complete prediction sequence without duplicates.
+        attr-def: Number of observations by which each data sequence is offset from the previous sequence. Used to reconstruct a complete prediction sequence without duplicates.
         attr-defs: This data release
         data-min: 176
         data-max: 176
@@ -320,7 +306,7 @@ entities:
     attributes:
       -
         attr-label: PNG image
-        attr-def: NA
+        attr-def: Count of lakes with pgdl models within each of the spatial groups, identified by group_id.
         attr-defs: This data release
         data-min: NA
         data-max: NA
@@ -335,6 +321,9 @@ build-environment: >-
   version: 0.0.8; mapdata, version: 2.3.0; maps, version: 3.3.0; tidyr, version: 0.8.0; dplyr, version: 0.8.3; whisker,
   version: 0.4; yaml, version: 2.2.0; scipiper, version: 0.0.16.
 
+  This dataset was generated using open source tools available in the Python programming language (Python version 3.7.6 (2019-12-18)).
+  Python packages loaded into this environment:  _libgcc_mutex, version: 0.1; _r-mutex, version: 1.0.0; _tflow_select, version: 2.1.0; absl-py, version: 0.8.1; argon2-cffi, version: 20.1.0; astor, version: 0.8.0; async_generator, version: 1.10; attrs, version: 20.2.0; backcall, version: 0.2.0; backports, version: 1.0; backports.functools_lru_cache, version: 1.6.1; binutils_impl_linux-64, version: 2.33.1; binutils_linux-64, version: 2.33.1; blas, version: 1.0; bleach, version: 3.2.1; brotlipy, version: 0.7.0; bwidget, version: 1.9.11; bzip2, version: 1.0.8; c-ares, version: 1.15.0; ca-certificates, version: 2020.7.22; cairo, version: 1.14.12; certifi, version: 2020.6.20; cffi, version: 1.14.3; chardet, version: 3.0.4; cryptography, version: 3.1; cudatoolkit, version: 10.0.130; cudnn, version: 7.6.5; cupti, version: 10.0.130; curl, version: 7.67.0; cycler, version: 0.10.0; dbus, version: 1.13.6; decorator, version: 4.4.2; defusedxml, version: 0.6.0; entrypoints, version: 0.3; expat, version: 2.2.9; fontconfig, version: 2.13.0; freetype, version: 2.9.1; fribidi, version: 1.0.5; gast, version: 0.2.2; gcc_impl_linux-64, version: 7.3.0; gcc_linux-64, version: 7.3.0; gfortran_impl_linux-64, version: 7.3.0; gfortran_linux-64, version: 7.3.0; glib, version: 2.63.1; google-pasta, version: 0.1.8; graphite2, version: 1.3.13; grpcio, version: 1.16.1; gsl, version: 2.4; gst-plugins-base, version: 1.14.5; gstreamer, version: 1.14.5; gxx_impl_linux-64, version: 7.3.0; gxx_linux-64, version: 7.3.0; h5py, version: 2.10.0; harfbuzz, version: 1.8.8; hdf5, version: 1.10.4; icu, version: 58.2; idna, version: 2.10; importlib-metadata, version: 1.7.0; importlib_metadata, version: 1.7.0; intel-openmp, version: 2019.4; ipykernel, version: 5.3.4; ipython, version: 7.18.1; ipython_genutils, version: 0.2.0; jedi, version: 0.15.2; jinja2, version: 2.11.2; jpeg, version: 9b; json5, version: 0.9.5; jsonschema, version: 3.2.0; jupyter_client, version: 6.1.7; jupyter_core, version: 4.6.3; jupyterlab, version: 2.2.8; jupyterlab_pygments, version: 0.1.1; jupyterlab_server, version: 1.2.0; keras-applications, version: 1.0.8; keras-preprocessing, version: 1.1.0; kiwisolver, version: 1.2.0; krb5, version: 1.16.4; ld_impl_linux-64, version: 2.33.1; libcurl, version: 7.67.0; libedit, version: 3.1.20181209; libffi, version: 3.2.1; libgcc-ng, version: 9.1.0; libgfortran-ng, version: 7.3.0; libpng, version: 1.6.37; libprotobuf, version: 3.11.2; libsodium, version: 1.0.18; libssh2, version: 1.8.2; libstdcxx-ng, version: 9.1.0 ; libtiff, version: 4.1.0; libuuid, version: 1.0.3; libxcb, version: 1.13; libxml2, version: 2.9.9; make, version: 4.2.1; markdown, version: 3.1.1; markupsafe, version: 1.1.1; matplotlib, version: 3.2.1; matplotlib-base, version: 3.2.1; mistune, version: 0.8.4; mkl, version: 2019.4; mkl-service, version: 2.3.0; mkl_fft, version: 1.0.15; mkl_random, version: 1.1.0; nbclient, version: 0.5.0; nbconvert, version: 6.0.4 ; nbformat, version: 5.0.7; ncurses, version: 6.1; nest-asyncio, version: 1.4.0; notebook, version: 6.1.4; numpy, version: 1.18.1; numpy-base, version: 1.18.1; openssl, version: 1.1.1h; opt_einsum, version: 3.1.0; packaging, version: 20.4; pandas, version: 1.1.1; pandoc, version: 2.10.1; pandocfilters, version: 1.4.2; pango, version: 1.42.4; parso, version: 0.5.2; pcre, version: 8.43; pexpect, version: 4.8.0; pickleshare, version: 0.7.5; pip, version: 20.0.2; pixman, version: 0.38.0; prometheus_client, version: 0.8.0; prompt-toolkit, version: 3.0.7; protobuf, version: 3.11.2; ptyprocess, version: 0.6.0; pycparser, version: 2.20; pygments, version: 2.7.1; pyopenssl, version: 19.1.0; pyparsing, version: 2.4.7; pyqt, version: 5.9.2; pyrsistent, version: 0.17.3; pysocks, version: 1.7.1; python, version: 3.7.6; python-dateutil, version: 2.8.1; python_abi, version: 3.7; pytz, version: 2020.1; pyzmq, version: 19.0.2; qt, version: 5.9.7; r, version: 3.6.0; r-abind, version: 1.4_5; r-askpass, version: 1.0; r-assertthat, version: 0.2.1; r-backports, version: 1.1.4; r-base, version: 3.6.1; r-base64url, version: 1.4; r-batchtools, version: 0.9.12; r-bh, version: 1.69.0_1; r-boot, version: 1.3_20; r-brew, version: 1.0_6; r-callr, version: 3.2.0; r-checkmate, version: 1.9.1; r-class, version: 7.3_15; r-cli, version: 1.1.0; r-clipr, version: 0.6.0; r-clisymbols, version: 1.2.0; r-cluster, version: 2.0.8; r-codetools, version: 0.2_16; r-crayon, version: 1.3.4; r-curl, version: 3.3; r-data.table, version: 1.12.2; r-desc, version: 1.2.0; r-devtools, version: 2.0.2; r-digest, version: 0.6.18; r-dplyr, version: 0.8.0.1; r-drake, version: 7.8.0; r-fansi, version: 0.4.0; r-feather, version: 0.3.3; r-filelock, version: 1.0.2; r-foreign, version: 0.8_71; r-fs, version: 1.2.7; r-future, version: 1.16.0; r-future.batchtools, version: 0.8.1; r-getopt, version: 1.20.3; r-gh, version: 1.0.1; r-git2r, version: 0.25.2; r-globals, version: 0.12.4; r-glue, version: 1.3.1; r-hms, version: 0.4.2; r-httr, version: 1.4.0; r-igraph, version: 1.2.4.1; r-ini, version: 0.3.1; r-jsonlite, version: 1.6; r-kernsmooth, version: 2.23_15; r-lattice, version: 0.20_38; r-listenv, version: 0.7.0; r-magrittr, version: 1.5; r-mass, version: 7.3_51.3; r-matrix, version: 1.2_17; r-memoise, version: 1.1.0; r-mgcv, version: 1.8_28; r-mime, version: 0.6; r-nlme, version: 3.1_139; r-nnet, version: 7.3_12; r-openssl, version: 1.3; r-optparse, version: 1.6.2; r-pillar, version: 1.3.1; r-pkgbuild, version: 1.0.3; r-pkgconfig, version: 2.0.2; r-pkgload, version: 1.0.2; r-plogr, version: 0.2.0; r-prettyunits, version: 1.0.2; r-processx, version: 3.3.0; r-progress, version: 1.2.0; r-ps, version: 1.3.0; r-purrr, version: 0.3.2; r-r6, version: 2.4.0; r-rappdirs, version: 0.3.1; r-rcmdcheck, version: 1.3.2; r-rcpp, version: 1.0.1; r-rcpproll, version: 0.3.0; r-readr, version: 1.3.1; r-recommended, version: 3.6.0; r-remotes, version: 2.0.4; r-reticulate, version: 1.12; r-rlang, version: 0.3.4; r-rpart, version: 4.1_15; r-rprojroot, version: 1.3_2; r-rstudioapi, version: 0.10; r-sessioninfo, version: 1.1.1; r-spatial, version: 7.3_11; r-storr, version: 1.2.1; r-stringi, version: 1.4.3; r-survival, version: 2.44_1.1; r-sys, version: 3.2; r-tibble, version: 2.1.1; r-tidyr, version: 0.8.3; r-tidyselect, version: 0.2.5; r-txtq, version: 0.2.0; r-usethis, version: 1.5.0; r-utf8, version: 1.1.4; r-uuid, version: 0.1_2; r-whisker, version: 0.3_2; r-withr, version: 2.1.2; r-xopen, version: 1.0.0; r-yaml, version: 2.2.0; readline, version: 7.0; requests, version: 2.24.0; scipy, version: 1.3.2; send2trash, version: 1.5.0; setuptools, version: 45.1.0; sip, version: 4.19.8; six, version: 1.14.0; sqlite, version: 3.30.1; tensorboard, version: 1.15.0; tensorflow, version: 1.15.0; tensorflow-base, version: 1.15.0; tensorflow-estimator, version: 1.15.1; tensorflow-gpu, version: 1.15.0; termcolor, version: 1.1.0; terminado, version: 0.9.1; testpath, version: 0.4.4; tk, version: 8.6.8
+  ; tktable, version: 2.10; tornado, version: 6.0.4; traitlets, version: 5.0.4; urllib3, version: 1.25.10; wcwidth, version: 0.2.5; webencodings, version: 0.5.1; werkzeug, version: 0.16.1; wheel, version: 0.34.1; wrapt, version: 1.11.2; xz, version: 5.2.4; zeromq, version: 4.3.2; zipp, version: 3.1.0; zlib, version: 1.2.11; zstd, version: 1.3.7
 process-date: 20190706
 indirect-spatial: U.S.A.
 latitude-res: 0.1
@@ -343,4 +332,5 @@ data-name: Model configuration details
 data-description: >-
   Model configurations for running the General Lake Model (Hipsey et al. 2019) version 3 for each lake.
   The value for "lake_name" in the "morphometry" field is the mapping for "site_id" for the other datasets included in this release.
+  Model configurations from running the trained pgdl model for the 638 pgdl lakes.
 file-format: JSON (JavaScript Object Notation) formatted text file
