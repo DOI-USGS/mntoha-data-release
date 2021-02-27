@@ -29,7 +29,7 @@ entities:
     -
       attr-label: site_id
       attr-def: >-
-        Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhd_{Prmnn_I}"
+        Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhdhr_{Prmnn_I}"
       attr-defs: >-
         http://nhd.usgs.gov/
       data-min: NA

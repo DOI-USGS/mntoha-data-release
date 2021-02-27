@@ -2,7 +2,15 @@ title: >-
   Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 6 model evaluation
 
 abstract: >-
-  NEED TO FILL THIS IN
+  Water temperature estimates from multiple models were evaluated by comparing predictions to observed water temperatures.
+  The performance metric of root-mean square error (in degrees C) is calculated for each lake and each model type, and
+  matched values for predicted and observed temperatures are also included to support more specific error estimation methods
+  (for example, calculating error in a particular month). Errors for the process-based model are compared to predictions as
+  shared in <a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a>
+  data since these models were not calibrated. Errors for the process-guided deep learning models
+  were calculated from validation folds and therefore differ from the comparisons to
+  <a href="https://www.sciencebase.gov/catalog/item/5e5d0bb9e4b01d50924f2b36">Model Predictions</a> because those final models
+  were trained on all available data.
 
 build-environment: >-
   NEED TO FILL THIS IN
@@ -10,73 +18,14 @@ build-environment: >-
 entities:
   -
     data-name: pb0_evaluation.csv
-    data-description: Uncalibrated process-based temperature predictions for all 881 lakes compared to observed water temperatures at the same depths.
-    attributes:
-    -
-      attr-label: site_id
-      attr-def: >-
-        Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhd_{Prmnn_I}". The "target" lake being predicted
-      attr-defs: >-
-        http://nhd.usgs.gov/
-      data-min: NA
-      data-max: NA
-      data-units: NA
-    -
-      attr-label: rmse
-      attr-def: >-
-        Root-mean square error (in degrees C) of the process-guided deep learning transfered model predictions.
-      attr-defs: >-
-        https://en.wikipedia.org/wiki/Root-mean-square_deviation
-      data-min: 0.849
-      data-max: 8.052
-      data-units: degrees C
-  -
-    data-name: pb0_matched_to_observations.zip
-    data-description: FILLLLL INN THISSSSS
-    attributes:
-      -
-        attr-label: site_id
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
-      -
-        attr-label: date
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
-      -
-        attr-label: depth
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
-      -
-        attr-label: obs
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
-      -
-        attr-label: pred
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
-  -
-    data-name: pgdl_evaluation.csv
-    data-description: FILLLLL INN THISSSSS
+    data-description: >-
+      Uncalibrated process-based temperature predictions for 784 lakes compared to observed
+      water temperatures at the same depths.
     attributes:
       -
         attr-label: site_id
         attr-def: >-
-          Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhd_{Prmnn_I}". The "target" lake being predicted
+          Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhdhr_{Prmnn_I}"
         attr-defs: >-
           http://nhd.usgs.gov/
         data-min: NA
@@ -85,58 +34,120 @@ entities:
       -
         attr-label: rmse
         attr-def: >-
-          Root-mean square error (in degrees C) of the process-guided deep learning transfered model predictions.
+          Root-mean square error (in degrees C) of the process-based model predictions.
         attr-defs: >-
           https://en.wikipedia.org/wiki/Root-mean-square_deviation
         data-min: 0.849
         data-max: 8.052
         data-units: degrees C
   -
-    data-name: pgdl_matched_to_observations.zip
-    data-description: FILLLLL INN THISSSSS
+    data-name: pb0_matched_to_observations.zip
+    data-description: Predictions from the uncalibrated process-based model matched to observations on the same date at the same depths.
     attributes:
       -
         attr-label: site_id
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: >-
+          Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhdhr_{Prmnn_I}"
+        attr-defs: >-
+          http://nhd.usgs.gov/
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
         attr-label: date
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: Date of temperature measurement
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
         attr-label: depth
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: Depth of temperature measurement below water surface
+        attr-defs: NA
+        data-min: 0
+        data-max: NA
+        data-units: meters
       -
         attr-label: obs
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: Observed water temperature
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
       -
-        attr-label: source_id
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-label: obs
+        attr-def: Predicted water temperature
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
+  -
+    data-name: pgdl_evaluation.csv
+    data-description: >-
+      Process-guided deep learning temperature validation predictions for 194 lakes compared to observed
+      water temperatures at the same depths.
+    attributes:
       -
-        attr-label: pred
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-label: site_id
+        attr-def: >-
+          Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhdhr_{Prmnn_I}"
+        attr-defs: >-
+          http://nhd.usgs.gov/
+        data-min: NA
+        data-max: NA
+        data-units: NA
+      -
+        attr-label: rmse
+        attr-def: >-
+          Root-mean square error (in degrees C) of the process-based model predictions.
+        attr-defs: >-
+          https://en.wikipedia.org/wiki/Root-mean-square_deviation
+        data-min: 0.9246
+        data-max: 6.3921
+        data-units: degrees C
+  -
+    data-name: pgdl_matched_to_observations.zip
+    data-description: >-
+      Process-guided deep learning temperature validation predictions for 194 lakes
+      matched to observations on the same date at the same depths.
+    attributes:
+      -
+        attr-label: site_id
+        attr-def: >-
+          Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhdhr_{Prmnn_I}"
+        attr-defs: >-
+          http://nhd.usgs.gov/
+        data-min: NA
+        data-max: NA
+        data-units: NA
+      -
+        attr-label: date
+        attr-def: Date of temperature measurement
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: NA
+      -
+        attr-label: depth
+        attr-def: Depth of temperature measurement below water surface
+        attr-defs: NA
+        data-min: 0
+        data-max: NA
+        data-units: meters
+      -
+        attr-label: obs
+        attr-def: Observed water temperature
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
+      -
+        attr-label: obs
+        attr-def: Predicted water temperature
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
