@@ -1,7 +1,7 @@
 target_default: 7_habitat
 
 include:
-  - 5_predictions.yml
+  - 6_evaluation.yml
 
 packages:
   - dplyr

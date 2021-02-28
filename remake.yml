@@ -1,6 +1,5 @@
 
 include:
-  - 6_evaluation.yml
   - 7_habitat.yml
 
 packages:
