@@ -32,15 +32,18 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files_df, pr
     sorting_step <- create_task_step(
         step_name = "sort",
         target_name = function(task_name, step_name, ...) {
-            sprintf("%s_%s_%s", task_name, prediction_type, step_name)
+            # filter prediction files by site_id
+            site_files <- filter(prediction_files_df, site_id == task_name)
+            # build target name
+            sprintf("tmp/%s", site_files$out_file)
         },
         command = function(task_name, target_name, steps, ...) {
             # filter prediction files by site_id
             site_files <- filter(prediction_files_df, site_id == task_name)
             # build command to sort profiles
             psprintf("sort_profiles(",
-                     "unsorted_predictions_file = '%s'," = steps[['copy']]$target_name,
-                     "outfile = I('%s'))" = file.path('tmp', site_files$out_file)
+                     "outfile = I('%s')," = target_name,
+                     "unsorted_predictions_file = '%s')" = steps[['copy']]$target_name
                     )
         } 
     )
@@ -56,7 +59,7 @@ do_sorting_tasks <- function(final_target, site_id_list, prediction_files_df, pr
             psprintf("compare_profiles(",
                      "outfile = target_name,",
                      "unsorted_predictions_file = '%s'," = steps[['copy']]$target_name,
-                     "pgdl_sorted = `%s`)" = steps[['sort']]$target_name
+                     "sorted_predictions_file = '%s')" = steps[['sort']]$target_name
                     )
         })
     
@@ -127,10 +130,12 @@ sort_profiles <- function(unsorted_predictions_file, outfile) {
     return(pgdl_sorted)
 }
 
-compare_profiles <- function(outfile, unsorted_predictions_file, pgdl_sorted) {
+compare_profiles <- function(outfile, unsorted_predictions_file, sorted_predictions_file) {
 
     # load unsorted predictions
     pgdl_unsorted <- readr::read_csv(unsorted_predictions_file)
+    # load sorted predictions
+    pgdl_sorted <- readr::read_csv(sorted_predictions_file)
     
     # compare sorted and unsorted dataframes using rowSums and == comparison
     # When applying the == test, every cell in a given row is compared between
