@@ -55,7 +55,7 @@ entities:
       -
         attr-label: rmse
         attr-def: >-
-          Root-mean square error (in degrees C) of the process-based model predictions.
+          Root-mean square error (in degrees C) of the model predictions.
         attr-defs: >-
           https://en.wikipedia.org/wiki/Root-mean-square_deviation
         data-min: 0.849
@@ -95,6 +95,20 @@ entities:
         data-min: NA
         data-max: NA
         data-units: degrees C
+      -
+        attr-label: pred
+        attr-def: Predicted water temperature
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
+      -
+        attr-label: source_id
+        attr-def: Source of the observation (monitoring organization or file)
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: NA
   -
     data-name: pgdl_evaluation.csv
     data-description: >-
@@ -113,7 +127,7 @@ entities:
       -
         attr-label: rmse
         attr-def: >-
-          Root-mean square error (in degrees C) of the process-based model predictions.
+          Root-mean square error (in degrees C) of the model predictions.
         attr-defs: >-
           https://en.wikipedia.org/wiki/Root-mean-square_deviation
         data-min: 0.9246
@@ -155,6 +169,20 @@ entities:
         data-min: NA
         data-max: NA
         data-units: degrees C
+      -
+        attr-label: pred
+        attr-def: Predicted water temperature
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
+      -
+        attr-label: source_id
+        attr-def: Source of the observation (monitoring organization or file)
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: NA
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-

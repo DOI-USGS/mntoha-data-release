@@ -49,8 +49,3 @@ targets:
       out_file = target_name,
       matched_preds_zip = 'out_data/pgdl_matched_to_observations.zip')
 
-  tmp/compare_rmses.png:
-    command: plot_rmses(
-      target_name,
-      I('out_data/pb0_evaluation.csv'),
-      I('out_data/pgdl_evaluation.csv'))
