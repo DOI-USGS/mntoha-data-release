@@ -102,13 +102,6 @@ entities:
         data-min: NA
         data-max: NA
         data-units: degrees C
-      -
-        attr-label: source_id
-        attr-def: Source of the observation (monitoring organization or file)
-        attr-defs: NA
-        data-min: NA
-        data-max: NA
-        data-units: NA
   -
     data-name: pgdl_evaluation.csv
     data-description: >-
@@ -176,13 +169,6 @@ entities:
         data-min: NA
         data-max: NA
         data-units: degrees C
-      -
-        attr-label: source_id
-        attr-def: Source of the observation (monitoring organization or file)
-        attr-defs: NA
-        data-min: NA
-        data-max: NA
-        data-units: NA
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
