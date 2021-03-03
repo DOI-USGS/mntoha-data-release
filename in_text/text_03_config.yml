@@ -32,7 +32,8 @@ cross-cites:
 entities:
   -
     data-name: pb0_config.json
-    data-description: A JSON file containing parameters for each of the lakes in this study
+    data-description: >- 
+      A JSON file containing parameters for each of the lakes in this study
     attributes:
     -
       attr-label: glm_setup
@@ -106,7 +107,8 @@ entities:
       data-units: NA
   -
     data-name: pb0_nml_files.zip
-    data-description: A zip file containing many glm2.nml files, one for each lake in this study
+    data-description: >- 
+      A zip file containing many glm2.nml files, one for each lake in this study
     attributes:
     -
       attr-label: glm_setup
@@ -180,38 +182,43 @@ entities:
       data-units: NA
   -
     data-name: pgdl_fits_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
-    data-description: A zip file containing a folder for every lake within {group_id} with the files needed to re-run the trained model with tensorflow.
+    data-description: >- 
+      A zip file containing a folder for every lake within {group_id} with the files needed to re-run the trained model with tensorflow.
     attributes:
   -
     data-name: pgdl_config.csv
-    data-description: A CSV file containing parameters for each of the lakes in this study
+    data-description: >- 
+      A CSV file containing parameters for each of the lakes in this study
     attributes:
       -
         attr-label: site_id
         attr-def: >-
-        Lake identification number for this dataset. Is the Prmnn_I prefixed with source, as "nhd_{Prmnn_I}"
+          Lake identification number for this dataset. Is the Prmnn_I from NHD high-res prefixed with source, as "nhd_{Prmnn_I}"
         attr-defs: >-
-        http://nhd.usgs.gov/
+          http://nhd.usgs.gov/
         data-min: NA
         data-max: NA
         data-units: NA
       -
         attr-label: phase
-        attr-def: Pretrain or finetune. [NEED TO ADD MORE DETAIL].
+        attr-def: >- 
+          "pretrain" or "finetune". During the pretraining phase, the neural network begins with random initial weights and biases which are then trained to emulate the process model (producing the same outputs given the same inputs). During the finetuning phases, the neural network begins with pretrained weights and biases which are then further trained to predict observed values with greater accuracy. See Read et al. 2019.
         attr-defs: This data release
         data-min: NA
         data-max: NA
         data-units: NA
       -
         attr-label: goal
-        attr-def: The goal of the model run -- uncertainty if the model run is one of four folds in a four-fold cross validation of predictions, and predict otherwise.
+        attr-def: >- 
+          The goal of the model run. "uncertainty" indicates the model run is one fold in a four-fold cross validation of predictions, where for each fold the model is finetuned on 3/4 of the temperature observation dates and generates testable predictions for the remaining 1/4. These test predictions are combined and used to assess model error. "predict" indicates the model run is used to generate the final predictions that are reported in the data release and used to estimate thermal habitat area.
         attr-defs: This data release
         data-min: NA
         data-max: NA
         data-units: NA
       -
         attr-label: fold
-        attr-def: If the model phase is finetune and the model goal is uncertainty, this attribute is a letter (a, b, c, or d) indicating the fold in a four-fold cross validation of predictions, otherwise the value is NA.
+        attr-def: >- 
+          If the model phase is "finetune" and the model goal is "uncertainty", this attribute is a letter ("a", "b", "c", or "d") indicating the fold in a four-fold cross validation of predictions; otherwise, the value is NA.
         attr-defs: This data release
         data-min: NA
         data-max: NA
@@ -288,7 +295,8 @@ entities:
         data-units: number of individual temperature predictions
   -
     data-name: pgdl_fit_lakes.png
-    data-description: A PNG file showing the count of lakes with pgdl models within each of the spatial groups, identified by group_id.
+    data-description: >- 
+      A PNG file showing the count of lakes with pgdl models within each of the spatial groups, identified by group_id.
     attributes:
       -
         attr-label: PNG image
@@ -313,5 +321,5 @@ data-name: Model configuration details
 data-description: >-
   Model configurations for running the General Lake Model (Hipsey et al. 2019) version 3 for each lake.
   The value for "lake_name" in the "morphometry" field is the mapping for "site_id" for the other datasets included in this release.
-  Model configurations for running the trained pgdl model for the 638 pgdl lakes.
+  Model configurations for training and generating predictions from PGDL models, applicable to the 638 lakes with enough temperature observations to train a PGDL model.
 file-format: JSON (JavaScript Object Notation) formatted text file
