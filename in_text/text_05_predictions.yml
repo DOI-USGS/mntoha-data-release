@@ -3,8 +3,10 @@ title: >-
 
 abstract: >-
   Multiple modeling frameworks were used to predict daily temperatures at 0.5m depth intervals for a set of diverse lakes in the U.S.
-  states of Minnesota and Wisconsin. Uncalibrated models used default configurations (PB0; see Winslow et al. 2016 for details) and no parameters were adjusted according to model fit with observations.
-  Process-Guided Deep Learning (PGDL; see Read et al. 2019 and Jia et al. 2019) models were deep learning models pre-traied PB0 outputs and a physical constraint for energy conservation as a loss term.
+  states of Minnesota and Wisconsin. Uncalibrated models used default configurations (PB0; see Read et al. 2019 for details) of the
+  General Lake Model (Hipsey et al. 2019) and no parameters were further adjusted according to model fit with observations.
+  Process-Guided Deep Learning (PGDL; see Read et al. 2019 and Jia et al. 2019) models were deep learning models pre-trained
+  PB0 outputs and a physical constraint for energy conservation as a loss term.
   After pre-training, these PGDL models were training on actual temperature observations.
 
 cross-cites:
@@ -14,12 +16,6 @@ cross-cites:
       A General Lake Model (GLM 3.0) for linking with high-frequency sensor data from the Global Lake Ecological Observatory Network (GLEON).
     pubdate: 2019
     link: https://doi.org/10.5194/gmd-12-473-2019
-  -
-    authors: ['Luke A. Winslow','Gretchen J.A. Hansen','Jordan S. Read']
-    title: >-
-      Data release: A large-scale database of modeled contemporary and future water temperature data for 10,774 Michigan, Minnesota and Wisconsin Lakes
-    pubdate: 2016
-    link: http://dx.doi.org/10.5066/F7DV1H10
   -
     authors: ['Xiaowei Jia', 'Jared Willard', 'Anuj Karpatne', 'Jordan S. Read', 'Jacob A. Zwart', 'Michael Steinbach', 'Vipin Kumar']
     title: >-
@@ -44,23 +40,32 @@ entities:
   -
     data-name: irradiance_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
     data-description: >-
-      A zip file containing a csv file for every lake within {group_id} with irradiance data. Files within the
-      zip are named "pb0_{site_id}_irradiance.csv", where `site_id` is the lake nhdhr id.
+      A zip file containing a csv file for every lake within {group_id} with irradiance data.
+      Files within the zip are named "pb0_{site_id}_irradiance.csv", where `site_id` is the lake nhdhr id.
     attributes:
       -
         attr-label: date
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: date of simulated output
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
         attr-label: rad_0
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: >-
+          These irradiance time series were obtained by running GLM (Hipsey et al. 2019) and saving outputs at
+          hourly resolution (nsave = 1) and using the glmtools R package (also described in Hipsey et al. 2019) to
+          extract hourly radiation just below the surface as simulated by the model (command was
+          glmtools::get_var(nc_hourly, reference = 'surface', z_out = 0, var_name = 'rad')), and exporting a daily average.
+          Since the model was driven by daily solar radiation (see "inputs" in data release), this rad_0 is very similar,
+          but is meant to be the real solar radiation _within_ the water column, meaning minus what is reflected at the
+          surface, absorbed immediately, or lost due to ice-cover. This variable was used for thermal optical habitat area
+          calculations.
+        attr-defs: >-
+          Hipsey et al. 2019
+        data-min: NA
+        data-max: NA
+        data-units: Watts per meter squared
   -
     data-name: pb0_predictions_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
     data-description: >-
@@ -69,41 +74,42 @@ entities:
     attributes:
       -
         attr-label: date
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: date of simulated output
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
-        attr-label: temp_{depth}
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-label: temp_{z}
+        attr-def: Predicted water temperature at depth z
+        attr-defs: This data release
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
   -
     data-name: pgdl_predictions_{group_id}_N{minN-maxN}_W{minW-maxW}.zip
     data-description: >-
       A zip file containing a csv file for every lake within {group_id} with Process-Guided Deep Learning model output
-      temperature data. Files within the zip are named "pgdl_{site_id}_temperatures.csv", where `site_id` is the lake nhdhr id.
+      temperature data. Not all lakes in this data release were simulated with PGDL models.
+      Files within the zip are named "pgdl_{site_id}_temperatures.csv", where `site_id` is the lake nhdhr id.
     attributes:
       -
         attr-label: date
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-def: date of simulated output
+        attr-defs: NA
+        data-min: NA
+        data-max: NA
+        data-units: NA
       -
-        attr-label: temp_{depth}
-        attr-def: [COLUMN DESCRIPTION]
-        attr-defs: [SOURCE, saying "This data release" is OK]
-        data-min: [COLUMN MIN if applicable, NA if not]
-        data-max: [COLUMN MAX if applicable, NA if not]
-        data-units: [COLUMN UNITS if applicable, NA if not]
+        attr-label: temp_{z}
+        attr-def: Predicted water temperature at depth z
+        attr-defs: This data release
+        data-min: NA
+        data-max: NA
+        data-units: degrees C
   -
     data-name: predict_lakes.png
-    data-description: A PNG file ... see example https://github.com/USGS-R/pgmtl-data-release/blob/master/in_text/text_05_predictions.yml#L47
+    data-description: An image of the lakes that have temperature predictions for either model
     attributes:
       -
         attr-label: PNG image
@@ -122,3 +128,8 @@ build-environment: >-
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
   39 compressed zip files and one PNG file
+usage-rules: >-
+  These data are open access usable via creative commons as long as original data providers are acknowledged
+indirect-spatial: U.S.A.
+latitude-res: 0.00001
+longitude-res: 0.00001

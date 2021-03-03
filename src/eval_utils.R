@@ -79,7 +79,8 @@ match_preds_to_obs  <- function(out_zip, observations_zip='out_data/temperature_
       unzip(source_zip, overwrite = TRUE)
     }
     these_preds <- read_preds_release(pred_path)
-    prep_pred_obs(these_obs, these_preds)
+    prep_pred_obs(these_obs, these_preds) %>%
+      select(site_id, date, depth, obs, pred)
   })
 
   zip_this(outfile=out_zip, .object=matched_preds)
@@ -88,7 +89,7 @@ match_preds_to_obs  <- function(out_zip, observations_zip='out_data/temperature_
 # Evaluate RMSE of predictions
 evaluate_preds <- function(out_file, matched_preds_zip){
 
-  matched_preds <- unzip_to_tibble(matched_preds_zip, col_types='cDddcd')
+  matched_preds <- unzip_to_tibble(matched_preds_zip, col_types='cDddd')
 
   matched_preds %>%
     group_by(site_id) %>%

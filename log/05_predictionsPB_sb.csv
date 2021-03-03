@@ -1,6 +1,6 @@
 filepath,sb_id,time_uploaded_to_sb
 out_data/predict_lakes.png,5e5d0bb9e4b01d50924f2b36,2020-12-08 01:54 UTC
-out_xml/05_predictions.xml,5e5d0bb9e4b01d50924f2b36,2021-02-12 16:10 UTC
+out_xml/05_predictions.xml,5e5d0bb9e4b01d50924f2b36,2021-02-28 21:07 UTC
 tmp/irradiance_01_N48.00-49.50_W89.50-97.25.zip,5e5d0bb9e4b01d50924f2b36,2020-12-08 01:54 UTC
 tmp/irradiance_02_N47.00-48.00_W94.00-97.25.zip,5e5d0bb9e4b01d50924f2b36,2020-12-08 01:54 UTC
 tmp/irradiance_03_N47.00-48.00_W93.00-94.00.zip,5e5d0bb9e4b01d50924f2b36,2020-12-08 01:54 UTC
