@@ -42,8 +42,7 @@ simplify_pgdl_configs <- function(out_file, orig_cfg_file, orig_col_types) {
     select(
       site_id, phase, goal, fold, learning_rate, n_epochs,
       state_size, ec_threshold, dd_lambda, ec_lambda, l1_lambda,
-      sequence_length, sequence_offset, max_batch_obs,
-      restore_path, save_path) %>%
+      sequence_length, sequence_offset, max_batch_obs) %>%
     write_csv(out_file)
 }
 
