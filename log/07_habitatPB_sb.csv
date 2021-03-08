@@ -12,4 +12,4 @@ filepath,sb_id,time_uploaded_to_sb
 ../lake-temperature-out/3_summarize/tmp/pb0_toha_11_N45.00-45.50_W92.25-93.25.zip,5e774355e4b01d509270e2a1,2021-01-11 16:45 UTC
 ../lake-temperature-out/3_summarize/tmp/pb0_toha_12_N43.50-45.00_W93.50-96.75.zip,5e774355e4b01d509270e2a1,2021-01-11 16:45 UTC
 ../lake-temperature-out/3_summarize/tmp/pb0_toha_13_N43.50-45.00_W91.00-93.50.zip,5e774355e4b01d509270e2a1,2021-01-11 16:45 UTC
-out_data/7_pb0_annual_metrics.csv,5e774355e4b01d509270e2a1,2021-02-25 19:06 UTC
+out_data/7_pb0_annual_metrics.csv,5e774355e4b01d509270e2a1,2021-03-08 15:32 UTC
