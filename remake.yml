@@ -92,9 +92,13 @@ targets:
   log/03_configPB_sb.csv:
     command: sb_replace_files(target_name,
       sbid_03_config,
-      "out_xml/03_config.xml",
       "out_data/pb0_config.json",
       "out_data/pb0_nml_files.zip")
+      
+  log/03_configXML_sb.csv:
+    command: sb_replace_files(target_name, 
+      sbid_03_config,
+      "out_xml/03_config.xml")
 
   log/03_configPGDL_sb.csv:
     command: sb_replace_files(target_name,
