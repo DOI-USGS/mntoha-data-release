@@ -69,7 +69,7 @@ entities:
     -
       attr-label: meteo_filename
       attr-def: filename for meteorological information used to drive models for this lake.
-      attr-defs: this release
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: NA
