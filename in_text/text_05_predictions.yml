@@ -3,7 +3,7 @@ title: >-
 
 abstract: >-
   Multiple modeling frameworks were used to predict daily temperatures at 0.5m depth intervals for a set of diverse lakes in the U.S.
-  states of Minnesota and Wisconsin. Uncalibrated models used default configurations (PB0; see Read et al. 2019 for details) of the
+  state of Minnesota. Uncalibrated models used default configurations (PB0; see Read et al. 2019 for details) of the
   General Lake Model (Hipsey et al. 2019) and no parameters were further adjusted according to model fit with observations.
   Process-Guided Deep Learning (PGDL; see Read et al. 2019 and Jia et al. 2019) models were deep learning models pre-trained
   PB0 outputs and a physical constraint for energy conservation as a loss term.
