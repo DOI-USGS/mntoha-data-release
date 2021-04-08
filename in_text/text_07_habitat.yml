@@ -106,6 +106,13 @@ cross-cites:
        USGS Yeti Supercomputer
     pubdate: 2019
     link: https://doi.org/10.5066/F7D798MJ
+  -
+    authors: ['W.B. Scott', 'E.J. Crossman']
+    title: >-
+      Freshwater Fishes of Canada
+    pubdate: 1973
+    # Have not been able to find a DOI for this and can only find
+    # this book on Amazon.
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
 file-format: >-
@@ -1221,6 +1228,15 @@ entities:
           one of 8.9 (date of spawning temp), 16.7 (hatch date), 18 (date of spawning
           temp for bass), or 21 (date of spawning temp for bass).
         attr-defs: Wismer and Christie 1987
+        data-min: NA
+        data-max: NA
+        data-units: Julian day
+      -
+        attr-label: date_below_5
+        attr-def: >-
+          Date where the average surface temperature drops below 5 degrees C for the
+          first time following the peak summer surface temperature.
+        attr-defs: Scott and Crossman 1973
         data-min: NA
         data-max: NA
         data-units: Julian day
