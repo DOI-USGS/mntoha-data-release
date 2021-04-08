@@ -2,7 +2,7 @@ title: >-
   Walleye Thermal Optical Habitat Area (TOHA) of selected Minnesota lakes: 7 thermal and optical habitat estimates
 
 abstract: >-
-  Using predicted lake temperatures from uncalibrated models (PB0) and process-guided deep learning models (PGDL), this
+  Using predicted lake temperatures from uncalibrated, process-based models (PB0) and process-guided deep learning models (PGDL), this
   dataset summarized a collection of thermal metrics to characterize lake temperature impacts on fish habitat for 881
   lakes. Included in the metrics are daily thermal optical habitat areas and a set of over 172 annual thermal metrics.
 
@@ -208,14 +208,21 @@ entities:
         data-units: NA
       -
         attr-label: ice_on_date
-        attr-def: Date of ice-on
+        attr-def: >-
+          Date of ice-on for the current year's winter season. This could mean that the
+          date actually occurs in the previous year (e.g. ice-on for winter of 2017 happened
+          in December of 2016). This definition of ice-on is consistent with the Wisconsin
+          State Climatology Office's use of ice-on and ice-off dates by winter season. If
+          this value is `NA`, it means that no ice formed during that winter season.
         attr-defs: This data release
         data-min: NA
         data-max: NA
         data-units: NA
       -
         attr-label: ice_off_date
-        attr-def: Date of ice-off
+        attr-def: >-
+          Date of ice-off for the current year's winter season. If this
+          value is `NA`, it means that no ice formed during that winter season.
         attr-defs: This data release
         data-min: NA
         data-max: NA
@@ -1278,9 +1285,11 @@ entities:
       -
         attr-label: open_water_duration
         attr-def: >-
-          Number of days between ice-on and ice-off. If `NA`, the open water
-          period could not be calculated because there was not an ice-off or
-          ice-on date for that year.
+          Number of days between ice-off for this year's winter season and ice-on
+          for the next year's winter season. If `NA`, the open water period could
+          not be calculated because there was either not an ice-off date for this
+          year's winter season or an ice-on date for the next year's winter season
+          or both were missing.
         attr-defs: This data release
         data-min: NA
         data-max: NA

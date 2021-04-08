@@ -4,7 +4,8 @@ title: >-
 abstract: >-
   <p>Climate change and land use change have been shown to influence lake temperatures and water clarity in different ways. To better understand the diversity of lake responses to
   climate change and give managers tools to manage individual lakes, we focused on improving prediction accuracy for daily water
-  temperature profiles and opitical habitat in 881 lakes in Minnesota during 1980-2018.
+  temperature profiles and optical habitat in 881 lakes in Minnesota during 1980-2018.
+  <br/>
   <br/>The data are organized into these items:</p>
   <ol>
   <li><a href="https://www.sciencebase.gov/catalog/item/5e5c1c1ce4b01d50924f27e7">Lake Information</a> - A lake metadata file and one shapefile of polygons for all 881 lakes in this study</li>
