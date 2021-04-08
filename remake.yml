@@ -42,6 +42,7 @@ targets:
       - log/07_habitatPB_sb.csv
       - log/07_habitatPGDL_sb.csv
       - log/07_habitat_xml_sb.csv
+      - log/07_habitatPB_png.csv
 
 
 
@@ -164,6 +165,11 @@ targets:
       sb_id_07_habitat,
       file_hash = "out/7_pb0_toha_zips.yml",
       "out_data/7_pb0_annual_metrics.csv",
+      "out_data/habitat_lakes.png")
+
+  log/07_habitatPB_png.csv:
+    command: sb_replace_files(target_name,
+      sb_id_07_habitat,
       "out_data/habitat_lakes.png")
 
   log/07_habitatPGDL_sb.csv:
