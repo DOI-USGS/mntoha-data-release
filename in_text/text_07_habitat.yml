@@ -213,7 +213,9 @@ entities:
           date actually occurs in the previous year (e.g. ice-on for winter of 2017 happened
           in December of 2016). This definition of ice-on is consistent with the Wisconsin
           State Climatology Office's use of ice-on and ice-off dates by winter season. If
-          this value is `NA`, it means that no ice formed during that winter season.
+          this value is `NA`, it means that no ice formed during that winter season or that 
+          there was not ice data available for the full winter season (e.g. for the first
+          year of the timeseries).
         attr-defs: This data release
         data-min: NA
         data-max: NA
