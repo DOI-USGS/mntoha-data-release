@@ -48,7 +48,7 @@ targets:
 
   modeled_lakes_sf:
     command: subset_lake_sf(
-      lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds",
+      lakes_sf_fl = "/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds",
       site_ids = modeled_lake_ids)
   pgdl_lakes_sf:
     command: subset_lake_sf(
@@ -72,9 +72,9 @@ targets:
     command: create_ldas_grid()
 
   xwalk_meteo_fl_names:
-    command: xwalk_meteo_lat_lon(meteo_fl = '../lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
+    command: xwalk_meteo_lat_lon(meteo_fl = '/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/7_config_merge/out/nml_meteo_fl_values.rds',
       sites = site_ids_grouped,
-      meteo_dir = I('../lake-temperature-model-prep/7_drivers_munge/out'),
+      meteo_dir = I('/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/7_drivers_munge/out'),
       ldas_grid)
 
   out_data/lake_metadata.csv:

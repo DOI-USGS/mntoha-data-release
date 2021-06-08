@@ -48,7 +48,7 @@ targets:
 
   grouped_meteo_fls:
     command: group_meteo_fls(
-      meteo_dir = I('../lake-temperature-model-prep/7_drivers_munge/out'),
+      meteo_dir = I('/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/7_drivers_munge/out'),
       counties_sf = us_counties_sf,
       use_states = I('MN'),
       groups = spatial_groups)
@@ -79,5 +79,5 @@ targets:
     command: plot_grouped_cells_preview(target_name,
       spatial_groups, site_ids_grouped,
       county_bounds = us_counties_sf,
-      lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds",
+      lakes_sf_fl = "/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds",
       grouped_meteo_fls = grouped_meteo_fls)
