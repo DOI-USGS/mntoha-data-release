@@ -85,8 +85,8 @@ targets:
       benthic_area_fl = '../lake-temperature-out/3_summarize/out/total_benthic_areas.csv',
       nml_json_fl = 'out_data/pb0_config.json',
       meteo_fl_info = xwalk_meteo_fl_names,
-      gnis_names_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/gnisname_nhdhr_xwalk.rds',
-      mndow_xwalk_fl = '../lake-temperature-model-prep/2_crosswalk_munge/out/mndow_nhdhr_xwalk.rds')
+      gnis_names_fl = '/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/2_crosswalk_munge/out/gnisname_nhdhr_xwalk.rds',
+      mndow_xwalk_fl = '/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/2_crosswalk_munge/out/mndow_nhdhr_xwalk.rds')
 
 
   spatial_metadata:
