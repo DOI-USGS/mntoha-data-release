@@ -79,7 +79,7 @@ targets:
     command: build_pgdl_df(
       pgdl_preds_ind = '../lake-temperature-neural-networks/3_assess/log/preds_final.ind',
       prefix = I('pgdl'), suffix = I('temperatures'))
-   
+
   out/pgdl_predictions_final_sorted.ind:
       command: do_sorting_tasks(
           final_target = target_name,
@@ -120,4 +120,4 @@ targets:
     command: plot_grouped_lakes_preview(target_name,
       spatial_groups, site_ids_grouped,
       county_bounds = us_counties_sf,
-      lakes_sf_fl = "../lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds")
+      lakes_sf_fl = "/Volumes/ThunderBlade/HOLDER_TEMP_R/lake-temperature-model-prep/1_crosswalk_fetch/out/canonical_lakes_sf.rds")
