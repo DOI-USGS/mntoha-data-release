@@ -62,6 +62,7 @@ entities:
       attr-label: group_id
       attr-def: >-
         group identifier for files that are spatially grouped in this data release. Groups are based on lat/lon bounding boxes.
+        Some group ids will have leading zeros.
       attr-defs: NA
       data-min: NA
       data-max: NA
