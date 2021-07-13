@@ -297,7 +297,12 @@ entities:
   -
     data-name: pgdl_fit_lakes.png
     data-description: >-
-      A PNG file showing the count of lakes with pgdl models within each of the spatial groups, identified by group_id.
+      An image map of the lakes that have PGDL models on top of a map of the Minnesota with state
+      and county boundaries. There are also multi-colored rectangles with numeric values from 1 to
+      13 overlaid on the map, which correspond to the group id used in the filenames for the
+      `pgdl_fits_*.zip` files to help users locate data if they are interested in a specific area.
+      There are also counts listed next to each group number overlaid on the map as `n = *` to
+      indicate the number of unique site ids that have pgdl models within each group.
     attributes:
       -
         attr-label: PNG image

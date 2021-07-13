@@ -146,7 +146,12 @@ entities:
         data-units: m day−1
   -
     data-name: input_cells.png
-    data-description: An image of the groupings describing the location of each of these files
+    data-description: >-
+      An image map of the individual meteological data cells (data cells from Mitchell et al. 2004) in pink on
+      top of a map of Minnesota with state and county boundaries. Numeric values from 1 to 13 are overlaid
+      on top of the cells and correspond to the group id used in the filenames for the `inputs_*.zip` files.
+      There are also counts listed next to each group id overlaid on the map as `n = *` to indicate the
+      number of driver files contained in each group.
     attributes:
       -
         attr-label: PNG image

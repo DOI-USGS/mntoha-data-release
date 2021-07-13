@@ -213,7 +213,7 @@ entities:
           date actually occurs in the previous year (e.g. ice-on for winter of 2017 happened
           in December of 2016). This definition of ice-on is consistent with the Wisconsin
           State Climatology Office's use of ice-on and ice-off dates by winter season. If
-          this value is `NA`, it means that no ice formed during that winter season or that 
+          this value is `NA`, it means that no ice formed during that winter season or that
           there was not ice data available for the full winter season (e.g. for the first
           year of the timeseries).
         attr-defs: This data release
@@ -1299,7 +1299,13 @@ entities:
   -
     data-name: habitat_lakes.png
     data-description: >-
-      A PNG file showing the locations of the 13 different lake groups that are used in the TOHA zipfile names.
+      An image map of the lakes that have thermal optical habitat (TOHA) data for the PB0 model on top
+      of a map of the Minnesota with state and county boundaries. There are also multi-colored
+      rectangles with numeric values from 1 to 13 overlaid on the map, which correspond to the
+      group number used in the filenames for the `*_toha_*.zip` files to help users locate
+      data if they are interested in a specific area. There are also counts listed next to each
+      group number overlaid on the map as `n = *` to indicate the number of unique site ids
+      contained in each group.
     attributes:
       -
         attr-label: PNG image
