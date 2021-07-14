@@ -15,12 +15,14 @@ cross-cites:
     title: >-
       A General Lake Model (GLM 3.0) for linking with high-frequency sensor data from the Global Lake Ecological Observatory Network (GLEON).
     pubdate: 2019
+    form: publication
     link: https://doi.org/10.5194/gmd-12-473-2019
   -
     authors: ['Xiaowei Jia', 'Jared Willard', 'Anuj Karpatne', 'Jordan S. Read', 'Jacob A. Zwart', 'Michael Steinbach', 'Vipin Kumar']
     title: >-
        Physics Guided RNNs for Modeling Dynamical Systems: A Case Study in Simulating Lake Temperature Profiles. Retrieved from https://arxiv.org/abs/1810.13075v2
     pubdate: 2019
+    form: publication
     link: https://arxiv.org/pdf/1810.02880.pdf
   -
     authors: ["Jordan S. Read", "Xiaowei Jia", "Jared Willard", "Alison P. Appling", "Jacob A. Zwart","Samantha K. Oliver","Anuj Karpatne","Gretchen J.A. Hansen", "Paul C. Hanson", "William Watkins", "Michael Steinbach","Vipin Kumar"]
@@ -34,6 +36,7 @@ cross-cites:
     title: >-
        USGS Yeti Supercomputer
     pubdate: 2019
+    form: publication
     link: https://doi.org/10.5066/F7D798MJ
 
 entities:
@@ -109,7 +112,14 @@ entities:
         data-units: degrees C
   -
     data-name: predict_lakes.png
-    data-description: An image of the lakes that have temperature predictions for either model
+    data-description: >-
+      An image map of the lakes that have temperature predictions for the PB0 model on top
+      of a map of the Minnesota with state and county boundaries. There are also multi-colored
+      rectangles with numeric values from 1 to 13 overlaid on the map, which correspond to the
+      group number used in the filenames for the `*_predictions_*.zip` files to help users locate
+      data if they are interested in a specific area. There are also counts listed next to each
+      group number overlaid on the map as `n = *` to indicate the number of unique site ids
+      contained in each group.
     attributes:
       -
         attr-label: PNG image

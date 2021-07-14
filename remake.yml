@@ -7,7 +7,7 @@ packages:
   - whisker
   - dplyr
   - tidyr
-  - meddle # at least v0.0.8
+  - meddle # at least v0.0.16
   - readr
   - feather
   - httr
@@ -94,9 +94,9 @@ targets:
       sbid_03_config,
       "out_data/pb0_config.json",
       "out_data/pb0_nml_files.zip")
-      
+
   log/03_configXML_sb.csv:
-    command: sb_replace_files(target_name, 
+    command: sb_replace_files(target_name,
       sbid_03_config,
       "out_xml/03_config.xml")
 

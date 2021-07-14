@@ -31,7 +31,9 @@ entities:
     -
       attr-label: site_id
       attr-def: >-
-        Lake identification number for this dataset. Is the Prmnn_I from NHD high-res prefixed with source, as "nhdhr_{Prmnn_I}"
+        Lake identification number for this dataset. It is the Prmnn_I from NHD high-res prefixed
+        with source, as "nhdhr_{Prmnn_I}". The ids have a mix of characters and some can include
+        special characters, such as "{" and "}".
       attr-defs: >-
         http://nhd.usgs.gov/
       data-min: NA
@@ -44,7 +46,9 @@ entities:
     -
       attr-label: site_id
       attr-def: >-
-        Lake identification number for this dataset. Is the Prmnn_I from NHD high-res prefixed with source, as "nhdhr_{Prmnn_I}"
+        Lake identification number for this dataset. It is the Prmnn_I from NHD high-res prefixed
+        with source, as "nhdhr_{Prmnn_I}". The ids have a mix of characters and some can include
+        special characters, such as "{" and "}".
       attr-defs: >-
         http://nhd.usgs.gov/
       data-min: NA
@@ -62,6 +66,7 @@ entities:
       attr-label: group_id
       attr-def: >-
         group identifier for files that are spatially grouped in this data release. Groups are based on lat/lon bounding boxes.
+        Some group ids will have leading zeros.
       attr-defs: NA
       data-min: NA
       data-max: NA
