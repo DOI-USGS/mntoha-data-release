@@ -31,7 +31,9 @@ entities:
     -
       attr-label: site_id
       attr-def: >-
-        Lake identification number for this dataset. It is the Prmnn_I from NHD high-res prefixed with source, as "nhdhr_{Prmnn_I}"
+        Lake identification number for this dataset. It is the Prmnn_I from NHD high-res prefixed
+        with source, as "nhdhr_{Prmnn_I}". The ids have a mix of characters and some can include
+        special characters, such as "{" and "}".
       attr-defs: >-
         http://nhd.usgs.gov/
       data-min: NA
